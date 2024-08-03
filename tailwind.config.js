@@ -8,18 +8,23 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        banner: "url('/banner.svg')",
+      },
+      backgroundPosition: {
+        bannerPosition: "center top",
       },
       colors: {
         primary: "#5922A9",
         primaryLight: "#B7AEDA",
+        primaryLighter: "#EFEDF1",
         lemon: "#DDFEBF",
         peach: "#FAEACC",
         textDefault: "#313033",
         textSuccess: "#1FB564",
         textNeutral: "#79767A",
+      },
+      boxShadow: {
+        purple: "10px 10px 0px #5922a9",
       },
     },
   },
