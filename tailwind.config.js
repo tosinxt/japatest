@@ -24,7 +24,11 @@ module.exports = {
         textNeutral: "#79767A",
       },
       boxShadow: {
-        purple: "10px 10px 0px #5922a9",
+        purple: "10px 10px 1px #ffffff, 11px 11px 0 #5922a9 ",
+      },
+      borderColor: {
+        boxGradient:
+          "linear-gradient(90deg, #7D2F99 0%, #FF5FCC 27%, #451A83 53%, #B543AF 80%, #451A83 100%)",
       },
     },
   },

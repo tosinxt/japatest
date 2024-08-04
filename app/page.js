@@ -1,10 +1,23 @@
+"use client"
 import Image from "next/image";
 import Button from "./components/Button";
 import CourseCard from "./components/CourseCard";
 import CommunityCard from "./components/CommunityCard";
 import Link from "next/link";
+import JobCard from "./components/JobCard";
+import { useStore } from "./store/store";
+import { useEffect } from "react";
 
 export default function Home() {
+  const { jobs, findJobs } = useStore((state) => ({
+    jobs: state.jobs,
+    findJobs: state.findJobs
+  }));
+
+  useEffect(() => {
+    findJobs()
+  }, [findJobs])
+
   const WhyCard = ({ src, alt, title, text }) => (
     <div className="text-textDefault flex items-start justify-start gap-3">
       <div>
@@ -16,6 +29,8 @@ export default function Home() {
       </div>
     </div>
   );
+
+
 
   return (
     <div>
@@ -55,7 +70,7 @@ export default function Home() {
         </div>
       </section>
       <section className="flex justify-center py-28 gap-24 items-center">
-        <div className="border-2 border-black w-[250px] h-[140px] rounded-md">
+        <div className="border-2 border-primary w-[250px] h-[140px] rounded-md">
           <span className="text-3xl flex flex-col justify-center items-center gap-2 h-full font-bold text-primary">
             100K+
             <span className="text-textNeutral text-sm font-normal">
@@ -63,7 +78,7 @@ export default function Home() {
             </span>
           </span>
         </div>
-        <div className="border-2 border-black w-[250px] h-[140px] rounded-md">
+        <div className="border-2 border-primary w-[250px] h-[140px] rounded-md">
           <span className="text-3xl flex flex-col justify-center items-center gap-2 h-full font-bold text-[#FF9F24]">
             50K
             <span className="text-textNeutral text-sm font-normal">
@@ -71,7 +86,7 @@ export default function Home() {
             </span>
           </span>
         </div>
-        <div className="border-2 border-black w-[250px] h-[140px] rounded-md">
+        <div className="border-2 border-primary w-[250px] h-[140px] rounded-md">
           <span className="text-3xl flex flex-col justify-center items-center gap-2 h-full font-bold text-[#FF5FCC]">
             30K
             <span className="text-textNeutral text-sm font-normal">
@@ -178,11 +193,16 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="flex flex-col items-center bg-primaryLighter gap-10 px-[50px] pb-10">
+      <section className="flex flex-col items-center bg-primaryLighter gap-10 px-[50px] pb-10 py-16">
         <div className="text-lg font-bold">Hot Jobs Available Now</div>
-        <Link href="/">See more jobs</Link>
+        <div className="flex gap-4">
+          {jobs.map((job) => (
+            <JobCard key={job._id} company={job.company_name} location={job.location} jobTitle={job.job_title} jobType={job.job_type} skills={job.technology}  />
+          ))}
+        </div>
+        <Link href="/" className="underline text-primary mt-4 text-sm">See more jobs</Link>
       </section>
-      <section className="px-[50px] flex flex-col gap-14 items-center justify-center">
+      <section className="px-[50px] flex flex-col gap-14 items-center justify-center pt-20">
         <div>
           <p className="text-3xl font-bold text-textDefault">
             What our community members are saying
@@ -221,4 +241,5 @@ export default function Home() {
       </section>
     </div>
   );
+
 }

@@ -1,17 +1,17 @@
 import React from 'react'
 
-const Button = ({text, isSubmitting}) => {
+const Button = ({text, isSubmitting, rounded}) => {
   return (
-      <button
-        type="submit"
-        className="bg-primary flex items-center justify-center w-full mt-3 text-white h-[45px] rounded-lg hover:opacity-button"
-      >
-        {isSubmitting ? (
-          <span className="border-white h-6 w-6 animate-spin rounded-full border-2 border-t-primary"></span>
-        ) : (
-          <span className="font-[500] text-[14px]">{text}</span>
-        )}
-      </button>
+    <button
+      type="submit"
+      className={`bg-primary flex items-center justify-center w-full mt-3 text-white h-[45px]  hover:opacity-button ${rounded}`}
+    >
+      {isSubmitting ? (
+        <span className="border-white h-6 w-6 animate-spin rounded-full border-2 border-t-primary"></span>
+      ) : (
+        <span className="font-[500] text-[14px]">{text}</span>
+      )}
+    </button>
   );
 }
 
