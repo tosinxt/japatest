@@ -3,13 +3,13 @@ import { toast } from "react-toastify";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-const BASE_URL = "https://coral-app-9xy6y.ondigitalocean.app/japa/v1";
-const SIGN_UP = `${BASE_URL}signup`;
-const LOG_IN = `${BASE_URL}login`;
-const VERIFY_OTP = `${BASE_URL}verify/otp`;
+const BASE_URL = "https://coral-app-9xy6y.ondigitalocean.app/japa/v1/";
+const SIGN_UP = `${BASE_URL}registration/createaccount`;
+const LOG_IN = `${BASE_URL}user/login`;
+const VERIFY_OTP = `${BASE_URL}registration/verifyotp`;
 const RESEND_OTP = `${BASE_URL}resend/otp`;
-const RESET_PWD = `${BASE_URL}resetPassword`;
-const RESET_OTP = `${BASE_URL}request/resetPassword/otp`;
+const RESET_PWD = `${BASE_URL}registration/setnewpass`;
+const RESET_PWD_OTP = `${BASE_URL}registration/requestforotp`;
 const JOBS = `${BASE_URL}/user/jobs`;
 
 const useStore = create(
@@ -23,9 +23,10 @@ const useStore = create(
       loginType: null,
       jobs: [],
 
-      register: async ({ name, email, password }) => {
+      //sign up
+      register: async ({ first_name, last_name, email, pass_word }) => {
         try {
-          const data = { name, email, password };
+          const data = { first_name, last_name, email, pass_word };
           set({ loading: true });
           const response = await axios.post(SIGN_UP, data);
           console.log(response.data.message);
@@ -38,46 +39,7 @@ const useStore = create(
         }
       },
 
-      verifyOTP: async ({ email, otp }) => {
-        try {
-          const data = { email, otp };
-          set({ loading: true, signedIn: false, user: null });
-          const response = await axios.post(VERIFY_OTP, data);
-          const token = response.data.token;
-          const user = response.data.first_name;
-          if (response.data.message === "OTP verified successfully.") {
-            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-            localStorage.setItem("token", token);
-            console.log(user);
-            set({ loading: false, signedIn: true, user: user, token: token });
-            return true;
-          } else {
-            toast.error(response.data.message);
-            set({ loading: false });
-            return false;
-          }
-        } catch (error) {
-          console.log(error);
-          toast.error("Invalid OTP");
-          set({ loading: false });
-          return false;
-        }
-      },
-
-      resendOtp: async ({ email }) => {
-        try {
-          set({ loading: true });
-          const response = await axios.post(RESEND_OTP, { email });
-          console.log(response);
-          toast.success(response.data.message);
-          set({ loading: false });
-        } catch (error) {
-          console.log(error);
-          toast.error("Request Failed. Kindly Retry");
-          set({ loading: false });
-        }
-      },
-
+      //login
       login: async ({ email, password }) => {
         try {
           const data = { email, password };
@@ -105,11 +67,59 @@ const useStore = create(
         }
       },
 
-      resetPwd: async ({ email, password }) => {
+      //request for otp with email
+      resetPwdOTP: async ({ email }) => {
         try {
-          const data = { email, password };
-          const response = await axios.post(RESET_PWD, data);
           set({ loading: true });
+          const data = { email };
+          const response = await axios.post(RESET_PWD_OTP, data);
+          toast.success("OTP verified succcessfully.");
+          set({ loading: false, email: email });
+        } catch (error) {
+          console.log(error);
+          toast.error("Request Failed. Kindly Retry");
+          set({ loading: false });
+        }
+      },
+
+      //verify generated OTP
+      verifyOTP: async ({ email, otp }) => {
+        try {
+          const data = { email, otp };
+          set({ loading: true, signedIn: false, user: null });
+          const response = await axios.post(VERIFY_OTP, data);
+          if (response.status === 200) {
+            const token = response.data.message;
+            const userToken = token.split(" ")[1];
+            console.log(userToken);
+            localStorage.setItem("token", userToken);
+            set({
+              loading: false,
+              signedIn: true,
+              email: email,
+            });
+            return true;
+          } else {
+            toast.error(response.data.message);
+            set({ loading: false });
+            return false;
+          }
+        } catch (error) {
+          console.log(error);
+          toast.error("Invalid OTP");
+          set({ loading: false });
+          return false;
+        }
+      },
+
+      //password change
+      resetPwd: async (new_pass) => {
+        try {
+          set({ loading: true });
+          const token = localStorage.getItem("token");
+          const response = await axios.put(RESET_PWD, new_pass, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
           toast.success(response.data.message);
           set({ loading: false });
         } catch (error) {
@@ -119,12 +129,12 @@ const useStore = create(
         }
       },
 
-      resetPwdOTP: async ({ email }) => {
+      resendOtp: async ({ email }) => {
         try {
-          const data = { email };
-          const response = await axios.post(RESET_OTP, data);
           set({ loading: true });
-          toast.success("OTP verified succcessfully.");
+          const response = await axios.post(RESEND_OTP, { email });
+          console.log(response);
+          toast.success(response.data.message);
           set({ loading: false });
         } catch (error) {
           console.log(error);
@@ -144,8 +154,8 @@ const useStore = create(
         try {
           set({ loading: true });
           const response = await axios.get(JOBS);
-         const data = response.data.jobs
-          set({jobs: data, loading: false });
+          const data = response.data.jobs;
+          set({ jobs: data, loading: false });
         } catch (error) {
           console.log(error);
           toast.error("Request Failed. Kindly Retry");

@@ -14,7 +14,7 @@ const poppins = Poppins({ subsets: ["latin"], weight: ["100", "200", "300", "400
 
 export default function RootLayout({ children }) {
   const pathName = usePathname()
-  const googleAuthPaths = ['/login', "/signup"]
+  const googleAuthPaths = ['/login', "/signup", "/reset", "/verifyAccount", "/resetEmail", "/reset"]
   const isAuthPage = googleAuthPaths.includes(pathName)
   return (
     <html lang="en">

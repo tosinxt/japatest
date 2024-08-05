@@ -4,6 +4,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Button from "../component/button";
 import Heading from "../component/heading";
+import { useRouter } from "next/navigation";
+import { useStore } from "@/app/store/store";
 
 const Login = () => {
   const {
@@ -14,6 +16,9 @@ const Login = () => {
     formState: { isSubmitting, isSubmitted },
   } = useForm();
 
+  const loginUser = useStore((state) => state.login)
+  const route = useRouter()
+
   const onSubmit = async () => {
     const data = {
       email: getValues("email"),
@@ -22,13 +27,13 @@ const Login = () => {
 
     console.log(data);
 
-    //   try {
-    //     await loginUser(data);
-    //     console.log(data);
-    //     route.push("/verifyAccount");
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
+      try {
+        await loginUser(data);
+        console.log(data);
+        route.push("/");
+      } catch (error) {
+        console.log(error);
+      }
   };
   return (
     <section className="flex justify-center py-10">
@@ -48,7 +53,7 @@ const Login = () => {
             <input
               type="email"
               name="email"
-              placeholder="myemail@gmail.com"
+              placeholder="Enter your email address"
               {...register("email", {
                 required: "Please enter an email address",
               })}
@@ -66,7 +71,7 @@ const Login = () => {
               <input
                 type="password"
                 name="password"
-                placeholder="*************"
+                placeholder="Enter your password"
                 {...register("password", {
                   required: "Please enter your password",
                 })}
@@ -82,7 +87,7 @@ const Login = () => {
                 />
                 <label htmlFor="remember">Remember me</label>
               </div>
-              <Link href="/">
+              <Link href="/resetEmail">
                 <span className="text-primary text-sm font-[500] flex items-end justify-end underline">
                   Forgot Password?
                 </span>
@@ -92,7 +97,6 @@ const Login = () => {
           <Button
             text="Log in"
             isSubmitting={isSubmitting}
-            rounded={"rounded-3xl"}
           />
         </form>
         <div className="mt-4 mx-auto">

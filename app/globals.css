@@ -25,6 +25,11 @@ body {
 
 body {}
 
+input:focus {
+  border: 0;
+  outline: 1px solid #5922A9
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
