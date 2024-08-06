@@ -10,7 +10,7 @@ const JobCard = ({
   skills = [],
 }) => {
   return (
-    <div className="px-4 pb-6 pt-4 border rounded-xl bg-white min-w-[290px]">
+    <div className="px-4 pb-6 pt-4 border rounded-xl bg-white min-w-[220px] nax-w-[290px]">
       <div className="flex flex-col items-start justify-start mb-7">
         <p className="text-lg font-medium text-textNeutral">{company}</p>
         <p className="text-textNeutral text-sm font-light">{location}</p>

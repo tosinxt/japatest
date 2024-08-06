@@ -6,6 +6,10 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      pc: { min: "768px" },
+      tablet: { min: "640px", max: "767px" },
+    },
     extend: {
       backgroundImage: {
         banner: "url('/banner.svg')",
@@ -15,7 +19,7 @@ module.exports = {
       },
       colors: {
         primary: "#5922A9",
-        primaryLight: "#B7AEDA",
+        primaryLight: "#f1ecf1",
         primaryLighter: "#EFEDF1",
         lemon: "#DDFEBF",
         peach: "#FAEACC",
