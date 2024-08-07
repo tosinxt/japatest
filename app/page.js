@@ -237,15 +237,15 @@ const Home = () => {
       <section className="flex flex-col items-center bg-primaryLighter gap-10 px-[50px] pb-10 py-16">
         <div className="text-lg font-bold">Hot Jobs Available Now</div>
         <div className="flex gap-4 flex-wrap justify-center tablet:grid tablet:grid-cols-3 tablet:gap-2 pc:grid pc:grid-cols-4">
-          {jobs.slice(0, 8).map((job) => (
+          {jobs?.slice(0, 8).map((job) => (
             <JobCard
-              key={job._id}
-              company={job.company_name}
-              location={job.location}
-              jobTitle={job.job_title}
-              jobType={job.job_type}
-              skills={job.technology}
-              path={`/jobs/${job._id}`}
+              key={job?._id}
+              company={job?.company_name}
+              location={job?.location}
+              jobTitle={job?.job_title}
+              jobType={job?.job_type}
+              skills={job?.technology}
+              path={`/jobs/${job?._id}`}
             />
           ))}
         </div>
