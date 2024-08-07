@@ -6,7 +6,7 @@ import React from "react";
 
 const Header = () => {
   const currentPath = usePathname();
-  
+
   // Modified isActive function
   const isActive = (path) => {
     // Check for exact match or if currentPath starts with the path and has a trailing slash
@@ -30,7 +30,7 @@ const Header = () => {
   );
 
   return (
-    <header className="pt-8 pb-3 border fixed top-0 bg-white w-full z-10">
+    <header className="pt-8 pb-4 border fixed top-0 bg-white w-full z-10">
       <div className="flex justify-between px-[50px]">
         <div className="flex gap-3">
           <NavLink path="/" text={"Home"} />

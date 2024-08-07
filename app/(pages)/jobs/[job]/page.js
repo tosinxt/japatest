@@ -19,8 +19,8 @@ const Job = () => {
 
   return (
     <section className="mt-36  mx-[50px] text-textDefault">
-      <div key={jobById._id} className="flex flex-col gap-4">
-        <div className="bg-lightPurple flex justify-between items-center px-[20px] h-[180px] rounded-lg">
+      <div key={jobById._id} className="flex flex-col gap-9">
+        <div className="bg-lightPurple flex justify-between items-center px-[40px] h-[180px] rounded-lg">
           <div>
             <p className="font-bold text-3xl pb-2">{jobById.job_title}</p>
             <p className="font-medium text-lg pb-1">{jobById.company_name}</p>
