@@ -245,6 +245,7 @@ const Home = () => {
               jobTitle={job.job_title}
               jobType={job.job_type}
               skills={job.technology}
+              path={`/jobs/${job._id}`}
             />
           ))}
         </div>

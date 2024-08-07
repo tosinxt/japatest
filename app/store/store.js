@@ -2,6 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import Jobs from "../(pages)/jobs/page";
 
 const BASE_URL = "https://coral-app-9xy6y.ondigitalocean.app/japa/v1/";
 const SIGN_UP = `${BASE_URL}registration/createaccount`;
@@ -10,7 +11,8 @@ const VERIFY_OTP = `${BASE_URL}registration/verifyotp`;
 const RESEND_OTP = `${BASE_URL}resend/otp`;
 const RESET_PWD = `${BASE_URL}registration/setnewpass`;
 const RESET_PWD_OTP = `${BASE_URL}registration/requestforotp`;
-const JOBS = `${BASE_URL}/user/jobs`;
+const JOBS = `${BASE_URL}user/jobs`;
+const JOBBYID = `${BASE_URL}user/jobyid`;
 
 const useStore = create(
   persist(
@@ -22,6 +24,7 @@ const useStore = create(
       user: null,
       loginType: null,
       jobs: [],
+      job: null,
 
       //sign up
       register: async ({ first_name, last_name, email, pass_word }) => {
@@ -156,6 +159,21 @@ const useStore = create(
           const response = await axios.get(JOBS);
           const data = response.data.jobs;
           set({ jobs: data, loading: false });
+        } catch (error) {
+          console.log(error);
+          toast.error("Request Failed. Kindly Retry");
+          set({ loading: false });
+        }
+      },
+
+
+      findJobByID: async (job) => {
+        try {
+          set({ loading: true });
+          const response = await axios.get(`${JOBBYID}/${job}`);
+          const data = response.data.data;
+          console.log(data)
+          set({ job: data, loading: false })
         } catch (error) {
           console.log(error);
           toast.error("Request Failed. Kindly Retry");

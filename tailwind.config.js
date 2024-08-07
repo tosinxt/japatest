@@ -21,7 +21,7 @@ module.exports = {
         primary: "#5922A9",
         primaryLight: "#f1ecf1",
         primaryLighter: "#EFEDF1",
-        lemon: "#DDFEBF",
+        lightPurple: "#F2EAFD",
         peach: "#FAEACC",
         textDefault: "#313033",
         textSuccess: "#1FB564",

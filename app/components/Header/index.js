@@ -1,15 +1,26 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
 const Header = () => {
   const currentPath = usePathname();
+  
+  // Modified isActive function
+  const isActive = (path) => {
+    // Check for exact match or if currentPath starts with the path and has a trailing slash
+    return (
+      currentPath === path ||
+      (path === "/jobs" && currentPath.startsWith("/jobs/"))
+    );
+  };
+
   const NavLink = ({ text, path }) => (
     <Link
       href={path}
       className={`rounded-[30px] w-fit px-6 h-10 font-normal text-sm border flex items-center justify-center  ${
-        currentPath === path
+        isActive(path)
           ? "bg-primary border-primary text-white"
           : "bg-white border-textDefault text-textDefault"
       }`}
@@ -28,12 +39,12 @@ const Header = () => {
         </div>
         <div>
           <Link href={"/"}>
-            <img src="/logo.svg" alt="" />
+            <Image src="/logo.svg" alt="" height={100} width={100} />
           </Link>
         </div>
         <div className="flex gap-3">
           <NavLink path="" text={"Talent Assessment"} />
-          <NavLink path="" text={"Jobs"} />
+          <NavLink path={"/jobs"} text={"Jobs"} />
           <NavLink path="/login" text={"Login"} />
         </div>
       </div>

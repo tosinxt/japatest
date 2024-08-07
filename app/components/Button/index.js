@@ -1,13 +1,15 @@
+import Image from 'next/image';
 import Link from 'next/link'
 import React from 'react'
 
-const Button = ({text, bgColor, color, width, path}) => {
+const Button = ({text, bgColor, color, width, path, src}) => {
   return (
     <Link href={path}>
       <button
-        className={`py-2 px-5 rounded-[30px] border border-primary ${color} ${bgColor} ${width}`}
+        className={`py-2 px-5 flex  gap-1 rounded-[30px] border border-primary ${color} ${bgColor} ${width}`}
       >
         {text}
+        {src && <Image src={src} alt="" height={20} width={20}/>}
       </button>
     </Link>
   );
