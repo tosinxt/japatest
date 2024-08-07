@@ -19,12 +19,12 @@ const Job = () => {
 
   return (
     <section className="mt-36  mx-[50px] text-textDefault">
-      <div key={jobById._id} className="flex flex-col gap-9">
+      <div key={jobById?._id} className="flex flex-col gap-9">
         <div className="bg-lightPurple flex justify-between items-center px-[40px] h-[180px] rounded-lg">
           <div>
-            <p className="font-bold text-3xl pb-2">{jobById.job_title}</p>
-            <p className="font-medium text-lg pb-1">{jobById.company_name}</p>
-            <p className="text-textNeutral text-sm">{jobById.location}</p>
+            <p className="font-bold text-3xl pb-2">{jobById?.job_title}</p>
+            <p className="font-medium text-lg pb-1">{jobById?.company_name}</p>
+            <p className="text-textNeutral text-sm">{jobById?.location}</p>
           </div>
           <Button
             text={"Apply Now"}
@@ -39,12 +39,12 @@ const Job = () => {
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-3">
               <p className="text-lg font-bold">About Job</p>
-              <p className="text-base">{jobById.about}</p>
+              <p className="text-base">{jobById?.about}</p>
             </div>
             <div className="flex flex-col gap-3">
               <p className="text-lg font-bold">What you will be doing</p>
               <ul className="text-base">
-                {jobById.about.split(". ").map((about, index) => (
+                {jobById?.about.split(". ").map((about, index) => (
                   <li className="list-disc list-inside pl-2" key={index}>
                     {about}
                   </li>
@@ -54,7 +54,7 @@ const Job = () => {
             <div className="flex flex-col gap-3">
               <p className="text-lg font-bold">What we are looking for</p>
               <ul className="text-base">
-                {jobById.what_we_are_lookin_for
+                {jobById?.what_we_are_lookin_for
                   .split(". ")
                   .map((look, index) => (
                     <li className="list-disc list-inside pl-2" key={index}>
@@ -66,7 +66,7 @@ const Job = () => {
             <div className="flex flex-col gap-3">
               <p className="text-lg font-bold">Nice to have</p>
               <ul className="text-base">
-                {jobById.nice_to_have.split(". ").map((have, index) => (
+                {jobById?.nice_to_have.split(". ").map((have, index) => (
                   <li className="list-disc list-inside pl-2" key={index}>
                     {have}
                   </li>
@@ -76,13 +76,13 @@ const Job = () => {
             <div className="flex flex-col gap-3">
               <p className="text-lg font-bold">Preferred candidate data</p>
               <p className="text-base">
-                {jobById.ideal_candidate}
+                {jobById?.ideal_candidate}
               </p>
             </div>
             <div className="flex flex-col gap-3">
               <p className="text-lg font-bold">Skills</p>
               <ul className="text-base">
-                {jobById.skills.split(". ").map((skill, index) => (
+                {jobById?.skills.split(". ").map((skill, index) => (
                   <li className="list-disc list-inside pl-2" key={index}>
                     {skill}
                   </li>
@@ -100,12 +100,12 @@ const Job = () => {
               </div>
               <div className="flex justify-between gap-2">
                 <p className="font-medium">Job Type</p>
-                <span className="font-light">{jobById.job_type}</span>
+                <span className="font-light">{jobById?.job_type}</span>
               </div>
               <div className="flex justify-between gap-2">
                 <p className="font-medium">Posted </p>
                 <span className="font-light">
-                  {jobById.date_posted.slice(0, 10)}
+                  {jobById?.date_posted.slice(0, 10)}
                 </span>
               </div>
               <div className="flex justify-between gap-2">
@@ -114,7 +114,7 @@ const Job = () => {
               </div>
               <div className="flex justify-between gap-2">
                 <p className="font-medium">Experience </p>
-                <span className="font-light">{jobById.experience}</span>
+                <span className="font-light">{jobById?.experience}</span>
               </div>
               <div className="flex justify-between gap-2">
                 <p className="font-medium">Applied</p>
