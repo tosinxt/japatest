@@ -17,7 +17,7 @@ const Course = () => {
      getCourseByID(course)
     }, [getCourseByID, course])
   return (
-    <div className="mt-36 mx-[50px] flex justify-between gap-24 text-textDefault">
+    <div className="mt-36 mx-[50px] flex justify-between gap-36 text-textDefault">
       <div className="flex flex-col gap-9 w-[70%]">
         <div>
           <h2 className="mb-5 text-lg font-bold">{getCourse?.title}</h2>

@@ -10,10 +10,7 @@ const Header = () => {
   // Modified isActive function
   const isActive = (path) => {
     // Check for exact match or if currentPath starts with the path and has a trailing slash
-    return (
-      currentPath === path ||
-      (path === "/jobs" && currentPath.startsWith("/jobs/"))
-    );
+    return ( currentPath === path || (path === "/jobs" && currentPath.startsWith("/jobs/")) || (path === "/courses" && currentPath.startsWith("/courses/")))
   };
 
   const NavLink = ({ text, path }) => (
