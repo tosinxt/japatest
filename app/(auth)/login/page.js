@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import Button from "../component/button";
 import Heading from "../component/heading";
 import { useRouter } from "next/navigation";
-import { useStore } from "@/app/store/store";
+import { useJapaStore } from "@/app/store/store";
 
 const Login = () => {
   const {
@@ -16,8 +16,8 @@ const Login = () => {
     formState: { isSubmitting, isSubmitted },
   } = useForm();
 
-  const loginUser = useStore((state) => state.login)
-  const route = useRouter()
+  const loginUser = useJapaStore((state) => state.login);
+  const route = useRouter();
 
   const onSubmit = async () => {
     const data = {
@@ -27,13 +27,13 @@ const Login = () => {
 
     console.log(data);
 
-      try {
-        await loginUser(data);
-        console.log(data);
-        route.push("/");
-      } catch (error) {
-        console.log(error);
-      }
+    try {
+      await loginUser(data);
+      console.log(data);
+      route.push("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <section className="flex justify-center py-10">
@@ -94,10 +94,7 @@ const Login = () => {
               </Link>
             </div>
           </div>
-          <Button
-            text="Log in"
-            isSubmitting={isSubmitting}
-          />
+          <Button text="Log in" isSubmitting={isSubmitting} />
         </form>
         <div className="mt-4 mx-auto">
           <Link

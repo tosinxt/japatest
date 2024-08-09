@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import Button from "../component/button";
 import Heading from "../component/heading";
 import { useRouter } from "next/navigation";
-import { useStore } from "@/app/store/store";
+import { useJapaStore } from "@/app/store/store";
 
 const SignUp = () => {
   const {
@@ -16,7 +16,7 @@ const SignUp = () => {
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm();
 
-  const signUpUser = useStore((state) => state.register);
+  const signUpUser = useJapaStore((state) => state.register);
   const route = useRouter();
 
   const onSubmit = async () => {
@@ -129,7 +129,12 @@ const SignUp = () => {
           </div>
           <Button text="Create Account" isSubmitting={isSubmitting} />
         </form>
-        <div className="text-textNeutral flex flex-col items-center justify-center py-6">By signing up, you agree to our <Link href={"/"} className="text-textDefault font-medium">Terms of Service & Privacy Policy</Link></div>
+        <div className="text-textNeutral flex flex-col items-center justify-center py-6">
+          By signing up, you agree to our{" "}
+          <Link href={"/"} className="text-textDefault font-medium">
+            Terms of Service & Privacy Policy
+          </Link>
+        </div>
         <div className="mx-auto flex items-center gap-1">
           <span className="text-textDefault">Already have an account?</span>
           <Link

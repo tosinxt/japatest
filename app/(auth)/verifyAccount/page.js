@@ -6,8 +6,8 @@ import Heading from "../component/heading";
 import { useEffect, useRef, useState } from "react";
 import { Inter } from "next/font/google";
 import { useRouter } from "next/navigation";
-import { useStore } from "@/app/store/store";
-import Button from "../component/button"
+import { useJapaStore } from "@/app/store/store";
+import Button from "../component/button";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +20,7 @@ const VerifyAccount = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef(new Array(6));
   const route = useRouter();
-  const { verifyOTP, userEmail, resendOtp } = useStore((state) => ({
+  const { verifyOTP, userEmail, resendOtp } = useJapaStore((state) => ({
     verifyOTP: state.verifyOTP,
     userEmail: state.email,
     resendOtp: state.resendOtp,

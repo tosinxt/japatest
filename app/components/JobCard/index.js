@@ -1,5 +1,5 @@
 "use client";
-import { useStore } from "@/app/store/store";
+import { useJapaStore } from "@/app/store/store";
 import { Box, Skeleton } from "@mui/material";
 import Link from "next/link";
 import React from "react";
@@ -13,7 +13,7 @@ const JobCard = ({
   path,
   skills = [],
 }) => {
-  const loading = useStore((state) => state.loading)
+  const loading = useJapaStore((state) => state.loading);
   return (
     <Box>
       {loading ? (

@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/app/components/Button";
-import { useStore } from "@/app/store/store";
+import { useJapaStore } from "@/app/store/store";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -8,7 +8,7 @@ import React, { useEffect } from "react";
 
 const Job = () => {
   const { job } = useParams();
-  const { jobById, findJobByID } = useStore((state) => ({
+  const { jobById, findJobByID } = useJapaStore((state) => ({
     jobById: state.job,
     findJobByID: state.findJobByID,
   }));

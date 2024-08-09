@@ -13,8 +13,10 @@ const RESET_PWD = `${BASE_URL}registration/setnewpass`;
 const RESET_PWD_OTP = `${BASE_URL}registration/requestforotp`;
 const JOBS = `${BASE_URL}user/jobs`;
 const JOBBYID = `${BASE_URL}user/jobyid`;
+const COURSES = `${BASE_URL}user/getcourses`;
+const COURSEBYID = `${BASE_URL}user/coursebyid/`;
 
-const useStore = create(
+const useJapaStore = create(
   persist(
     (set, get) => ({
       signedIn: false,
@@ -25,6 +27,8 @@ const useStore = create(
       loginType: null,
       jobs: [],
       job: null,
+      courses: [],
+      course: null,
 
       //sign up
       register: async ({ first_name, last_name, email, pass_word }) => {
@@ -166,14 +170,41 @@ const useStore = create(
         }
       },
 
-
       findJobByID: async (job) => {
         try {
           set({ loading: true });
           const response = await axios.get(`${JOBBYID}/${job}`);
           const data = response.data.data;
-          console.log(data)
-          set({ job: data, loading: false })
+          console.log(data);
+          set({ job: data, loading: false });
+        } catch (error) {
+          console.log(error);
+          toast.error("Request Failed. Kindly Retry");
+          set({ loading: false });
+        }
+      },
+
+      getCourses: async () => {
+        try {
+          set({ loading: true });
+          const response = await axios.get(COURSES);
+          const data = response.data.courses;
+          console.log(data);
+          set({ courses: data, loading: false });
+        } catch (error) {
+          console.log(error);
+          toast.error("Request Failed. Kindly Retry");
+          set({ loading: false });
+        }
+      },
+
+      getCourseByID: async (course) => {
+        try {
+          set({ loading: true });
+          const response = await axios.get(`${COURSEBYID}${course}`);
+          const data = response.data.data;
+          console.log(data);
+          set({ course: data, loading: false });
         } catch (error) {
           console.log(error);
           toast.error("Request Failed. Kindly Retry");
@@ -189,4 +220,4 @@ const useStore = create(
   )
 );
 
-export { useStore, BASE_URL };
+export { useJapaStore, BASE_URL };

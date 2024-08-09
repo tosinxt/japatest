@@ -4,7 +4,7 @@ import Heading from "../component/heading";
 import Button from "../component/button";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { useStore } from "@/app/store/store";
+import { useJapaStore } from "@/app/store/store";
 
 const Reset = () => {
   const {
@@ -15,13 +15,13 @@ const Reset = () => {
     formState: { errors, isSubmitting },
   } = useForm();
   const router = useRouter();
-  const { resetPWD} = useStore((state) => ({
+  const { resetPWD } = useJapaStore((state) => ({
     resetPWD: state.resetPwd,
   }));
 
   const onSubmit = async () => {
     const new_pass = getValues("password");
-    console.log(new_pass)
+    console.log(new_pass);
     try {
       await resetPWD({ new_pass: new_pass });
       router.push("/login");
@@ -42,7 +42,7 @@ const Reset = () => {
               htmlFor="password"
               className="text-black text-opacity-60 text-sm font-[500]"
             >
-             Enter Password
+              Enter Password
             </label>
             <input
               type="password"

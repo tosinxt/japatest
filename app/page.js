@@ -6,91 +6,78 @@ import CourseCard from "./components/CourseCard";
 import CommunityCard from "./components/CommunityCard";
 import Link from "next/link";
 import JobCard from "./components/JobCard";
-import { useStore } from "./store/store";
+import { useJapaStore } from "./store/store";
 import { useEffect } from "react";
 
-  const Courses = () => (
-    <div className="flex gap-10 justify-center items-center">
+const Courses = ({ courses }) => (
+  <div className="flex flex-wrap gap-10 justify-center items-center">
+    {courses?.map((course) => (
       <CourseCard
         src={"/dataA.svg"}
-        alt={"data analysis"}
-        title={"Data Analysis"}
-        text={
-          "Learn data analysis from industry experts. Gain practical skills and hands-on experience."
-        }
-        path={"/"}
+        alt={course.title}
+        title={course.title}
+        text="Learn data analysis from industry experts. Gain practical skills and hands-on experience."
+        path={`/courses/${course._id}`}
+        key={course._id}
       />
-      <CourseCard
-        src={"/product.svg"}
-        alt={"data analysis"}
-        title={"Product Management"}
-        text={
-          "Learn data analysis from industry experts. Gain practical skills and hands-on experience."
-        }
-        path={"/"}
-      />
-      <CourseCard
-        src={"/dataA.svg"}
-        alt={"data analysis"}
-        title={"Data Analysis"}
-        text={
-          "Learn data analysis from industry experts. Gain practical skills and hands-on experience."
-        }
-        path={"/"}
-      />
+    ))}
+  </div>
+);
+
+const Reviews = () => (
+  <section className="px-[50px] flex flex-col gap-14 items-center justify-center pt-20">
+    <div>
+      <p className="text-3xl font-bold text-textDefault">
+        What our community members are saying
+      </p>
     </div>
-  );
-
-  const Reviews = () => (
-    <section className="px-[50px] flex flex-col gap-14 items-center justify-center pt-20">
-      <div>
-        <p className="text-3xl font-bold text-textDefault">
-          What our community members are saying
-        </p>
+    <div className="flex items-center flex-col gap-14">
+      <div className="flex gap-12">
+        <CommunityCard
+          text={
+            "Japa is a platform that has helped me understand what being informed is. I got to undetstand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
+          }
+          name={"Ogala"}
+          src={"/avatar.svg"}
+          alt={"profile picture"}
+        />
+        <CommunityCard
+          text={
+            "Japa is a platform that has helped me understand what being informed is. I got to undetstand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
+          }
+          name={"Ogala"}
+          src={"/avatar.svg"}
+          alt={"profile picture"}
+        />
       </div>
-      <div className="flex items-center flex-col gap-14">
-        <div className="flex gap-12">
-          <CommunityCard
-            text={
-              "Japa is a platform that has helped me understand what being informed is. I got to undetstand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
-            }
-            name={"Ogala"}
-            src={"/avatar.svg"}
-            alt={"profile picture"}
-          />
-          <CommunityCard
-            text={
-              "Japa is a platform that has helped me understand what being informed is. I got to undetstand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
-            }
-            name={"Ogala"}
-            src={"/avatar.svg"}
-            alt={"profile picture"}
-          />
-        </div>
-        <div className="">
-          <CommunityCard
-            text={
-              "Japa is a platform that has helped me understand what being informed is. I got to undetstand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
-            }
-            name={"Ogala"}
-            src={"/avatar.svg"}
-            alt={"profile picture"}
-          />
-        </div>
+      <div className="">
+        <CommunityCard
+          text={
+            "Japa is a platform that has helped me understand what being informed is. I got to undetstand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
+          }
+          name={"Ogala"}
+          src={"/avatar.svg"}
+          alt={"profile picture"}
+        />
       </div>
-    </section>
-  );
-
+    </div>
+  </section>
+);
 
 const Home = () => {
-  const { jobs, findJobs } = useStore((state) => ({
+  const { jobs, findJobs, courses, getCourses } = useJapaStore((state) => ({
     jobs: state.jobs,
     findJobs: state.findJobs,
+    courses: state.courses,
+    getCourses: state.getCourses,
   }));
+
+  console.log(courses)
 
   useEffect(() => {
     findJobs();
-  }, [findJobs]);
+    getCourses();
+  }, [findJobs, getCourses]);
 
   const WhyCard = ({ src, alt, title, text }) => (
     <div className="text-textDefault flex items-start justify-start gap-3">
@@ -174,7 +161,7 @@ const Home = () => {
             We Ignite Your Career, Your Path to Success Begins Here
           </p>
         </div>
-        <Courses />
+        <Courses courses={courses} />
       </section>
       <section className="flex flex-col gap-10 mx-[50px] py-28 border-t border-textDefault">
         <div className="flex justify-center items-center gap-10 pb-28">
@@ -256,7 +243,7 @@ const Home = () => {
       <Reviews />
     </div>
   );
-}
+};
 
 export default Home;
 export { Courses, Reviews };

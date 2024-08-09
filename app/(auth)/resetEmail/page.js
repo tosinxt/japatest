@@ -4,7 +4,7 @@ import Heading from "../component/heading";
 import Button from "../component/button";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { useStore } from "@/app/store/store";
+import { useJapaStore } from "@/app/store/store";
 
 const ResetEmail = () => {
   const {
@@ -15,7 +15,7 @@ const ResetEmail = () => {
     formState: { errors, isSubmitting },
   } = useForm();
   const router = useRouter();
-  const { resetPwdOTP } = useStore((state) => ({
+  const { resetPwdOTP } = useJapaStore((state) => ({
     resetPwdOTP: state.resetPwdOTP,
   }));
 
