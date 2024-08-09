@@ -1,8 +1,17 @@
+"use client";
+import CourseCard from "@/app/components/CourseCard";
 import { Courses, Reviews } from "@/app/page";
+import { useJapaStore } from "@/app/store/store";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 
 const CoursesPage = () => {
+  const getCourses = useJapaStore((state) => state.getCourses);
+  const courses = useJapaStore((state) => state.courses);
+  useEffect(() => {
+    getCourses();
+  }, [getCourses]);
+
   return (
     <main className="mt-36">
       <section className="mx-[50px]">
@@ -13,7 +22,13 @@ const CoursesPage = () => {
             </p>
           </div>
           <div className="flex items-center justify-center relative">
-            <Image src="/courses.svg" alt="" height={450} width={450} className="relative" />
+            <Image
+              src="/courses.svg"
+              alt=""
+              height={450}
+              width={450}
+              className="relative"
+            />
             <div className="border-2 border-primary w-[200px] h-[100px] rounded-md bg-white absolute top-10 -right-10">
               <span className="text-2xl flex flex-col justify-center items-center gap-2 h-full font-bold text-primary">
                 100K+
@@ -24,7 +39,7 @@ const CoursesPage = () => {
             </div>
             <div className="border-2 border-primary w-[180px] h-[100px] rounded-md bg-white absolute bottom-5 -left-5">
               <span className="text-2xl flex flex-col justify-center items-center gap-2 h-full font-bold text-primary">
-               2000
+                2000
                 <span className="text-textDefault text-sm font-normal">
                   Jobs offered
                 </span>
@@ -40,7 +55,18 @@ const CoursesPage = () => {
             Learn skills to be more competitive in top industries without limits
           </p>
         </div>
-        <Courses />
+        <div className="flex flex-wrap gap-10 justify-center items-center">
+          {courses?.map((course) => (
+            <CourseCard
+              src={"/dataA.svg"}
+              alt={course.title}
+              title={course.title}
+              text="Learn data analysis from industry experts. Gain practical skills and hands-on experience."
+              path={`/courses/${course._id}`}
+              key={course._id}
+            />
+          ))}
+        </div>
       </section>
       <Reviews />
     </main>
