@@ -40,7 +40,7 @@ const JobCard = ({
                 {jobType}
               </p>
             </div>
-            <div className="flex items-center justify-start gap-x-2 flex-wrap font-light">
+            <div className="flex items-start justify-start gap-y-0 gap-x-2 h-[80px] flex-wrap font-light">
               {skills.map((skill, index) => (
                 <div
                   key={index}
