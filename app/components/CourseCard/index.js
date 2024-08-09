@@ -13,7 +13,7 @@ const CourseCard = ({ src, alt, title, text, path }) => {
           <span className="text-lg font-bold">{title}</span>
           <p className="text-sm w-full">{text}</p>
         </div>
-        <div className="border border-textDefault w-full px-5 py-1 rounded-[30px] mt-14 mb-3 bg-transparent font-light text-center">
+        <div className="border border-textDefault w-full px-5 py-1 rounded-[30px] mt-10 mb-3 bg-transparent font-light text-center">
           Learn more
         </div>
       </div>
