@@ -10,7 +10,7 @@ import { useJapaStore } from "./store/store";
 import { useEffect } from "react";
 
 const Courses = ({ courses }) => (
-  <div className="flex flex-wrap gap-10 justify-center items-center">
+  <div className="flex flex-wrap gap-x-6  gap-y-5 justify-center items-center">
     {courses?.map((course) => (
       <CourseCard
         src={"/dataA.svg"}

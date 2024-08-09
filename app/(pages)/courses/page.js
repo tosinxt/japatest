@@ -55,7 +55,7 @@ const CoursesPage = () => {
             Learn skills to be more competitive in top industries without limits
           </p>
         </div>
-        <div className="flex flex-wrap gap-10 justify-center items-center">
+        <div className="flex flex-wrap gap-x-6 gap-y-5 justify-center items-center">
           {courses?.map((course) => (
             <CourseCard
               src={"/dataA.svg"}
