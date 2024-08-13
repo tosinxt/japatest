@@ -29,6 +29,11 @@ const useJapaStore = create(
       job: null,
       courses: [],
       course: null,
+      signedIn: false,
+
+      //isUserSignedIn
+
+      // isUserSignedIn: (signedIn) => set({signedIn: signedIn}),
 
       //sign up
       register: async ({ first_name, last_name, email, pass_word }) => {
@@ -36,7 +41,6 @@ const useJapaStore = create(
           const data = { first_name, last_name, email, pass_word };
           set({ loading: true });
           const response = await axios.post(SIGN_UP, data);
-          console.log(response.data.message);
           toast.success(response.data.message);
           set({ loading: false });
         } catch (error) {
@@ -60,7 +64,7 @@ const useJapaStore = create(
           } else {
             toast.error(message);
           }
-          set({ loading: false, email: email });
+          set({ loading: false, email: email, signedIn: true, user: response.data.user_data.email });
         } catch (error) {
           set({ loading: false });
           if (error.response && error.response.status === 400) {
@@ -98,7 +102,6 @@ const useJapaStore = create(
           if (response.status === 200) {
             const token = response.data.message;
             const userToken = token.split(" ")[1];
-            console.log(userToken);
             localStorage.setItem("token", userToken);
             set({
               loading: false,
@@ -140,7 +143,6 @@ const useJapaStore = create(
         try {
           set({ loading: true });
           const response = await axios.post(RESEND_OTP, { email });
-          console.log(response);
           toast.success(response.data.message);
           set({ loading: false });
         } catch (error) {
@@ -189,7 +191,6 @@ const useJapaStore = create(
           set({ loading: true });
           const response = await axios.get(COURSES);
           const data = response.data.courses;
-          console.log(data);
           set({ courses: data, loading: false });
         } catch (error) {
           console.log(error);
@@ -203,7 +204,6 @@ const useJapaStore = create(
           set({ loading: true });
           const response = await axios.get(`${COURSEBYID}${course}`);
           const data = response.data.data;
-          console.log(data);
           set({ course: data, loading: false });
         } catch (error) {
           console.log(error);

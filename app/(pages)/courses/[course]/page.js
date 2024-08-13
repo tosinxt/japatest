@@ -1,6 +1,7 @@
 "use client"
 import Button from '@/app/components/Button';
 import { useJapaStore } from '@/app/store/store'
+import { Rating } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation'
@@ -23,8 +24,14 @@ const Course = () => {
           <h2 className="mb-5 text-lg font-bold">{getCourse?.title}</h2>
           <p className="text-base">{getCourse?.about.details}</p>
           <div className="text-[14px] flex py-3 shadow-lg rounded-lg mt-10">
-            <div className="flex-1 text-center py-1">
+            <div className="flex-1 text-center py-1 flex items-center justify-center gap-3">
               {getCourse?.about.ratings}
+              <Rating
+                value={getCourse?.about.ratings}
+                precision={0.1}
+                max={5}
+                readOnly
+              />
             </div>
             <div className="flex-1 text-center py-1 border-x border-gray-300">
               {getCourse?.about.level}
@@ -44,7 +51,7 @@ const Course = () => {
             ))}
           </ul>
         </div>
-        <div className='mt-4'>
+        <div className="mt-4">
           <div>
             <Image src="/idea.svg" alt="" height={16} width={16} />
             <p className="text-xs text-primary mt-1.5">
@@ -52,12 +59,12 @@ const Course = () => {
             </p>
             <p className="text-[17px] font-bold mb-4 mt-2">Course Outline</p>
             <ul className="flex flex-col gap-4">
-              {getCourse?.course_outline.split(". ").map((outline, index) => (
+              {/* {getCourse?.course_outline.split(". ").map((outline, index) => (
                 <li key={index} className="pl-2">
                   <span className="font-bold">{outline.slice(0, 7)}</span>
                   <span className="font-normal">{outline.slice(7, 999)}</span>
                 </li>
-              ))}
+              ))} */}
             </ul>
           </div>
         </div>
@@ -67,7 +74,7 @@ const Course = () => {
           <p className="text-base font-bold">COURSES OVERVIEW</p>
           <hr className="h-[3px] w-12 bg-primary" />
         </div>
-        <div className='flex flex-col gap-3'>
+        <div className="flex flex-col gap-3">
           <Overview
             src={"/analytics.svg"}
             alt={""}
@@ -94,7 +101,13 @@ const Course = () => {
             text={getCourse?.over_view.platform}
           />
         </div>
-        <Button path={`${getCourse?.link}`} text={"Enroll"} width={"w-full"} bgColor={"bg-primary"} color={"text-white"}/>
+        <Button
+          path={`${getCourse?.link}`}
+          text={"Enroll"}
+          width={"w-full"}
+          bgColor={"bg-primary"}
+          color={"text-white"}
+        />
       </div>
     </div>
   );

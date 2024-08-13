@@ -80,28 +80,28 @@ const Home = () => {
   }, [findJobs, getCourses]);
 
   const WhyCard = ({ src, alt, title, text }) => (
-    <div className="text-textDefault flex items-start justify-start gap-3">
+    <div className="text-textDefault flex items-start justify-start gap-4">
       <div>
-        <Image src={src} alt={alt} height={80} width={80} />
+        <Image src={src} alt={alt} height={80} width={116} />
       </div>
-      <div className="flex flex-col justify-between">
-        <p className="font-medium">{title}</p>
-        <p className="font-light text-sm w-[220px] text-textNeutral">{text}</p>
+      <div className="flex flex-col gap-2 justify-between">
+        <p className="font-medium text-lg">{title}</p>
+        <p className="font-light w-[240px] text-textNeutral">{text}</p>
       </div>
     </div>
   );
 
   return (
     <div>
-      <section className="h-screen bg-banner bg-no-repeat bg-bannerPosition">
+      <section className="h-[calc(100vh-128px)] mt-16 bg-banner bg-no-repeat bg-bannerPosition">
         <div className="flex flex-col h-full justify-between">
           <div className="flex flex-col justify-center items-start gap-3 h-full px-[50px]">
-            <h2 className="text-textDefault font-bold text-4xl leading-normal ">
+            <h2 className="text-textDefault font-bold text-[60px] leading-normal ">
               Unlock Your Potential
               <br /> For Global Success <br />
               With <span className="text-primary">JAPA</span>
             </h2>
-            <p className="text-sm text-textDefault text-opacity-85">
+            <p className="text-textDefault text-opacity-85">
               The Easiest Way to Boost Your Employability and Secure <br />{" "}
               Global Opportunities
             </p>
@@ -122,33 +122,33 @@ const Home = () => {
               />
             </div>
           </div>
-          <div className="bg-primary py-5 text-center text-white">
-            Discover the ultimate platform where we upskill, empower, and walk
-            with you to your dream career
-          </div>
         </div>
       </section>
+      <div className="bg-primary h-16 flex items-center justify-center text-center text-white text-[20px]">
+        Discover the ultimate platform where we upskill, empower, and walk with
+        you to your dream career
+      </div>
       <section className="flex justify-center py-28 gap-24 items-center border-b border-textDefault  mx-[50px] ">
         <div className="border-2 border-primary w-[250px] h-[140px] rounded-md">
-          <span className="text-3xl flex flex-col justify-center items-center gap-2 h-full font-bold text-primary">
+          <span className="text-4xl flex flex-col justify-center items-center gap-2 h-full font-bold text-primary">
             100K+
-            <span className="text-textNeutral text-sm font-normal">
+            <span className="text-textNeutral text-base font-normal">
               Students taught
             </span>
           </span>
         </div>
         <div className="border-2 border-primary w-[250px] h-[140px] rounded-md">
-          <span className="text-3xl flex flex-col justify-center items-center gap-2 h-full font-bold text-[#FF9F24]">
+          <span className="text-4xl flex flex-col justify-center items-center gap-2 h-full font-bold text-[#FF9F24]">
             50K
-            <span className="text-textNeutral text-sm font-normal">
+            <span className="text-textNeutral text-base font-normal">
               CV Revamped
             </span>
           </span>
         </div>
         <div className="border-2 border-primary w-[250px] h-[140px] rounded-md">
-          <span className="text-3xl flex flex-col justify-center items-center gap-2 h-full font-bold text-[#FF5FCC]">
+          <span className="text-4xl flex flex-col justify-center items-center gap-2 h-full font-bold text-[#FF5FCC]">
             30K
-            <span className="text-textNeutral text-sm font-normal">
+            <span className="text-textNeutral text-base font-normal">
               Students taught
             </span>
           </span>
@@ -156,8 +156,8 @@ const Home = () => {
       </section>
       <section className="mx-[50px] py-16 flex flex-col gap-14 text-textDefault">
         <div className="text-center">
-          <h4 className="text-3xl font-bold">Our Courses</h4>
-          <p className="mt-4">
+          <h4 className="text-4xl font-bold">Our Courses</h4>
+          <p className="mt-4 text-lg">
             We Ignite Your Career, Your Path to Success Begins Here
           </p>
         </div>
@@ -166,11 +166,11 @@ const Home = () => {
       <section className="flex flex-col gap-10 mx-[50px] py-28 border-t border-textDefault">
         <div className="flex justify-center items-center gap-10 pb-28">
           <div>
-            <p className="text-right text-3xl font-bold text-textDefault">
+            <p className="text-right text-4xl font-bold text-textDefault">
               Why Japa?
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-10 border-l border-textDefault pl-12">
+          <div className="grid grid-cols-2 justify-stretch gap-x-20 gap-y-12 border-l border-textDefault pl-12">
             <WhyCard
               src={"/why1.svg"}
               title={"Transform Your Career"}
@@ -205,9 +205,9 @@ const Home = () => {
           <div className="flex items-center justify-center">
             <Image src="/cv.svg" alt="" height={450} width={450} />
           </div>
-          <div className="flex flex-col gap-5 justify-start w-[300px]">
-            <span className="text-[15px] font-light text-white">CV Revamp</span>
-            <p className="text-white font-bold text-2xl">
+          <div className="flex flex-col gap-5 justify-start w-[400px]">
+            <span className="text-lg font-light text-white">CV Revamp</span>
+            <p className="text-white font-bold text-3xl">
               Get your CV revamped by professionals to stand out in the job
               market.
             </p>
@@ -222,7 +222,7 @@ const Home = () => {
         </div>
       </section>
       <section className="flex flex-col items-center bg-primaryLighter gap-10 px-[50px] pb-10 py-16">
-        <div className="text-lg font-bold">Hot Jobs Available Now</div>
+        <div className="text-2xl font-bold">Hot Jobs Available Now</div>
         <div className="flex gap-4 flex-wrap justify-center tablet:grid tablet:grid-cols-3 tablet:gap-2 pc:grid pc:grid-cols-4">
           {jobs?.slice(0, 8).map((job) => (
             <JobCard
@@ -236,7 +236,7 @@ const Home = () => {
             />
           ))}
         </div>
-        <Link href="/" className="underline text-primary mt-4 text-sm">
+        <Link href="/" className="underline text-primary mt-4">
           See more jobs
         </Link>
       </section>
