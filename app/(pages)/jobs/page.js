@@ -14,7 +14,7 @@ const Jobs = () => {
   }));
 
   useEffect(() => {
-    findJobs({limit,});
+    findJobs({ limit });
   }, [findJobs, limit]);
 
   const {
@@ -56,28 +56,27 @@ const Jobs = () => {
   ];
   const yearsOfExperience = ["1 -3 years", "4 - 7 years", "8 - 10 years"];
   const [technology, setTechnology] = useState("");
-  const [category, setCategory] = useState("")
-  const [experience, setExperience] = useState("")
-  const [type, setType] = useState("")
+  const [category, setCategory] = useState("");
+  const [experience, setExperience] = useState("");
+  const [type, setType] = useState("");
 
   const onSubmit = (data) => {
-    const {jobTitle, jobLocation, jobType} = data
-    findJobs({location: jobLocation, title: jobTitle, type: jobType, limit})
-    reset()
-  }
+    const { jobTitle, jobLocation, jobType } = data;
+    findJobs({ location: jobLocation, title: jobTitle, type: jobType, limit });
+    reset();
+  };
 
-   const handleCheckboxChange = (setter, value, stateKey) => {
-     setter(value);
-     console.log(stateKey, value)
-     findJobs({[stateKey]: value, limit})
-   };
+  const handleCheckboxChange = (setter, value, stateKey) => {
+    setter(value);
+    console.log(stateKey, value);
+    findJobs({ [stateKey]: value, limit });
+  };
 
-
- const handleSelectChange = (selectedOption) => {
-   const value = selectedOption?.value;
-   setTechnology(value);
-   findJobs({technology: value, limit})
- };
+  const handleSelectChange = (selectedOption) => {
+    const value = selectedOption?.value;
+    setTechnology(value);
+    findJobs({ technology: value, limit });
+  };
 
   const customStyles = {
     option: (provided, state) => ({
@@ -128,7 +127,10 @@ const Jobs = () => {
   };
 
   return (
-    <div className="flex flex-col gap-10 pt-36 pb-20 bg-[#fafafb] px-[50px]">
+    <div
+      className="flex flex-col gap-10 pt-36 pb-20 bg-[#fafafb] px-[64px]
+"
+    >
       {/* upper layout */}
       <div className="flex flex-col gap-12">
         <form
@@ -201,7 +203,9 @@ const Jobs = () => {
                       type="checkbox"
                       value={jobType}
                       checked={type === jobType}
-                      onChange={() => handleCheckboxChange(setType, jobType, "type")}
+                      onChange={() =>
+                        handleCheckboxChange(setType, jobType, "type")
+                      }
                       className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
                     />
                     <label
@@ -228,7 +232,11 @@ const Jobs = () => {
                       value={category}
                       checked={category === jobCategory}
                       onChange={() =>
-                        handleCheckboxChange(setCategory, jobCategory, "category")
+                        handleCheckboxChange(
+                          setCategory,
+                          jobCategory,
+                          "category"
+                        )
                       }
                       className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
                     />

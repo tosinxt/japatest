@@ -11,7 +11,7 @@ import { useEffect } from "react";
 
 const Courses = ({ courses }) => (
   <div className="flex flex-wrap gap-x-6  gap-y-5 justify-center items-center">
-    {courses?.map((course) => (
+    {courses?.slice(0,3).map((course) => (
       <CourseCard
         src={"/dataA.png"}
         alt={course.title}
@@ -25,7 +25,10 @@ const Courses = ({ courses }) => (
 );
 
 const Reviews = () => (
-  <section className="px-[50px] flex flex-col gap-14 items-center justify-center pt-20">
+  <section
+    className="px-[64px]
+ flex flex-col gap-14 items-center justify-center pt-20"
+  >
     <div>
       <p className="text-3xl font-bold text-textDefault">
         What our community members are saying
@@ -72,10 +75,10 @@ const Home = () => {
     getCourses: state.getCourses,
   }));
 
-  console.log(courses)
+  console.log(courses);
 
   useEffect(() => {
-    findJobs({limit: 8});
+    findJobs({ limit: 8 });
     getCourses();
   }, [findJobs, getCourses]);
 
@@ -95,7 +98,10 @@ const Home = () => {
     <div>
       <section className="h-[calc(100vh-128px)] mt-16 bg-banner bg-no-repeat bg-bannerPosition">
         <div className="flex flex-col h-full justify-between">
-          <div className="flex flex-col justify-center items-start gap-3 h-full px-[50px]">
+          <div
+            className="flex flex-col justify-center items-start gap-3 h-full px-[64px]
+"
+          >
             <h2 className="text-textDefault font-bold text-[60px] leading-normal ">
               Unlock Your Potential
               <br /> For Global Success <br />
@@ -128,8 +134,11 @@ const Home = () => {
         Discover the ultimate platform where we upskill, empower, and walk with
         you to your dream career
       </div>
-      <section className="flex justify-center py-28 gap-24 items-center border-b border-textDefault  mx-[50px] ">
-        <div className="border-2 border-primary w-[250px] h-[140px] rounded-md">
+      <section
+        className="flex justify-center py-28 gap-[108px] items-center border-b border-textDefault  mx-[64px]
+ "
+      >
+        <div className="border-2 border-primary w-[300px] h-[164px] rounded-md">
           <span className="text-4xl flex flex-col justify-center items-center gap-2 h-full font-bold text-primary">
             100K+
             <span className="text-textNeutral text-base font-normal">
@@ -137,7 +146,7 @@ const Home = () => {
             </span>
           </span>
         </div>
-        <div className="border-2 border-primary w-[250px] h-[140px] rounded-md">
+        <div className="border-2 border-primary w-[300px] h-[164px] rounded-md">
           <span className="text-4xl flex flex-col justify-center items-center gap-2 h-full font-bold text-[#FF9F24]">
             50K
             <span className="text-textNeutral text-base font-normal">
@@ -145,7 +154,7 @@ const Home = () => {
             </span>
           </span>
         </div>
-        <div className="border-2 border-primary w-[250px] h-[140px] rounded-md">
+        <div className="border-2 border-primary w-[300px] h-[164px] rounded-md">
           <span className="text-4xl flex flex-col justify-center items-center gap-2 h-full font-bold text-[#FF5FCC]">
             30K
             <span className="text-textNeutral text-base font-normal">
@@ -154,7 +163,9 @@ const Home = () => {
           </span>
         </div>
       </section>
-      <section className="mx-[50px] py-16 flex flex-col gap-14 text-textDefault">
+      <section
+        className="mx-[64px] py-16 flex flex-col gap-14 text-textDefault"
+      >
         <div className="text-center">
           <h4 className="text-4xl font-bold">Our Courses</h4>
           <p className="mt-4 text-lg">
@@ -163,7 +174,9 @@ const Home = () => {
         </div>
         <Courses courses={courses} />
       </section>
-      <section className="flex flex-col gap-10 mx-[50px] py-28 border-t border-textDefault">
+      <section
+        className="flex flex-col gap-10 mx-[64px] py-28 border-t border-textDefault"
+      >
         <div className="flex justify-center items-center gap-10 pb-28">
           <div>
             <p className="text-right text-4xl font-bold text-textDefault">
@@ -221,7 +234,10 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="flex flex-col items-center bg-primaryLighter gap-10 px-[50px] pb-10 py-16">
+      <section
+        className="flex flex-col items-center bg-primaryLighter gap-10 px-[64px]
+ pb-10 py-16"
+      >
         <div className="text-2xl font-bold">Hot Jobs Available Now</div>
         <div className="flex gap-4 flex-wrap w-fit pc:grid pc:grid-cols-4">
           {jobs?.map((job) => (

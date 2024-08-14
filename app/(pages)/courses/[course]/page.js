@@ -1,24 +1,27 @@
-"use client"
-import Button from '@/app/components/Button';
-import { useJapaStore } from '@/app/store/store'
-import { Rating } from '@mui/material';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useParams } from 'next/navigation'
-import React, { useEffect } from 'react'
+"use client";
+import Button from "@/app/components/Button";
+import { useJapaStore } from "@/app/store/store";
+import { Rating } from "@mui/material";
+import Image from "next/image";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import React, { useEffect } from "react";
 
 const Course = () => {
-    const {course} = useParams();
-    const {getCourse, getCourseByID} = useJapaStore((state) => ({
-        getCourse: state.course,
-        getCourseByID: state.getCourseByID
-    }))
+  const { course } = useParams();
+  const { getCourse, getCourseByID } = useJapaStore((state) => ({
+    getCourse: state.course,
+    getCourseByID: state.getCourseByID,
+  }));
 
-    useEffect(() => {
-     getCourseByID(course)
-    }, [getCourseByID, course])
+  useEffect(() => {
+    getCourseByID(course);
+  }, [getCourseByID, course]);
   return (
-    <div className="mt-36 mx-[50px] flex justify-between gap-36 text-textDefault">
+    <div
+      className="mt-36 mx-[64px]
+ flex justify-between gap-36 text-textDefault"
+    >
       <div className="flex flex-col gap-9 w-[70%]">
         <div>
           <h2 className="mb-5 text-lg font-bold">{getCourse?.title}</h2>
@@ -111,12 +114,12 @@ const Course = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Course
+export default Course;
 
-const Overview = ({src, alt,text}) => (
-  <div className='flex items-center gap-2 text-sm'>
+const Overview = ({ src, alt, text }) => (
+  <div className="flex items-center gap-2 text-sm">
     <Image src={src} alt={alt} height={14} width={14} />
     <p>{text}</p>
   </div>

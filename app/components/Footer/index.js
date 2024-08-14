@@ -1,9 +1,12 @@
-import Link from 'next/link';
-import React from 'react'
+import Link from "next/link";
+import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="flex justify-between items-start px-[50px] my-40">
+    <footer
+      className="flex justify-between items-start px-[64px]
+ my-40"
+    >
       <img src="/logo.svg" alt="" />
       <div className="text-sm text-textDefault flex gap-20">
         <ul className="flex flex-col gap-3">
@@ -33,6 +36,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-}
+};
 
-export default Footer
+export default Footer;

@@ -4,7 +4,6 @@ import Image from "next/image";
 import React from "react";
 
 const TalentAssessment = () => {
-
   return (
     <div className="mt-20">
       <section className='flex items-center gap-52 bg-[url("/talentBanner.png")] bg-no-repeat bg-contain h-[calc(100vh-80px)]'>
@@ -27,7 +26,10 @@ const TalentAssessment = () => {
           </div>
         </div>
       </section>
-      <section className="mx-[50px] mt-20 flex flex-col items-center justify-center text-textDefault">
+      <section
+        className="mx-[64px]
+ mt-20 flex flex-col items-center justify-center text-textDefault"
+      >
         <div className="flex flex-col justify-center items-center gap-2 mb-8">
           <p className="font-medium text-primary py-1.5 px-1.5 border bg-[#F2EAFD] w-fit rounded-2xl">
             How it Works

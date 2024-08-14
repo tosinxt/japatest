@@ -14,7 +14,10 @@ const CoursesPage = () => {
 
   return (
     <main className="mt-36">
-      <section className="mx-[50px]">
+      <section
+        className="mx-[64px]
+"
+      >
         <div className="bg-primary w-full h-[500px] rounded-[30px] flex justify-center items-center gap-[100px] px-[10px]">
           <div className="flex flex-col gap-5 justify-start w-[500px]">
             <p className="text-white font-bold text-[60px]">
@@ -48,7 +51,10 @@ const CoursesPage = () => {
           </div>
         </div>
       </section>
-      <section className="mx-[50px] py-16 flex flex-col gap-14 text-textDefault">
+      <section
+        className="mx-[64px]
+ py-16 flex flex-col gap-14 text-textDefault"
+      >
         <div className="text-center">
           <h4 className="text-3xl font-bold">A broad Selection of Courses</h4>
           <p className="mt-4">

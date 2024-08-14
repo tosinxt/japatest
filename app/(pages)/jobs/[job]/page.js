@@ -18,7 +18,10 @@ const Job = () => {
   }, [job, findJobByID]);
 
   return (
-    <section className="mt-36  mx-[50px] text-textDefault">
+    <section
+      className="mt-36  mx-[64px]
+ text-textDefault"
+    >
       <div key={jobById?._id} className="flex flex-col gap-9">
         <div className="bg-lightPurple flex justify-between items-center px-[40px] h-[180px] rounded-lg">
           <div>
@@ -75,9 +78,7 @@ const Job = () => {
             </div>
             <div className="flex flex-col gap-3">
               <p className="text-2xl font-bold">Preferred candidate data</p>
-              <p className="text-base">
-                {jobById?.ideal_candidate}
-              </p>
+              <p className="text-base">{jobById?.ideal_candidate}</p>
             </div>
             <div className="flex flex-col gap-3">
               <p className="text-2xl font-bold">Skills</p>
@@ -92,7 +93,7 @@ const Job = () => {
           </div>
 
           {/**Second Layout */}
-          <div className="w-[250px] flex flex-col gap-6">
+          <div className="w-[350px] flex flex-col gap-6">
             <div className="flex flex-col gap-7 py-5 px-3 border rounded-xl">
               <div className="flex flex-col gap-2">
                 <p className="text-3xl font-bold">Summary</p>
