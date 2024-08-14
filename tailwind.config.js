@@ -14,6 +14,8 @@ module.exports = {
     extend: {
       backgroundImage: {
         banner: "url('/banner.svg')",
+        talent: "url('/talentBG.svg')",
+        talent2: "url('/BG2.png')",
       },
       backgroundPosition: {
         bannerPosition: "center top",
@@ -30,6 +32,7 @@ module.exports = {
       },
       boxShadow: {
         purple: "10px 10px 1px #ffffff, 11px 11px 0 #5922a9 ",
+        talent: "-10px 10px 0px #351464",
       },
       borderColor: {
         boxGradient:

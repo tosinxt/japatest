@@ -25,7 +25,7 @@ const JobCard = ({
         />
       ) : (
         <Link href={path}>
-          <div className="px-4 pb-6 pt-4 border rounded-xl bg-white min-w-[220px] nax-w-[290px]">
+          <div className="px-4 pb-6 pt-4 border rounded-xl bg-white w-[calc(300px-16px)] min-w-[290px] nax-w-[calc(330px-16px)]">
             <div className="flex flex-col items-start justify-start mb-7">
               <p className="text-lg font-medium text-textNeutral">{company}</p>
               <p className="text-textNeutral text-sm font-light">{location}</p>

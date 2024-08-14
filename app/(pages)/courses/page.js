@@ -58,7 +58,7 @@ const CoursesPage = () => {
         <div className="flex flex-wrap gap-x-6 gap-y-5 justify-center items-center">
           {courses?.map((course) => (
             <CourseCard
-              src={"/dataA.svg"}
+              src={"/dataA.png"}
               alt={course.title}
               title={course.title}
               text="Learn data analysis from industry experts. Gain practical skills and hands-on experience."

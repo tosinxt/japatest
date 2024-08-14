@@ -13,7 +13,7 @@ const Courses = ({ courses }) => (
   <div className="flex flex-wrap gap-x-6  gap-y-5 justify-center items-center">
     {courses?.map((course) => (
       <CourseCard
-        src={"/dataA.svg"}
+        src={"/dataA.png"}
         alt={course.title}
         title={course.title}
         text="Learn data analysis from industry experts. Gain practical skills and hands-on experience."
@@ -75,7 +75,7 @@ const Home = () => {
   console.log(courses)
 
   useEffect(() => {
-    findJobs();
+    findJobs({limit: 8});
     getCourses();
   }, [findJobs, getCourses]);
 
@@ -223,8 +223,8 @@ const Home = () => {
       </section>
       <section className="flex flex-col items-center bg-primaryLighter gap-10 px-[50px] pb-10 py-16">
         <div className="text-2xl font-bold">Hot Jobs Available Now</div>
-        <div className="flex gap-4 flex-wrap justify-center tablet:grid tablet:grid-cols-3 tablet:gap-2 pc:grid pc:grid-cols-4">
-          {jobs?.slice(0, 8).map((job) => (
+        <div className="flex gap-4 flex-wrap w-fit pc:grid pc:grid-cols-4">
+          {jobs?.map((job) => (
             <JobCard
               key={job?._id}
               company={job?.company_name}
@@ -236,7 +236,7 @@ const Home = () => {
             />
           ))}
         </div>
-        <Link href="/" className="underline text-primary mt-4">
+        <Link href="/jobs" className="underline text-primary mt-4">
           See more jobs
         </Link>
       </section>

@@ -38,11 +38,11 @@ const Job = () => {
           {/**First Layout */}
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-3">
-              <p className="text-lg font-bold">About Job</p>
+              <p className="text-2xl font-bold">About Job</p>
               <p className="text-base">{jobById?.about}</p>
             </div>
             <div className="flex flex-col gap-3">
-              <p className="text-lg font-bold">What you will be doing</p>
+              <p className="text-2xl font-bold">What you will be doing</p>
               <ul className="text-base">
                 {jobById?.about.split(". ").map((about, index) => (
                   <li className="list-disc list-inside pl-2" key={index}>
@@ -52,7 +52,7 @@ const Job = () => {
               </ul>
             </div>
             <div className="flex flex-col gap-3">
-              <p className="text-lg font-bold">What we are looking for</p>
+              <p className="text-2xl font-bold">What we are looking for</p>
               <ul className="text-base">
                 {jobById?.what_we_are_lookin_for
                   .split(". ")
@@ -64,7 +64,7 @@ const Job = () => {
               </ul>
             </div>
             <div className="flex flex-col gap-3">
-              <p className="text-lg font-bold">Nice to have</p>
+              <p className="text-2xl font-bold">Nice to have</p>
               <ul className="text-base">
                 {jobById?.nice_to_have.split(". ").map((have, index) => (
                   <li className="list-disc list-inside pl-2" key={index}>
@@ -74,13 +74,13 @@ const Job = () => {
               </ul>
             </div>
             <div className="flex flex-col gap-3">
-              <p className="text-lg font-bold">Preferred candidate data</p>
+              <p className="text-2xl font-bold">Preferred candidate data</p>
               <p className="text-base">
                 {jobById?.ideal_candidate}
               </p>
             </div>
             <div className="flex flex-col gap-3">
-              <p className="text-lg font-bold">Skills</p>
+              <p className="text-2xl font-bold">Skills</p>
               <ul className="text-base">
                 {jobById?.skills.split(". ").map((skill, index) => (
                   <li className="list-disc list-inside pl-2" key={index}>
@@ -95,7 +95,7 @@ const Job = () => {
           <div className="w-[250px] flex flex-col gap-6">
             <div className="flex flex-col gap-7 py-5 px-3 border rounded-xl">
               <div className="flex flex-col gap-2">
-                <p className="text-xl font-bold">Summary</p>
+                <p className="text-3xl font-bold">Summary</p>
                 <hr className="h-[3px] w-12 bg-primary" />
               </div>
               <div className="flex justify-between gap-2">
@@ -123,7 +123,7 @@ const Job = () => {
             </div>
             <div className="flex flex-col gap-7 py-5 px-3 border rounded-xl">
               <div className="flex flex-col gap-2">
-                <p className="text-xl font-bold">Share with</p>
+                <p className="text-3xl font-bold">Share with</p>
                 <hr className="h-[3px] w-12 bg-primary" />
               </div>
               <div className="flex justify-between items-center">
@@ -167,7 +167,7 @@ const Job = () => {
             </div>
             <div className="flex flex-col gap-4 py-5 px-3 border rounded-xl">
               <div className="flex flex-col gap-2">
-                <p className="text-xl font-bold">Tags</p>
+                <p className="text-3xl font-bold">Tags</p>
                 <hr className="h-[3px] w-12 bg-primary" />
               </div>
             </div>
