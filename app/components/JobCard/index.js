@@ -24,33 +24,33 @@ const JobCard = ({
           className="rounded-lg"
         />
       ) : (
-        <Link href={path}>
-          <div className="px-4 pb-6 pt-4 border rounded-xl bg-white w-[calc(302px-16px)] nax-w-[calc(330px-16px)]">
+        <Link href={path} className="">
+          <div className="px-4 pb-6 pt-4 border rounded-xl bg-white w-[calc(100vw-30px)] tablet:w-[calc(302px-16px)] tablet:nax-w-[calc(330px-16px)]">
             <div className="flex flex-col items-start justify-start mb-4 tablet:mb-7">
               <p className="text-lg font-medium text-textNeutral">{company}</p>
               <p className="text-textNeutral text-sm font-light">{location}</p>
             </div>
             <div className="flex flex-col items-start justify-start mb-4">
-              <p className="font-bold text-xl text-textDefault">{jobTitle}</p>
+              <p className="font-bold tablet:text-xl text-textDefault">{jobTitle}</p>
               <p
-                className={`font-light text-sm ${
+                className={`font-light text-xs tablet:text-sm ${
                   jobType === "Remote" ? "text-textDefault" : "text-green-500"
                 }`}
               >
                 {jobType}
               </p>
             </div>
-            <div className="flex items-start justify-start gap-y-0 gap-x-2 h-[80px] flex-wrap font-light">
+            <div className="flex items-start justify-start gap-y-0 gap-x-2 h-full tablet:h-[80px] flex-wrap font-light">
               {skills.map((skill, index) => (
                 <div
                   key={index}
-                  className="border w-fit px-2 py-1 text-textNeutral rounded-3xl text-[15px]"
+                  className="border w-fit px-2 py-1 text-textNeutral rounded-3xl text-xs tablet:text-[15px]"
                 >
                   {skill}
                 </div>
               ))}
             </div>
-            <div className="tablet:mt-9 border-primary border rounded-3xl text-primary w-full py-2 font-semibold text-center">
+            <div className="mt-4 tablet:mt-9 border-primary border rounded-3xl text-primary w-full py-2 font-semibold text-center">
               Apply Now
             </div>
           </div>

@@ -33,7 +33,7 @@ const Heading = ({ text, title, goBack, cancel, onclick }) => {
             &lsaquo;
           </div>
         )}
-        <p className="text-left text-[25px] font-extrabold">{title}</p>
+        <p className="text-left text-xl tablet:text-[25px] font-extrabold">{title}</p>
         {text && <p className="text-textNeutral text-base pt-1">{text}</p>}
       </div>
     </div>
