@@ -344,11 +344,10 @@ const Jobs = () => {
         {/* filter bar */}
         <Filter display={"tablet:block hidden"} />
         <div className="w-fit flex flex-col gap-4 relative">
-          <div
-            className="tablet:hidden flex items-end justify-end text-primary underline cursor-pointer font-medium"
-            onClick={handleToggle}
-          >
-            Filters
+          <div className="tablet:hidden flex items-end justify-end text-primary underline font-medium">
+            <span onClick={handleToggle} className="w-fit cursor-pointer">
+              Filters
+            </span>
           </div>
           {dropDown && (
             <Filter display={"tablet:hidden absolute top-6 right-0 z-10"} />

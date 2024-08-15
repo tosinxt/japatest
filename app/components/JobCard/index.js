@@ -26,7 +26,7 @@ const JobCard = ({
       ) : (
         <Link href={path}>
           <div className="px-4 pb-6 pt-4 border rounded-xl bg-white w-[calc(302px-16px)] nax-w-[calc(330px-16px)]">
-            <div className="flex flex-col items-start justify-start mb-7">
+            <div className="flex flex-col items-start justify-start mb-4 tablet:mb-7">
               <p className="text-lg font-medium text-textNeutral">{company}</p>
               <p className="text-textNeutral text-sm font-light">{location}</p>
             </div>
@@ -50,7 +50,7 @@ const JobCard = ({
                 </div>
               ))}
             </div>
-            <div className="mt-9 border-primary border rounded-3xl text-primary w-full py-2 font-semibold text-center">
+            <div className="tablet:mt-9 border-primary border rounded-3xl text-primary w-full py-2 font-semibold text-center">
               Apply Now
             </div>
           </div>
