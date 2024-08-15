@@ -25,20 +25,17 @@ const Courses = ({ courses }) => (
 );
 
 const Reviews = () => (
-  <section
-    className="px-[64px]
- flex flex-col gap-14 items-center justify-center pt-20"
-  >
+  <section className="px-[15px] tablet:px-[64px] flex flex-col gap-8 tablet:gap-14 items-center justify-center tablet:pt-20 pt-16">
     <div>
-      <p className="text-3xl font-bold text-textDefault">
+      <p className="text-2xl text-center tablet:text-3xl font-bold text-textDefault">
         What our community members are saying
       </p>
     </div>
-    <div className="flex items-center flex-col gap-14">
-      <div className="flex gap-12">
+    <div className="flex items-center flex-col gap-10 tablet:gap-14">
+      <div className="flex flex-col tablet:flex-row gap-10 tablet:gap-12 mr-[15px] tablet:mr-0">
         <CommunityCard
           text={
-            "Japa is a platform that has helped me understand what being informed is. I got to undetstand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
+            "Japa is a platform that has helped me understand what being informed is. I got to understand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
           }
           name={"Ogala"}
           src={"/avatar.svg"}
@@ -46,17 +43,17 @@ const Reviews = () => (
         />
         <CommunityCard
           text={
-            "Japa is a platform that has helped me understand what being informed is. I got to undetstand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
+            "Japa is a platform that has helped me understand what being informed is. I got to understand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
           }
           name={"Ogala"}
           src={"/avatar.svg"}
           alt={"profile picture"}
         />
       </div>
-      <div className="">
+      <div className="mr-[15px] tablet:mr-0 mb-20 tablet:mb-0">
         <CommunityCard
           text={
-            "Japa is a platform that has helped me understand what being informed is. I got to undetstand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
+            "Japa is a platform that has helped me understand what being informed is. I got to understand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
           }
           name={"Ogala"}
           src={"/avatar.svg"}

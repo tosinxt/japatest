@@ -3,7 +3,7 @@ import React from 'react'
 
 const CommunityCard = ({src, alt, text, name}) => {
   return (
-    <div className='flex justify-start items-start gap-8 border-2 border-primary rounded-3xl w-[450px] px-5 py-5 shadow-purple'>
+    <div className='flex justify-start items-start gap-8 border-2 border-primary rounded-3xl tablet:w-[450px] px-5 py-5 shadow-purple'>
         <div>
             <Image src={src} alt={alt} height={420} width={420}/>
         </div>

@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     screens: {
       pc: { min: "768px" },
-      tablet: { min: "640px", max: "767px" },
+      tablet: { min: "640px" },
     },
     extend: {
       backgroundImage: {

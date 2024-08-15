@@ -3,16 +3,14 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer
-      className="flex justify-between items-start px-[64px]
- my-40"
-    >
+    <footer className="flex flex-col gap-9 tablet:flex-row justify-between items-start tablet:px-[64px] px-[15px] tablet:my-40 my-10">
       <img src="/logo.svg" alt="" />
-      <div className="text-sm text-textDefault flex gap-20">
-        <ul className="flex flex-col gap-3">
+      <div className="text-sm text-textDefault flex justify-between gap-20 w-full tablet:w-fit">
+        <ul className="tablet:flex tablet:flex-col gap-3 hidden">
           <li>About us</li>
         </ul>
         <ul className="flex flex-col gap-3">
+          <li className="tablet:hidden">About us</li>
           <li>Courses</li>
           <li>CV Revamp</li>
           <li>Jobs</li>
