@@ -7,20 +7,24 @@ import logo from "../../../../public/logo2.svg";
 const Heading = ({ text, title, goBack, cancel, onclick }) => {
   return (
     <div className="flex flex-col items-center justify-center gap-3 text-textDefault">
-      <div className="w-full border-b flex items-center justify-center py-4 relative">
+      <div className="w-full border-b flex items-center justify-center pt-1 pb-2 tablet:pt-4 tablet:pb-4 relative">
         <Link href={"/"}>
           <Image src={logo} alt="" width={50} height={50} priority={true} />
         </Link>
         {cancel && (
-          <Image
-            src="/cancel.svg"
-            alt=""
-            width={24}
-            height={24}
-            priority={true}
+          <div
             className="absolute top-50 right-3 cursor-pointer"
             onClick={onclick}
-          />
+          >
+            <Image
+              src="/cancel.svg"
+              alt=""
+              width={24}
+              height={24}
+              priority={true}
+              layout="responsive"
+            />
+          </div>
         )}
       </div>
       <div className="">
