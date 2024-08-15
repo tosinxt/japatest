@@ -70,7 +70,7 @@ const Course = () => {
           </h2>
           <p className="text-base">{getCourse?.about.details}</p>
           <div className="text-[14px] flex items-center py-3 shadow-lg rounded-lg mt-10">
-            <div className="flex-1 tablet:text-center py-1 flex flex-col tablet:flex-row tablet:items-center tablet:justify-center gap-3 pl-3 tablet:pl-0">
+            <div className="flex-1 tablet:text-center py-1 flex flex-col tablet:flex-row tablet:items-center tablet:justify-center tablet:gap-3 pl-3 tablet:pl-0">
               {getCourse?.about.ratings}
               <Rating
                 value={rating}
