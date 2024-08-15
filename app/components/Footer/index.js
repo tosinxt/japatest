@@ -1,10 +1,13 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
   return (
     <footer className="flex flex-col gap-9 tablet:flex-row justify-between items-start tablet:px-[64px] px-[15px] tablet:my-40 my-10">
-      <img src="/logo.svg" alt="" />
+      <div>
+        <Image src="/logo.svg" alt="" width={40} height={40} layout="responsive" />
+      </div>
       <div className="text-sm text-textDefault flex justify-between gap-20 w-full tablet:w-fit">
         <ul className="tablet:flex tablet:flex-col gap-3 hidden">
           <li>About us</li>

@@ -59,11 +59,27 @@ const Jobs = () => {
   const [category, setCategory] = useState("");
   const [experience, setExperience] = useState("");
   const [type, setType] = useState("");
+  const [dropDown, setDropDown] = useState(false);
+
+  const handleToggle = () => {
+    setDropDown(!dropDown);
+  };
 
   const onSubmit = (data) => {
     const { jobTitle, jobLocation, jobType } = data;
     findJobs({ location: jobLocation, title: jobTitle, type: jobType, limit });
     reset();
+  };
+
+  const resetFilter = () => {
+    findJobs({
+      location: "",
+      title: "",
+      type: "",
+      limit,
+    });
+
+    setDropDown(false);
   };
 
   const handleCheckboxChange = (setter, value, stateKey) => {
@@ -126,54 +142,191 @@ const Jobs = () => {
     }),
   };
 
-  return (
+  const Filter = ({ display }) => (
     <div
-      className="flex flex-col gap-10 pt-36 pb-20 bg-[#fafafb] px-[64px]
-"
+      className={`tablet:w-[350px] h-screen tablet:h-fit bg-white px-6 py-5 tablet:rounded-xl shadow-md ${display}`}
     >
+      <p className="text-xl font-bold mb-7 flex justify-between">
+        Filters{" "}
+        <Image
+          src={"/cancel.svg"}
+          alt={"close"}
+          height={14}
+          width={14}
+          onClick={resetFilter}
+        />
+      </p>
+      <div className="flex flex-col gap-3 mb-8">
+        <p className="text-sm font-bold flex justify-between items-center">
+          Job Type
+        </p>
+        <div className="flex flex-col gap-3 text-sm">
+          {jobTypes.map((jobType, index) => (
+            <div className="flex justify-between items-center" key={index}>
+              <div className="flex gap-2 items-center">
+                <input
+                  type="checkbox"
+                  value={jobType}
+                  checked={type === jobType}
+                  onChange={() =>
+                    handleCheckboxChange(setType, jobType, "type")
+                  }
+                  className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
+                />
+                <label
+                  className="text-textDefault text-opacity-80"
+                  htmlFor={jobType}
+                >
+                  {jobType}
+                </label>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-col gap-3 mb-8">
+        <p className="text-sm font-bold flex justify-between items-center">
+          Job Category
+        </p>
+        <div className="flex flex-col gap-3 text-sm">
+          {jobCategories.map((jobCategory, index) => (
+            <div className="flex justify-between items-center" key={index}>
+              <div className="flex gap-2 items-center">
+                <input
+                  type="checkbox"
+                  value={category}
+                  checked={category === jobCategory}
+                  onChange={() =>
+                    handleCheckboxChange(setCategory, jobCategory, "category")
+                  }
+                  className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
+                />
+                <label
+                  className="text-textDefault text-opacity-80"
+                  htmlFor={jobCategory}
+                >
+                  {jobCategory}
+                </label>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-col gap-3 mb-8">
+        <p className="text-sm font-bold flex justify-between items-center">
+          Technologies used
+        </p>
+        <Select
+          options={options}
+          value={options.find((option) => option.value === technology)}
+          onChange={handleSelectChange}
+          styles={customStyles}
+          placeholder="Select a technology..."
+          className="basic-single-select text-sm"
+          classNamePrefix="select"
+          isSearchable
+        />
+      </div>
+      <div className="flex flex-col gap-3 mb-8">
+        <p className="text-sm font-bold flex justify-between items-center">
+          YOE required
+        </p>
+        <div className="flex flex-col gap-3 text-sm">
+          {yearsOfExperience.map((years, index) => (
+            <div className="flex justify-between items-center" key={index}>
+              <div className="flex gap-2 items-center">
+                <input
+                  type="checkbox"
+                  value={years}
+                  checked={experience === years}
+                  onChange={() =>
+                    handleCheckboxChange(setExperience, years, "experience")
+                  }
+                  className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
+                />
+                <label
+                  className="text-textDefault text-opacity-80"
+                  htmlFor={years}
+                >
+                  {years}
+                </label>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="flex flex-col gap-10 pt-24 tablet:pt-36 pb-20 bg-[#fafafb] tablet:px-[64px] px-[15px]">
       {/* upper layout */}
       <div className="flex flex-col gap-12">
         <form
-          className="rounded-l-lg flex h-16 shadow-sm"
+          className="rounded-l-lg flex h-12 tablet:h-16 shadow-sm"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="bg-white flex w-full">
-            <div className="flex items-center gap-2 border-r pl-4 bg-transparent w-full">
-              <Image src={"/search.svg"} height={"18"} width={"18"} alt="" />
+            <div className="flex items-center gap-2 border-r pl-2 tablet:pl-4 bg-transparent w-full">
+              <div>
+                <Image
+                  src={"/search.svg"}
+                  height={18}
+                  width={18}
+                  layout="responsive"
+                  alt=""
+                />
+              </div>
               <input
                 type="text"
                 placeholder="UX Designer"
                 {...register("jobTitle")}
-                className="w-full bg-transparent border-none h-full focus:border-0 focus:outline-none"
+                className="text-sm tablet:text-base w-full bg-transparent border-none h-full focus:border-0 focus:outline-none"
               />
             </div>
-            <div className="flex items-center gap-2 border-r pl-4 bg-transparent w-full">
-              <Image src={"/location.svg"} height={"18"} width={"18"} alt="" />
+            <div className="flex items-center gap-2 border-r pl-2 tablet:pl-4 bg-transparent w-full">
+              <div>
+                <Image
+                  src={"/location.svg"}
+                  height={18}
+                  width={18}
+                  layout="responsive"
+                  alt=""
+                />
+              </div>
               <input
                 type="text"
                 placeholder="New York, USA"
                 {...register("jobLocation")}
-                className="w-full bg-transparent border-none h-full focus:border-0 focus:outline-none"
+                className="text-sm tablet:text-base w-full bg-transparent border-none h-full focus:border-0 focus:outline-none"
               />
             </div>
-            <div className="flex items-center gap-2 pl-4 bg-transparent w-full">
-              <Image src={"/jobType.svg"} height={"18"} width={"18"} alt="" />
+            <div className="flex items-center gap-2 pl-2 tablet:pl-4 bg-transparent w-full">
+              <div>
+                <Image
+                  src={"/jobType.svg"}
+                  height={18}
+                  width={18}
+                  layout="responsive"
+                  alt=""
+                />
+              </div>
               <input
                 type="text"
                 placeholder="Remote"
                 {...register("jobType")}
-                className="w-full bg-transparent border-none h-full focus:border-0 focus:outline-none"
+                className="text-sm tablet:text-base w-full bg-transparent border-none h-full focus:border-0 focus:outline-none"
               />
             </div>
           </div>
           <button
             type="submit"
-            className="bg-primary rounded-r-lg text-white w-[120px] font-medium"
+            className="bg-primary rounded-r-lg text-white text-xs tablet:text-base px-2 tablet:w-[120px] font-medium"
           >
             Search
           </button>
         </form>
-        <div className="flex justify-between">
+        <div className="tablet:flex hidden justify-between">
           <FilterBox text={"All Jobs"} />
           <FilterBox text={"Remote Jobs"} />
           <FilterBox text={"Backend"} />
@@ -189,114 +342,18 @@ const Jobs = () => {
       {/* lower layout */}
       <div className="flex gap-8 items-start">
         {/* filter bar */}
-        <div className="w-[350px] h-fit bg-white px-6 py-5 rounded-xl shadow-md">
-          <p className="text-xl font-bold mb-7">Filters</p>
-          <div className="flex flex-col gap-3 mb-8">
-            <p className="text-sm font-bold flex justify-between items-center">
-              Job Type
-            </p>
-            <div className="flex flex-col gap-3 text-sm">
-              {jobTypes.map((jobType, index) => (
-                <div className="flex justify-between items-center" key={index}>
-                  <div className="flex gap-2 items-center">
-                    <input
-                      type="checkbox"
-                      value={jobType}
-                      checked={type === jobType}
-                      onChange={() =>
-                        handleCheckboxChange(setType, jobType, "type")
-                      }
-                      className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
-                    />
-                    <label
-                      className="text-textDefault text-opacity-80"
-                      htmlFor={jobType}
-                    >
-                      {jobType}
-                    </label>
-                  </div>
-                </div>
-              ))}
-            </div>
+        <Filter display={"tablet:block hidden"} />
+        <div className="w-fit flex flex-col gap-4 relative">
+          <div
+            className="tablet:hidden flex items-end justify-end text-primary underline cursor-pointer font-medium"
+            onClick={handleToggle}
+          >
+            Filters
           </div>
-          <div className="flex flex-col gap-3 mb-8">
-            <p className="text-sm font-bold flex justify-between items-center">
-              Job Category
-            </p>
-            <div className="flex flex-col gap-3 text-sm">
-              {jobCategories.map((jobCategory, index) => (
-                <div className="flex justify-between items-center" key={index}>
-                  <div className="flex gap-2 items-center">
-                    <input
-                      type="checkbox"
-                      value={category}
-                      checked={category === jobCategory}
-                      onChange={() =>
-                        handleCheckboxChange(
-                          setCategory,
-                          jobCategory,
-                          "category"
-                        )
-                      }
-                      className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
-                    />
-                    <label
-                      className="text-textDefault text-opacity-80"
-                      htmlFor={jobCategory}
-                    >
-                      {jobCategory}
-                    </label>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex flex-col gap-3 mb-8">
-            <p className="text-sm font-bold flex justify-between items-center">
-              Technologies used
-            </p>
-            <Select
-              options={options}
-              value={options.find((option) => option.value === technology)}
-              onChange={handleSelectChange}
-              styles={customStyles}
-              placeholder="Select a technology..."
-              className="basic-single-select text-sm"
-              classNamePrefix="select"
-              isSearchable
-            />
-          </div>
-          <div className="flex flex-col gap-3 mb-8">
-            <p className="text-sm font-bold flex justify-between items-center">
-              YOE required
-            </p>
-            <div className="flex flex-col gap-3 text-sm">
-              {yearsOfExperience.map((years, index) => (
-                <div className="flex justify-between items-center" key={index}>
-                  <div className="flex gap-2 items-center">
-                    <input
-                      type="checkbox"
-                      value={years}
-                      checked={experience === years}
-                      onChange={() =>
-                        handleCheckboxChange(setExperience, years, "experience")
-                      }
-                      className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
-                    />
-                    <label
-                      className="text-textDefault text-opacity-80"
-                      htmlFor={years}
-                    >
-                      {years}
-                    </label>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className="w-fit flex items-center justify-center">
-          <div className="flex gap-4 flex-wrap">
+          {dropDown && (
+            <Filter display={"tablet:hidden absolute top-6 right-0 z-10"} />
+          )}
+          <div className="flex gap-4 flex-wrap justify-center tablet:justify-start">
             {jobs?.map((job) => (
               <JobCard
                 key={job?._id}
