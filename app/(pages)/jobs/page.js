@@ -144,7 +144,7 @@ const Jobs = () => {
 
   const Filter = ({ display }) => (
     <div
-      className={`tablet:w-[350px] h-screen tablet:h-fit bg-white px-6 py-5 tablet:rounded-xl shadow-md ${display}`}
+      className={`tablet:w-[350px] h-fit bg-white px-6 py-5 tablet:rounded-xl shadow-md ${display}`}
     >
       <p className="text-xl font-bold mb-7 flex justify-between">
         Filters{" "}
