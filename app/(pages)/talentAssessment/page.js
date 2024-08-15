@@ -52,20 +52,21 @@ const TalentAssessment = () => {
             </span>
           </div>
         </div>
-        <div className="flex justify-center items-center gap-24 mt-32 w-full">
+        <div className="flex justify-center items-center gap-32 mt-32 mb-20 w-full">
           <div className="w-fit relative">
             <div className="relative">
               <Image
                 src={"/talent2.png"}
                 alt=""
-                height={500}
-                width={400}
-                className="absolute z-[10] left-5 top-0"
+                height={9999}
+                width={9999}
+                style={{height: "100%", width: "487px"}}
+                className="absolute z-[10] left-7 top-0"
               />
-              <div className="h-[570px] w-[400px] bg-[#a98ed2] rounded-r-3xl relative top-6"></div>
+              <div className="h-[570px] w-[450px] bg-[#a98ed2] rounded-r-3xl relative top-7"></div>
             </div>
           </div>
-          <div className="flex flex-col gap-9 font-medium text-2xl w-fit">
+          <div className="flex flex-col gap-9 font-medium text-2xl w-fit p-[10px]">
             <div className="flex items-center gap-2 flex-1">
               <Image src={"/arrow-double.svg"} alt="" height={24} width={24} />
               <span className="">Elevate Your Skills!</span>
