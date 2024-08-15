@@ -17,22 +17,61 @@ const Course = () => {
   useEffect(() => {
     getCourseByID(course);
   }, [getCourseByID, course]);
+
+  const Courses = ({ display }) => (
+    <div className={`flex-col gap-7 py-5 px-3 border rounded-xl h-fit ${display}`}>
+      <div className="flex flex-col gap-2">
+        <p className="text-base font-bold">COURSES OVERVIEW</p>
+        <hr className="h-[3px] w-12 bg-primary" />
+      </div>
+      <div className="flex flex-col gap-3">
+        <Overview
+          src={"/analytics.svg"}
+          alt={""}
+          text={getCourse?.over_view.whocan}
+        />
+        <Overview src={"/analytics.svg"} alt={""} text={"Hands-on exercises"} />
+        <Overview
+          src={"/diploma.svg"}
+          alt={""}
+          text={getCourse?.over_view.how}
+        />
+        <Overview
+          src={"/diploma.svg"}
+          alt={""}
+          text={getCourse?.over_view.lesson_count}
+        />
+        <Overview
+          src={"/diploma.svg"}
+          alt={""}
+          text={getCourse?.over_view.platform}
+        />
+      </div>
+      <Button
+        path={`${getCourse?.link}`}
+        text={"Enroll"}
+        width={"w-full"}
+        bgColor={"bg-primary"}
+        color={"text-white"}
+      />
+    </div>
+  );
+
   return (
-    <div
-      className="mt-36 mx-[64px]
- flex justify-between gap-36 text-textDefault"
-    >
-      <div className="flex flex-col gap-9 w-[70%]">
+    <div className="mt-24 tablet:mt-36 mx-[15px] tablet:mx-[64px] flex justify-between tablet:gap-36 text-textDefault">
+      <div className="flex flex-col gap-9 tablet:w-[70%]">
         <div>
-          <h2 className="mb-5 text-lg font-bold">{getCourse?.title}</h2>
+          <h2 className="mb-5 text-2xl tablet:text-lg font-bold">{getCourse?.title}</h2>
           <p className="text-base">{getCourse?.about.details}</p>
-          <div className="text-[14px] flex py-3 shadow-lg rounded-lg mt-10">
-            <div className="flex-1 text-center py-1 flex items-center justify-center gap-3">
+          <div className="text-[14px] flex items-center py-3 shadow-lg rounded-lg mt-10">
+            <div className="flex-1 tablet:text-center py-1 flex flex-col tablet:flex-row tablet:items-center tablet:justify-center gap-3">
               {getCourse?.about.ratings}
               <Rating
                 value={getCourse?.about.ratings}
                 precision={0.1}
                 max={5}
+                name="size-small"
+                size="small"
                 readOnly
               />
             </div>
@@ -44,6 +83,7 @@ const Course = () => {
             </div>
           </div>
         </div>
+        <Courses display={"flex tablet:hidden"}/>
         <div>
           <p className="text-[17px] font-bold mb-4 mt-3">Requirements</p>
           <ul className="flex flex-col gap-4">
@@ -72,46 +112,7 @@ const Course = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-7 py-5 px-3 border rounded-xl h-fit">
-        <div className="flex flex-col gap-2">
-          <p className="text-base font-bold">COURSES OVERVIEW</p>
-          <hr className="h-[3px] w-12 bg-primary" />
-        </div>
-        <div className="flex flex-col gap-3">
-          <Overview
-            src={"/analytics.svg"}
-            alt={""}
-            text={getCourse?.over_view.whocan}
-          />
-          <Overview
-            src={"/analytics.svg"}
-            alt={""}
-            text={"Hands-on exercises"}
-          />
-          <Overview
-            src={"/diploma.svg"}
-            alt={""}
-            text={getCourse?.over_view.how}
-          />
-          <Overview
-            src={"/diploma.svg"}
-            alt={""}
-            text={getCourse?.over_view.lesson_count}
-          />
-          <Overview
-            src={"/diploma.svg"}
-            alt={""}
-            text={getCourse?.over_view.platform}
-          />
-        </div>
-        <Button
-          path={`${getCourse?.link}`}
-          text={"Enroll"}
-          width={"w-full"}
-          bgColor={"bg-primary"}
-          color={"text-white"}
-        />
-      </div>
+      <Courses display={"tablet:flex hidden"}/>
     </div>
   );
 };
