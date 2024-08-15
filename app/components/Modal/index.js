@@ -47,7 +47,7 @@ const Modal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <section className="py-10 px-[15px] fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <section className="py-10 px-[15px] h-full fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="flex flex-col gap-2 max-w-[400px] w-full bg-white rounded-2xl px-3 py-3 text-textDefault">
         <Heading title="Before we Begin, Tell us More" cancel={true} onclick={onClose} />
         <form className="flex flex-col gap-3 mt-2" onSubmit={handleSubmit}>
@@ -62,7 +62,7 @@ const Modal = ({ isOpen, onClose }) => {
               type="text"
               name="name"
               placeholder="Enter your full name"
-              className="border-[1.5px] border-[#ccc] h-[52px] pl-2 rounded-lg text-[15px]"
+              className="border-[1.5px] border-[#ccc] h-[35px] tablet:h-[52px] pl-2 rounded-lg text-[15px]"
             />
           </div>
           <div className="flex flex-col gap-[3px]">
@@ -76,7 +76,7 @@ const Modal = ({ isOpen, onClose }) => {
               {skills.map((skill, index) => (
                 <span
                   key={index}
-                  className="border px-1 py-[2px] cursor-pointer"
+                  className="border px-1 py-[2px] cursor-pointer text-sm"
                   onClick={() => handleRemoveSkill(skill)}
                 >
                   {skill}{" "}
@@ -84,7 +84,7 @@ const Modal = ({ isOpen, onClose }) => {
                 </span>
               ))}
             </div>
-            <div className="border-[1.5px] border-[#ccc] h-[52px] pl-2 rounded-lg text-[15px] gap-2">
+            <div className="border-[1.5px] border-[#ccc] h-[35px] tablet:h-[52px] pl-2 rounded-lg text-[15px] gap-2">
               <input
                 type="text"
                 value={inputValue}
@@ -103,7 +103,7 @@ const Modal = ({ isOpen, onClose }) => {
             >
               Course of Choice
             </label>
-            <select className="border-[1.5px] border-[#ccc] h-[52px] pl-2 rounded-lg text-[15px] bg-transparent">
+            <select className="border-[1.5px] border-[#ccc] h-[35px] tablet:h-[52px] pl-2 rounded-lg text-[15px] bg-transparent">
               <option className="text-textNeutral" selected disabled>
                 Select a course
               </option>
@@ -120,7 +120,7 @@ const Modal = ({ isOpen, onClose }) => {
             </label>
             <div
               onClick={handleClick}
-              className="border-dotted border-[1.5px] border-[#ccc] h-[52px] pl-2 rounded-lg text-[15px] flex items-center"
+              className="border-dotted border-[1.5px] border-[#ccc] h-[35px] tablet:h-[52px] pl-2 rounded-lg text-[15px] flex items-center"
             >
               {resume ? (
                 resume.name
