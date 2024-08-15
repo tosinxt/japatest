@@ -30,7 +30,7 @@ const Reset = () => {
     }
   };
   return (
-    <section className="flex flex-col m-auto justify-center max-w-[420px] items-center gap-8 py-10">
+    <section className="flex flex-col m-auto justify-center max-w-[420px] items-center gap-8 py-10 px-[15px]">
       <div className="flex flex-col gap-8 w-full">
         <Heading title="Create New Password" text="" />
         <form

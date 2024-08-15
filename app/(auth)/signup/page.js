@@ -38,7 +38,7 @@ const SignUp = () => {
     }
   };
   return (
-    <section className="flex justify-center py-10">
+    <section className="flex justify-center py-10 px-[15px]">
       <div className="flex flex-col gap-2 max-w-[390px] w-full">
         <Heading title="Create an account to track your job applications" />
         <form

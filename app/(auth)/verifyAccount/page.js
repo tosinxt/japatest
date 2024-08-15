@@ -66,7 +66,7 @@ const VerifyAccount = () => {
   };
 
   return (
-    <section className="flex justify-center py-10">
+    <section className="flex justify-center py-10 px-[15px]">
       <div className="flex flex-col gap-8 max-w-[420px] w-full">
         <Heading
           title="Verify Your Account"

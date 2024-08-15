@@ -89,8 +89,8 @@ const Header = () => {
           )}
         </div>
         <div>
-          <Link href={"/"} className="">
-            <Image src="/logo.svg" alt="" height={9999} width={9999}  style={{height: "40px", width: "100px", minWidth: "200px"}}/>
+          <Link href={"/"} className="w-fit">
+            <Image src="/logo.svg" alt="" height={9999} width={9999}  style={{height: "40px", width: "100px", maxWidth: "200px"}}/>
           </Link>
         </div>
         <div className="tablet:hidden" onClick={toggleDropDown}>

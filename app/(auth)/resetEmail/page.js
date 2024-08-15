@@ -32,7 +32,7 @@ const ResetEmail = () => {
     }
   };
   return (
-    <section className="flex flex-col m-auto justify-center max-w-[420px] items-center gap-4 py-10">
+    <section className="flex flex-col m-auto justify-center max-w-[420px] items-center gap-4 py-10 px-[15px]">
       <div className="flex flex-col gap-6 w-full">
         <Heading
           title="Forgot Password?"
