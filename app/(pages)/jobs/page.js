@@ -69,7 +69,6 @@ const Jobs = () => {
   const onSubmit = (data) => {
     const { jobTitle, jobLocation, jobType } = data;
     findJobs({ location: jobLocation, title: jobTitle, type: jobType, limit });
-    reset();
   };
 
   const [filters, setFilters] = useState({
