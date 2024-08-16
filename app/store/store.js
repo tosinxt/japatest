@@ -31,8 +31,6 @@ const useJapaStore = create(
       course: null,
       signedIn: false,
       limit: 20,
-      totalPages: 1,
-      currentPage: 1,
 
       //isUserSignedIn
 

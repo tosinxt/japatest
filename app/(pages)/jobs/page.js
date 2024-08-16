@@ -15,67 +15,19 @@ const Jobs = () => {
 
   const [fetchComplete, setFetchComplete] = useState(false);
   const [currentLimit, setCurrentLimit] = useState(20);
-  const [noMoreJobs, setNoMoreJobs] = useState(false);
 
   useEffect(() => {
     const fetchJobs = async () => {
-      try {
-        // Fetch jobs with the current limit
-        const fetchedJobs = await findJobs({ limit: currentLimit });
-
-        // Check if fetchedJobs is an array and not empty
-        if (Array.isArray(fetchedJobs)) {
-          if (fetchedJobs.length === 0) {
-            setNoMoreJobs(true); // No more jobs available
-          } else {
-            setFetchComplete(true); // Jobs fetched successfully
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching jobs:", error);
-        // Handle the error appropriately
-      }
+      await findJobs({ limit: currentLimit });
+      setFetchComplete(true);
     };
-
     fetchJobs();
   }, [findJobs, currentLimit]);
 
-  const observer = useRef();
+  const showMoreJobs = () => {
+    setCurrentLimit((prevLimit) => prevLimit + 20);
+  };
 
- useEffect(() => {
-   const targetElement = document.querySelector("#scroll-anchor");
-
-   if (!targetElement) {
-     console.error("Scroll anchor element not found");
-     return;
-   }
-
-   const handleObserver = (entries) => {
-     const target = entries[0];
-     if (target.isIntersecting && !noMoreJobs) {
-       console.log("IntersectionObserver triggered");
-
-       // Introduce a delay before loading more jobs
-       setTimeout(() => {
-         setCurrentLimit((prevLimit) => prevLimit + 20); // Load 20 more jobs
-       }, 5000); // 1000ms (1 second) delay
-     }
-   };
-
-   observer.current = new IntersectionObserver(handleObserver, {
-     root: null,
-     rootMargin: "0px",
-     threshold: 1.0, // Adjust the threshold if needed
-   });
-
-   observer.current.observe(targetElement);
-
-   return () => {
-     if (observer.current) {
-       observer.current.disconnect();
-     }
-   };
- }, [noMoreJobs]);
   console.log(jobs.length);
 
   const {
@@ -442,28 +394,31 @@ const Jobs = () => {
           {dropDown && (
             <Filter display={"tablet:hidden absolute top-6 right-0 z-10"} />
           )}
-          <div>
+          <div className="flex flex-col justify-center items-center gap-8">
             <div className="flex gap-4 flex-wrap justify-center tablet:justify-start">
-              {jobs?.map((job) => (
-                <JobCard
-                  key={job?._id}
-                  company={job?.company_name}
-                  location={job?.location}
-                  jobTitle={job?.job_title}
-                  jobType={job?.job_type}
-                  skills={job?.technology}
-                  path={`/jobs/${job?._id}`}
-                />
-              ))}
+              {fetchComplete && !jobs === 0 ? (
+                <div>Your search parameters did not match any jobs</div>
+              ) : (
+                jobs?.map((job) => (
+                  <JobCard
+                    key={job?._id}
+                    company={job?.company_name}
+                    location={job?.location}
+                    jobTitle={job?.job_title}
+                    jobType={job?.job_type}
+                    skills={job?.technology}
+                    path={`/jobs/${job?._id}`}
+                  />
+                ))
+              )}
             </div>
-            {fetchComplete && !jobs === 0 && (
-              <div>Your search parameters did not match any jobs</div>
-            )}
-            {!noMoreJobs && (
-              <span
-                id="scroll-anchor"
-                className="border-white h-6 w-6 animate-spin rounded-full border-2 border-t-primary"
-              ></span>
+            {fetchComplete && jobs.length === currentLimit && (
+              <button
+                onClick={showMoreJobs}
+                className="bg-primary h-10 rounded-lg text-white text-xs tablet:text-base px-4 w-full tablet:w-fit font-medium flex justify-center items-center"
+              >
+                Load More Jobs
+              </button>
             )}
           </div>
         </div>

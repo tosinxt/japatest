@@ -19,7 +19,7 @@ const JobCard = ({
       {loading ? (
         <Skeleton
           variant="rectangular"
-          width={290}
+          width={280}
           height={290}
           className="rounded-lg"
         />
