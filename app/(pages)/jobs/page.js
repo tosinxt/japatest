@@ -2,7 +2,7 @@
 import JobCard from "@/app/components/JobCard";
 import { useJapaStore } from "@/app/store/store";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
 
@@ -13,9 +13,70 @@ const Jobs = () => {
     limit: state.limit,
   }));
 
+  const [fetchComplete, setFetchComplete] = useState(false);
+  const [currentLimit, setCurrentLimit] = useState(20);
+  const [noMoreJobs, setNoMoreJobs] = useState(false);
+
   useEffect(() => {
-    findJobs({ limit });
-  }, [findJobs, limit]);
+    const fetchJobs = async () => {
+      try {
+        // Fetch jobs with the current limit
+        const fetchedJobs = await findJobs({ limit: currentLimit });
+
+        // Check if fetchedJobs is an array and not empty
+        if (Array.isArray(fetchedJobs)) {
+          if (fetchedJobs.length === 0) {
+            setNoMoreJobs(true); // No more jobs available
+          } else {
+            setFetchComplete(true); // Jobs fetched successfully
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+        // Handle the error appropriately
+      }
+    };
+
+    fetchJobs();
+  }, [findJobs, currentLimit]);
+
+  const observer = useRef();
+
+ useEffect(() => {
+   const targetElement = document.querySelector("#scroll-anchor");
+
+   if (!targetElement) {
+     console.error("Scroll anchor element not found");
+     return;
+   }
+
+   const handleObserver = (entries) => {
+     const target = entries[0];
+     if (target.isIntersecting && !noMoreJobs) {
+       console.log("IntersectionObserver triggered");
+
+       // Introduce a delay before loading more jobs
+       setTimeout(() => {
+         setCurrentLimit((prevLimit) => prevLimit + 20); // Load 20 more jobs
+       }, 5000); // 1000ms (1 second) delay
+     }
+   };
+
+   observer.current = new IntersectionObserver(handleObserver, {
+     root: null,
+     rootMargin: "0px",
+     threshold: 1.0, // Adjust the threshold if needed
+   });
+
+   observer.current.observe(targetElement);
+
+   return () => {
+     if (observer.current) {
+       observer.current.disconnect();
+     }
+   };
+ }, [noMoreJobs]);
+  console.log(jobs.length);
 
   const {
     register,
@@ -23,15 +84,6 @@ const Jobs = () => {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
-
-  const FilterBox = ({ text, onClick }) => (
-    <button
-      onClick={onClick}
-      className="bg-lightPurple w-fit px-[10px] py-2 text-primary text-sm rounded-md"
-    >
-      {text}
-    </button>
-  );
 
   const jobTypes = [
     "Remote",
@@ -55,10 +107,7 @@ const Jobs = () => {
     { value: "VueJS", label: "Vue JS" },
   ];
   const yearsOfExperience = ["1 -3 years", "4 - 7 years", "8 - 10 years"];
-  const [technology, setTechnology] = useState("");
-  const [category, setCategory] = useState("");
-  const [experience, setExperience] = useState("");
-  const [type, setType] = useState("");
+
   const [dropDown, setDropDown] = useState(false);
 
   const handleToggle = () => {
@@ -71,28 +120,67 @@ const Jobs = () => {
     reset();
   };
 
+  const [filters, setFilters] = useState({
+    technology: "",
+    category: "",
+    experience: "",
+    type: "",
+  });
+
+  useEffect(() => {
+    console.log(filters);
+  }, [filters]);
+
   const resetFilter = () => {
+    // Reset filters to their default values
+    setFilters({
+      technology: "",
+      category: "",
+      experience: "",
+      type: "",
+    });
+
+    // Call findJobs with the reset filters
     findJobs({
-      location: "",
-      title: "",
+      technology: "",
+      category: "",
+      experience: "",
       type: "",
       limit,
     });
-
-    setDropDown(false);
   };
 
   const handleCheckboxChange = (setter, value, stateKey) => {
-    setter(value);
-    console.log(stateKey, value);
-    findJobs({ [stateKey]: value, limit });
+    setter((prevFilters) => {
+      const newFilters = { ...prevFilters, [stateKey]: value };
+
+      // Call findJobs with all the current filters
+      findJobs({ ...newFilters, limit });
+
+      return newFilters;
+    });
   };
 
   const handleSelectChange = (selectedOption) => {
     const value = selectedOption?.value;
-    setTechnology(value);
-    findJobs({ technology: value, limit });
+    setFilters((prevFilters) => {
+      const newFilters = { ...prevFilters, technology: value };
+
+      // Call findJobs with all the current filters
+      findJobs({ ...newFilters, limit });
+
+      return newFilters;
+    });
   };
+
+  const FilterBox = ({ text, onClick }) => (
+    <button
+      onClick={onClick}
+      className="bg-lightPurple w-fit px-[10px] py-2 text-primary text-sm rounded-md"
+    >
+      {text}
+    </button>
+  );
 
   const customStyles = {
     option: (provided, state) => ({
@@ -117,20 +205,20 @@ const Jobs = () => {
       "&:hover": {
         borderColor: "#aaa",
       },
-      outline: "none", // Remove outline
+      outline: "none",
     }),
     input: (provided) => ({
       ...provided,
-      outline: "none", // Remove outline on the input
-      boxShadow: "none", // Remove box-shadow on the input
+      outline: "none",
+      boxShadow: "none",
     }),
     multiValue: (provided) => ({
       ...provided,
-      backgroundColor: "#f0f0f0", // Customize the background of selected options
+      backgroundColor: "#f0f0f0",
     }),
     multiValueLabel: (provided) => ({
       ...provided,
-      color: "#333", // Customize the text color of selected options
+      color: "#333",
     }),
     multiValueRemove: (provided) => ({
       ...provided,
@@ -167,9 +255,9 @@ const Jobs = () => {
                 <input
                   type="checkbox"
                   value={jobType}
-                  checked={type === jobType}
+                  checked={filters.type === jobType}
                   onChange={() =>
-                    handleCheckboxChange(setType, jobType, "type")
+                    handleCheckboxChange(setFilters, jobType, "type")
                   }
                   className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
                 />
@@ -194,10 +282,10 @@ const Jobs = () => {
               <div className="flex gap-2 items-center">
                 <input
                   type="checkbox"
-                  value={category}
-                  checked={category === jobCategory}
+                  value={filters.category}
+                  checked={filters.category === jobCategory}
                   onChange={() =>
-                    handleCheckboxChange(setCategory, jobCategory, "category")
+                    handleCheckboxChange(setFilters, jobCategory, "category")
                   }
                   className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
                 />
@@ -218,7 +306,7 @@ const Jobs = () => {
         </p>
         <Select
           options={options}
-          value={options.find((option) => option.value === technology)}
+          value={options.find((option) => option.value === filters.technology)}
           onChange={handleSelectChange}
           styles={customStyles}
           placeholder="Select a technology..."
@@ -237,10 +325,10 @@ const Jobs = () => {
               <div className="flex gap-2 items-center">
                 <input
                   type="checkbox"
-                  value={years}
-                  checked={experience === years}
+                  value={filters.experience}
+                  checked={filters.experience === years}
                   onChange={() =>
-                    handleCheckboxChange(setExperience, years, "experience")
+                    handleCheckboxChange(setFilters, years, "experience")
                   }
                   className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
                 />
@@ -263,11 +351,11 @@ const Jobs = () => {
       {/* upper layout */}
       <div className="flex flex-col gap-12">
         <form
-          className="rounded-l-lg flex h-12 tablet:h-16 shadow-sm"
+          className="rounded-l-lg flex flex-col tablet:flex-row h-full tablet:h-16 shadow-sm"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="bg-white flex w-full">
-            <div className="flex items-center gap-2 border-r pl-2 tablet:pl-4 bg-transparent w-full">
+          <div className=" tablet:bg-white flex flex-col gap-0 tablet:flex-row w-full h-full">
+            <div className="flex items-center gap-2 border-b tablet:border-b-0 tablet:border-r pl-3 tablet:pl-4 bg-transparent w-full h-full py-2 tablet:py-0 rounded-none bg-white tablet:bg-transparent shadow-lg tablet:shadow-none ">
               <div>
                 <Image
                   src={"/search.svg"}
@@ -284,7 +372,7 @@ const Jobs = () => {
                 className="text-sm tablet:text-base w-full bg-transparent border-none h-full focus:border-0 focus:outline-none"
               />
             </div>
-            <div className="flex items-center gap-2 border-r pl-2 tablet:pl-4 bg-transparent w-full">
+            <div className="flex items-center gap-2 border-b tablet:border-b-0 tablet:border-r pl-3 tablet:pl-4 bg-transparent w-full h-full py-2 tablet:py-0 rounded-none bg-white tablet:bg-transparent shadow-lg tablet:shadow-none">
               <div>
                 <Image
                   src={"/location.svg"}
@@ -301,7 +389,7 @@ const Jobs = () => {
                 className="text-sm tablet:text-base w-full bg-transparent border-none h-full focus:border-0 focus:outline-none"
               />
             </div>
-            <div className="flex items-center gap-2 pl-2 tablet:pl-4 bg-transparent w-full">
+            <div className="flex items-center gap-2 pl-3 tablet:pl-4 bg-transparent w-full h-full py-2 tablet:py-0 px-2 tablet:px-0 rounded-none bg-white tablet:bg-transparent shadow-lg tablet:shadow-none">
               <div>
                 <Image
                   src={"/jobType.svg"}
@@ -321,7 +409,7 @@ const Jobs = () => {
           </div>
           <button
             type="submit"
-            className="bg-primary rounded-r-lg text-white text-xs tablet:text-base px-2 tablet:w-[120px] font-medium"
+            className="bg-primary h-10 tablet:h-full tablet:rounded-r-lg text-white text-xs tablet:text-base px-2 tablet:w-[120px] font-medium"
           >
             Search
           </button>
@@ -344,26 +432,39 @@ const Jobs = () => {
         {/* filter bar */}
         <Filter display={"tablet:block hidden"} />
         <div className="w-fit flex flex-col gap-4 relative">
-          <div className="tablet:hidden flex items-end justify-end text-primary underline font-medium">
-            <span onClick={handleToggle} className="w-fit cursor-pointer">
-              Filters
-            </span>
-          </div>
+          {fetchComplete && (
+            <div className="tablet:hidden flex items-end justify-end text-primary underline font-medium">
+              <span onClick={handleToggle} className="w-fit cursor-pointer">
+                Filters
+              </span>
+            </div>
+          )}
           {dropDown && (
             <Filter display={"tablet:hidden absolute top-6 right-0 z-10"} />
           )}
-          <div className="flex gap-4 flex-wrap justify-center tablet:justify-start">
-            {jobs?.map((job) => (
-              <JobCard
-                key={job?._id}
-                company={job?.company_name}
-                location={job?.location}
-                jobTitle={job?.job_title}
-                jobType={job?.job_type}
-                skills={job?.technology}
-                path={`/jobs/${job?._id}`}
-              />
-            ))}
+          <div>
+            <div className="flex gap-4 flex-wrap justify-center tablet:justify-start">
+              {jobs?.map((job) => (
+                <JobCard
+                  key={job?._id}
+                  company={job?.company_name}
+                  location={job?.location}
+                  jobTitle={job?.job_title}
+                  jobType={job?.job_type}
+                  skills={job?.technology}
+                  path={`/jobs/${job?._id}`}
+                />
+              ))}
+            </div>
+            {fetchComplete && !jobs === 0 && (
+              <div>Your search parameters did not match any jobs</div>
+            )}
+            {!noMoreJobs && (
+              <span
+                id="scroll-anchor"
+                className="border-white h-6 w-6 animate-spin rounded-full border-2 border-t-primary"
+              ></span>
+            )}
           </div>
         </div>
       </div>
