@@ -320,7 +320,7 @@ const Jobs = () => {
                 type="text"
                 placeholder="UX Designer"
                 {...register("jobTitle")}
-                className="text-sm tablet:text-base bg-transparent border-none h-full focus:border-0 focus:outline-none"
+                className="text-xs tablet:text-base bg-transparent border-none h-full focus:border-0 focus:outline-none"
               />
             </div>
             <div className="flex items-center gap-2 border-b tablet:border-b-0 tablet:border-r pl-3 tablet:pl-4 bg-transparent w-full h-full py-2 tablet:py-0 rounded-none bg-white tablet:bg-transparent shadow-lg tablet:shadow-none">
@@ -337,7 +337,7 @@ const Jobs = () => {
                 type="text"
                 placeholder="New York, USA"
                 {...register("jobLocation")}
-                className="text-sm tablet:text-base bg-transparent border-none h-full focus:border-0 focus:outline-none"
+                className="text-xs tablet:text-base bg-transparent border-none h-full focus:border-0 focus:outline-none"
               />
             </div>
             <div className="flex items-center gap-2 pl-3 tablet:pl-4 bg-transparent w-full h-full py-2 tablet:py-0 px-2 tablet:px-0 rounded-none bg-white tablet:bg-transparent shadow-lg tablet:shadow-none">
@@ -354,7 +354,7 @@ const Jobs = () => {
                 type="text"
                 placeholder="Remote"
                 {...register("jobType")}
-                className="text-sm tablet:text-base bg-transparent border-none h-full focus:border-0 focus:outline-none"
+                className="text-xs tablet:text-base bg-transparent border-none h-full focus:border-0 focus:outline-none"
               />
             </div>
           </div>
