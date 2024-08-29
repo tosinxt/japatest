@@ -11,14 +11,14 @@ const CourseCard = ({ src, alt, title, text, path }) => {
       AOS.init({ once: true });
     }, []);
 
-    
+
   return (
     <Box>
       {loading ? (
         <Skeleton
           variant="rectangular"
           width={392}
-          height={392}
+          height={500}
           className="rounded-2xl"
         />
       ) : (
