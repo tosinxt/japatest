@@ -117,12 +117,12 @@ const Course = () => {
             </p>
             <p className="text-[17px] font-bold mb-4 mt-2">Course Outline</p>
             <ul className="flex flex-col gap-2 tablet:gap-4 text-sm tablet:text-base">
-              {/* {getCourse?.course_outline.split(". ").map((outline, index) => (
+              {getCourse?.course_outline.split(". ").map((outline, index) => (
                 <li key={index} className="pl-2">
                   <span className="font-bold">{outline.slice(0, 7)}</span>
                   <span className="font-normal">{outline.slice(7, 999)}</span>
                 </li>
-              ))} */}
+              ))}
             </ul>
           </div>
         </div>
