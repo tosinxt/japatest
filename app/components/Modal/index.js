@@ -1,10 +1,14 @@
 import Heading from "@/app/(auth)/component/heading";
-import { useState } from "react";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 
 const Modal = ({ isOpen, onClose }) => {
   const [skills, setSkills] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [resume, setResume] = useState(null);
+  const [fullName, setFullName] = useState("");
+  const [course, setCourse] = useState("");
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -41,15 +45,29 @@ const Modal = ({ isOpen, onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent the form from submitting
     // Handle form submission logic here if needed
-    onClose()
+    onClose();
   };
+
+  useEffect(() => {
+    // Check if the form is valid
+    const isFormFilled =
+      fullName.trim() !== "" &&
+      skills.length > 0 &&
+      course.trim() !== "" &&
+      resume !== null;
+    setIsFormValid(isFormFilled);
+  }, [fullName, skills, course, resume]);
 
   if (!isOpen) return null;
 
   return (
     <section className="py-10 px-[15px] h-full fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="flex flex-col gap-2 max-w-[400px] w-full bg-white rounded-2xl px-3 py-3 text-textDefault">
-        <Heading title="Before we Begin, Tell us More" cancel={true} onclick={onClose} />
+        <Heading
+          title="Before we Begin, Tell us More"
+          cancel={true}
+          onclick={onClose}
+        />
         <form className="flex flex-col gap-3 mt-2" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-[6px]">
             <label
@@ -63,6 +81,9 @@ const Modal = ({ isOpen, onClose }) => {
               name="name"
               placeholder="Enter your full name"
               className="border-[1.5px] border-[#ccc] h-[35px] tablet:h-[52px] pl-2 rounded-lg text-[15px]"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              required
             />
           </div>
           <div className="flex flex-col gap-[3px]">
@@ -79,8 +100,7 @@ const Modal = ({ isOpen, onClose }) => {
                   className="border px-1 py-[2px] cursor-pointer text-sm"
                   onClick={() => handleRemoveSkill(skill)}
                 >
-                  {skill}{" "}
-                    &times;
+                  {skill} &times;
                 </span>
               ))}
             </div>
@@ -92,6 +112,7 @@ const Modal = ({ isOpen, onClose }) => {
                 onKeyPress={handleKeyPress}
                 className="border-0 outline-none focus:outline-0 focus:border-0 flex-1 h-full"
                 placeholder="Type a skill and press Enter"
+                required
               />
             </div>
             <p className="text-sm text-textNeutral mt-[3px]">Up to 5 skills</p>
@@ -103,8 +124,13 @@ const Modal = ({ isOpen, onClose }) => {
             >
               Course of Choice
             </label>
-            <select className="border-[1.5px] border-[#ccc] h-[35px] tablet:h-[52px] pl-2 rounded-lg text-[15px] bg-transparent">
-              <option className="text-textNeutral" selected disabled>
+            <select
+              className="border-[1.5px] border-[#ccc] h-[35px] tablet:h-[52px] pl-2 rounded-lg text-[15px] bg-transparent"
+              value={course}
+              onChange={(e) => setCourse(e.target.value)}
+              required
+            >
+              <option className="text-textNeutral" value="" disabled>
                 Select a course
               </option>
               <option>Data Analysis</option>
@@ -134,12 +160,27 @@ const Modal = ({ isOpen, onClose }) => {
               accept="application/pdf"
               onChange={handleFileUpload}
               className="hidden"
+              required
             />
             <p className="text-sm text-textNeutral">PDF only</p>
           </div>
-          <button className="text-white w-full bg-primary text-sm tablet:text-base py-2 px-5 flex justify-center items-center hover:opacity-90 gap-1 rounded-[30px] border border-primary text-center">
-            Book a session
-          </button>
+          <Link
+            href={
+              isFormValid
+                ? "https://paystack.com/buy/test-for-career-coaching-qujnwh"
+                : "#"
+            }
+          >
+            <button
+              type="submit"
+              disabled={!isFormValid}
+              className={`text-white w-full bg-primary text-sm tablet:text-base py-2 px-5 flex justify-center items-center hover:opacity-90 gap-1 rounded-[30px] border border-primary text-center ${
+                !isFormValid ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+            >
+              Book a session
+            </button>
+          </Link>
         </form>
       </div>
     </section>
