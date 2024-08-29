@@ -8,6 +8,9 @@ import Link from "next/link";
 import JobCard from "./components/JobCard";
 import { useJapaStore } from "./store/store";
 import { useEffect } from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import AOS from "aos";
 
 const Courses = ({ courses }) => (
   <div className="flex flex-wrap gap-x-6  gap-y-5 justify-center items-center">
@@ -27,12 +30,20 @@ const Courses = ({ courses }) => (
 const Reviews = () => (
   <section className="px-[15px] tablet px-[15px]:tablet:px-[64px] flex flex-col gap-8 tablet:gap-14 items-center justify-center tablet:pt-20 pt-16">
     <div>
-      <p className="text-2xl text-center tablet:text-3xl font-bold text-textDefault">
+      <p
+        className="text-2xl text-center tablet:text-3xl font-bold text-textDefault"
+        data-aos="fade-left"
+        data-aos-duration="1500"
+      >
         What our community members are saying
       </p>
     </div>
     <div className="flex items-center flex-col gap-10 tablet:gap-14">
-      <div className="flex flex-col tablet:flex-row gap-10 tablet:gap-12 mr-[15px] tablet:mr-0">
+      <div
+        className="flex flex-col tablet:flex-row gap-10 tablet:gap-12 mr-[15px] tablet:mr-0"
+        data-aos="fade-up"
+        data-aos-duration="1500"
+      >
         <CommunityCard
           text={
             "Japa is a platform that has helped me understand what being informed is. I got to understand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
@@ -72,14 +83,18 @@ const Home = () => {
     getCourses: state.getCourses,
   }));
 
-
   useEffect(() => {
     findJobs({ limit: 8 });
     getCourses();
+    AOS.init({ once: true });
   }, [findJobs, getCourses]);
 
   const WhyCard = ({ src, alt, title, text }) => (
-    <div className="text-textDefault flex items-center tablet:items-start tablet:justify-start gap-4">
+    <div
+      className="text-textDefault flex items-center tablet:items-start tablet:justify-start gap-4"
+      data-aos="fade-up"
+      data-aos-duration="1500"
+    >
       <div>
         <Image src={src} alt={alt} height={80} width={116} />
       </div>
@@ -94,36 +109,55 @@ const Home = () => {
 
   return (
     <div>
+      <Header />
       <section className=":h-[calc(100vh-160px)] tablet:h-[calc(100vh-128px)] mt-16 tablet:bg-banner bg-no-repeat bg-bannerPosition flex flex-col gap-8">
         <div className="flex flex-col h-[50%] tablet:h-full justify-between">
           <div className="flex flex-col justify-center items-start gap-1 tablet:gap-3 tablet:h-full px-[15px] tablet:px-[64px] pt-10 pb-6 tablet:pt-0 tablet:pb-0">
-            <h2 className="text-textDefault font-bold text-3xl tablet:text-[60px] leading-normal ">
-              Unlock Your Potential
-              <br /> For Global Success <br />
-              With <span className="text-primary">JAPA</span>
+            <h2 className="text-textDefault font-bold text-3xl tablet:text-[60px] leading-normal">
+              <span>
+                Unlock Your Potential
+                <br /> For Global Success <br />
+                With
+              </span>
+              <span
+                className="text-primary"
+                data-aos="fade-left"
+                data-aos-duration="1500"
+              >
+                {" "}
+                JAPA
+              </span>
             </h2>
-            <p className="text-textDefault text-opacity-85">
+            <p
+              className="text-textDefault text-opacity-85"
+              data-aos="fade-right"
+              data-aos-duration="1500"
+            >
               The Easiest Way to Boost Your Employability and Secure <br />{" "}
               Global Opportunities
             </p>
-            <div className="flex gap-2 tablet:gap-4 mt-8 tablet:mt-3">
+            <div
+              className="flex gap-2 tablet:gap-4 mt-8 tablet:mt-3"
+              data-aos="fade-up"
+            >
               <Button
                 text={"Take a course"}
                 width={"w-fit"}
                 bgColor={"bg-primary"}
                 color={"text-white"}
-                path="/"
+                path="/courses"
               />
               <Button
                 text={"Apply for Jobs"}
                 width={"w-fit"}
                 bg={"bg-white"}
                 color={"text-primary"}
-                path="/"
+                path="/jobs"
               />
             </div>
           </div>
         </div>
+
         <div className="h-1/2 w-full tablet:hidden">
           <Image
             src="/banner-small.svg"
@@ -139,7 +173,11 @@ const Home = () => {
         you to your dream career
       </div>
       <section className="flex flex-col tablet:flex-row justify-center py-16 tablet:py-28 gap-8 tablet:gap-[108px] items-center border-b border-textDefault  mx-[15px] tablet:mx-[64px]">
-        <div className="border-2 border-primary w-[220px] tablet:w-[300px] h-[150px] tablet:h-[164px] rounded-md">
+        <div
+          className="border-2 border-primary w-[220px] tablet:w-[300px] h-[150px] tablet:h-[164px] rounded-md"
+          data-aos="fade-up"
+          data-aos-duration="1500"
+        >
           <span className="text-4xl flex flex-col justify-center items-center gap-2 h-full font-bold text-primary">
             100K+
             <span className="text-textNeutral text-base font-normal">
@@ -147,7 +185,11 @@ const Home = () => {
             </span>
           </span>
         </div>
-        <div className="border-2 border-primary w-[220px] tablet:w-[300px] h-[150px] tablet:h-[164px] rounded-md">
+        <div
+          className="border-2 border-primary w-[220px] tablet:w-[300px] h-[150px] tablet:h-[164px] rounded-md"
+          data-aos="fade-up"
+          data-aos-duration="1500"
+        >
           <span className="text-4xl flex flex-col justify-center items-center gap-2 h-full font-bold text-[#FF9F24]">
             50K
             <span className="text-textNeutral text-base font-normal">
@@ -155,7 +197,11 @@ const Home = () => {
             </span>
           </span>
         </div>
-        <div className="border-2 border-primary w-[220px] tablet:w-[300px] h-[150px] tablet:h-[164px] rounded-md">
+        <div
+          className="border-2 border-primary w-[220px] tablet:w-[300px] h-[150px] tablet:h-[164px] rounded-md"
+          data-aos="fade-up"
+          data-aos-duration="1500"
+        >
           <span className="text-4xl flex flex-col justify-center items-center gap-2 h-full font-bold text-[#FF5FCC]">
             30K
             <span className="text-textNeutral text-base font-normal">
@@ -211,7 +257,11 @@ const Home = () => {
             />
           </div>
         </div>
-        <div className="bg-primary px-5 tablet:px-[30px] py-14 tablet:py-0 w-full h-full tablet:h-[500px] rounded-[30px] flex tablet:flex-row flex-col-reverse justify-center items-center gap-5 tablet:gap-[150px]">
+        <div
+          className="bg-primary px-5 tablet:px-[30px] py-14 tablet:py-0 w-full h-full tablet:h-[500px] rounded-[30px] flex tablet:flex-row flex-col-reverse justify-center items-center gap-5 tablet:gap-[150px]"
+          data-aos="fade-down"
+          data-aos-duration="1500"
+        >
           <div className="flex items-center justify-center">
             <Image src="/cv.svg" alt="" height={450} width={450} />
           </div>
@@ -227,7 +277,7 @@ const Home = () => {
               text={"Revamp My CV"}
               bgColor={"bg-white"}
               width={"w-fit tablet:mt-0 mt-2"}
-              path="/"
+              path="https://docs.google.com/forms/d/1OsZ5mkU3BAB0Cfv_BmcrlCjU7ZUGKm22GSWtSRT7px4/viewform?ref=dishapages&edit_requested=true"
               color={"text-primary"}
             />
           </div>
@@ -255,6 +305,7 @@ const Home = () => {
         </Link>
       </section>
       <Reviews />
+      <Footer />
     </div>
   );
 };

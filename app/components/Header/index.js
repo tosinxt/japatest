@@ -9,6 +9,7 @@ const Header = () => {
   const currentPath = usePathname();
   const signedIn = useJapaStore((state) => state.signedIn);
   const user = useJapaStore((state) => state.user);
+  const logout = useJapaStore((state) => state.logout)
   const [dropDown, setDropDown] = useState(false);
 
   // Modified isActive function
@@ -45,19 +46,28 @@ const Header = () => {
           <div className="flex flex-col gap-6">
             <NavLink path="/" text={"Home"} />
             <NavLink path="/applied" text={"Applied"} />
-            <NavLink path="" text={"Talent Assessment"} />
+            <NavLink path="/talentAssessment" text={"Talent Assessment"} />
           </div>
         ) : (
           <div className="flex flex-col gap-6">
             <NavLink path="/" text={"Home"} />
             <NavLink path="/courses" text={"Courses"} />
-            <NavLink path="" text={"CV Revamp"} />
+            <NavLink
+              path="https://docs.google.com/forms/d/1OsZ5mkU3BAB0Cfv_BmcrlCjU7ZUGKm22GSWtSRT7px4/viewform?ref=dishapages&edit_requested=true"
+              text={"CV Revamp"}
+            />
           </div>
         )}
 
         {signedIn ? (
           <div className="flex flex-col gap-6">
-            <div className="text-xs">{user}</div>
+            <div className="text-xs">{user.email}</div>
+            <div
+              onClick={logout}
+              className="text-xs text-primary cursor-pointer underline"
+            >
+              Logout
+            </div>
           </div>
         ) : (
           <div className="flex flex-col gap-6">
@@ -78,19 +88,28 @@ const Header = () => {
             <div className="flex gap-3">
               <NavLink path="/" text={"Home"} />
               <NavLink path="/applied" text={"Applied"} />
-              <NavLink path="" text={"Talent Assessment"} />
+              <NavLink path="/talentAssessment" text={"Talent Assessment"} />
             </div>
           ) : (
             <div className="flex gap-3">
               <NavLink path="/" text={"Home"} />
               <NavLink path="/courses" text={"Courses"} />
-              <NavLink path="" text={"CV Revamp"} />
+              <NavLink
+                path="https://docs.google.com/forms/d/1OsZ5mkU3BAB0Cfv_BmcrlCjU7ZUGKm22GSWtSRT7px4/viewform?ref=dishapages&edit_requested=true"
+                text={"CV Revamp"}
+              />
             </div>
           )}
         </div>
         <div>
           <Link href={"/"} className="w-fit">
-            <Image src="/logo.svg" alt="" height={9999} width={9999}  style={{height: "40px", width: "100px", maxWidth: "200px"}}/>
+            <Image
+              src="/logo.svg"
+              alt=""
+              height={9999}
+              width={9999}
+              style={{ height: "40px", width: "100px", maxWidth: "200px" }}
+            />
           </Link>
         </div>
         <div className="tablet:hidden" onClick={toggleDropDown}>
@@ -99,8 +118,14 @@ const Header = () => {
         </div>
         <div className="hidden tablet:block">
           {signedIn ? (
-            <div className="flex gap-3">
-              <div className="text-xs">{user}</div>
+            <div className="flex flex-col text-right gap-1">
+              <div className="text-xs">{user.email}</div>
+              <div
+                className="text-xs text-primary cursor-pointer underline"
+                onClick={logout}
+              >
+                Logout
+              </div>
             </div>
           ) : (
             <div className="flex gap-3">

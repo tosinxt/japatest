@@ -1,10 +1,11 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Heading from "../component/heading";
 import Button from "../component/button";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useJapaStore } from "@/app/store/store";
+import Image from "next/image";
 
 const Reset = () => {
   const {
@@ -18,6 +19,11 @@ const Reset = () => {
   const { resetPWD } = useJapaStore((state) => ({
     resetPWD: state.resetPwd,
   }));
+  const [show, setShow] = useState(false);
+
+  const handleShow = () => {
+    setShow(!show);
+  };
 
   const onSubmit = async () => {
     const new_pass = getValues("password");
@@ -44,19 +50,26 @@ const Reset = () => {
             >
               Enter Password
             </label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-              {...register("password", {
-                required: "Please enter your password",
-                pattern: {
-                  value:
-                    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-                },
-              })}
-              className="border-[1.5px] border-gray-300 h-[40px] pl-2 rounded-lg text-[15px]"
-            />
+            <div className="border-[1.5px] border-gray-300 h-[40px] px-2 rounded-lg text-[15px] flex">
+              <input
+                type={show ? "text" : "password"}
+                name="password"
+                placeholder="Enter your password"
+                {...register("password", {
+                  required: "Please enter your password",
+                })}
+                className="h-full focus:outline-none w-full"
+              />
+              <Image
+                src={show ? "/eye-closed.svg" : "/eye.svg"}
+                alt="view password"
+                height={9999}
+                width={9999}
+                style={{ width: "28px" }}
+                onClick={handleShow}
+                className="w-fit"
+              />
+            </div>
 
             {errors.password && (
               <span className="text-[12.5px] opacity-50">
@@ -73,19 +86,30 @@ const Reset = () => {
             >
               Re-Enter Password
             </label>
-            <input
-              type="password"
-              name="cPassword"
-              placeholder="Re-enter your password"
-              {...register("cPassword", {
-                required: "Confirm your password",
-                validate: (value) => {
-                  const { password } = getValues();
-                  return password === value || "Passwords do not match";
-                },
-              })}
-              className="border-[1.5px] border-gray-300 h-[40px] pl-2 rounded-lg text-[15px]"
-            />
+            <div className="border-[1.5px] border-gray-300 h-[40px] px-2 rounded-lg text-[15px] flex">
+              <input
+                type={show ? "text" : "password"}
+                name="cPassword"
+                placeholder="Re-enter your password"
+                {...register("cPassword", {
+                  required: "Confirm your password",
+                  validate: (value) => {
+                    const { password } = getValues();
+                    return password === value || "Passwords do not match";
+                  },
+                })}
+                className="h-full focus:outline-none w-full"
+              />
+              <Image
+                src={show ? "/eye-closed.svg" : "/eye.svg"}
+                alt="view password"
+                height={9999}
+                width={9999}
+                style={{ width: "28px" }}
+                onClick={handleShow}
+                className="w-fit"
+              />
+            </div>
           </div>
           <Button text="Reset" isSubmitting={isSubmitting} />
         </form>

@@ -2,6 +2,7 @@
 import Button from "@/app/components/Button";
 import { useJapaStore } from "@/app/store/store";
 import { Rating } from "@mui/material";
+import Aos from "aos";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -9,17 +10,25 @@ import React, { useEffect } from "react";
 
 const Course = () => {
   const { course } = useParams();
-  const { getCourse, getCourseByID } = useJapaStore((state) => ({
+  const { getCourse, getCourseByID, loading } = useJapaStore((state) => ({
     getCourse: state.course,
     getCourseByID: state.getCourseByID,
+    loading: state.loading,
   }));
 
   useEffect(() => {
-    getCourseByID(course);
+    const fetchData = async () => {
+      await getCourseByID(course);
+    };
+
+    fetchData();
+    Aos.init({ once: true });
   }, [getCourseByID, course]);
 
   const Courses = ({ display }) => (
-    <div className={`flex-col gap-7 py-5 px-3 border rounded-xl h-fit ${display}`}>
+    <div
+      className={`flex-col gap-7 py-5 px-3 border rounded-xl h-fit ${display}`}
+    >
       <div className="flex flex-col gap-2">
         <p className="text-base font-bold">COURSES OVERVIEW</p>
         <hr className="h-[3px] w-12 bg-primary" />
@@ -59,8 +68,6 @@ const Course = () => {
 
   const rating = getCourse?.about.ratings;
 
-  console.log(rating)
-
   return (
     <div className="mt-24 tablet:mt-36 mx-[15px] tablet:mx-[64px] flex justify-between tablet:gap-36 text-textDefault">
       <div className="flex flex-col gap-9 tablet:w-[70%]">
@@ -72,14 +79,16 @@ const Course = () => {
           <div className="text-[14px] flex items-center py-3 shadow-lg rounded-lg mt-10">
             <div className="flex-1 tablet:text-center py-1 flex flex-col tablet:flex-row tablet:items-center tablet:justify-center tablet:gap-3 pl-3 tablet:pl-0">
               {getCourse?.about.ratings}
-              <Rating
-                value={rating}
-                precision={0.1}
-                max={5}
-                name="size-small"
-                size="small"
-                readOnly
-              />
+              {!loading && ( // Render Rating only after data is fetched
+                <Rating
+                  value={rating}
+                  precision={0.1}
+                  max={5}
+                  name="size-small"
+                  size="small"
+                  readOnly
+                />
+              )}
             </div>
             <div className="flex-1 text-center py-1 border-x border-gray-300">
               {getCourse?.about.level}

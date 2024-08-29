@@ -1,6 +1,7 @@
 "use client";
 import JobCard from "@/app/components/JobCard";
 import { useJapaStore } from "@/app/store/store";
+import Aos from "aos";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -22,6 +23,7 @@ const Jobs = () => {
       setFetchComplete(true);
     };
     fetchJobs();
+     Aos.init({ once: true });
   }, [findJobs, currentLimit]);
 
   const showMoreJobs = () => {
@@ -268,7 +270,7 @@ const Jobs = () => {
       </div>
       <div className="flex flex-col gap-3 mb-8">
         <p className="text-sm font-bold flex justify-between items-center">
-          YOE required
+          Years Required
         </p>
         <div className="flex flex-col gap-3 text-sm">
           {yearsOfExperience.map((years, index) => (
@@ -298,7 +300,7 @@ const Jobs = () => {
   );
 
   return (
-    <div className="flex flex-col gap-10 pt-24 tablet:pt-36 pb-20 bg-[#fafafb] tablet:px-[64px] px-[15px]">
+    <section className="flex flex-col gap-10 pt-24 tablet:pt-36 pb-20 bg-[#fafafb] tablet:px-[64px] px-[15px]">
       {/* upper layout */}
       <div className="flex flex-col gap-12">
         <form
@@ -422,7 +424,7 @@ const Jobs = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

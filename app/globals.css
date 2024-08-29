@@ -13,3 +13,79 @@ input:focus {
   border: 0;
   outline: 1px solid #5922A9
 }
+
+.word-animation {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+  /* display: inline-block; */
+}
+
+.word-animation:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.word-animation:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.word-animation:nth-child(3) {
+  animation-delay: 0.8s;
+}
+.word-animation:nth-child(4) {
+  animation-delay: 1.2s;
+}
+.word-animation:nth-child(5) {
+  animation-delay: 1.6s;
+}
+.word-animation:nth-child(6) {
+  animation-delay: 2s;
+}
+.word-animation:nth-child(7) {
+  animation-delay: 2.4s;
+}
+.word-animation:nth-child(8) {
+  animation-delay: 2.8s;
+}
+.word-animation:nth-child(9) {
+  animation-delay: 3.2s;
+}
+
+/* Continue with each span, incrementing the delay */
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-left {
+  animation: slideInFromLeft 0.8s ease-out forwards;
+}
+
+@keyframes slideFromBottom {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-from-bottom {
+  animation: slideFromBottom 0.5s ease-out forwards;
+}

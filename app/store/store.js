@@ -57,25 +57,32 @@ const useJapaStore = create(
           const data = { email, password };
           set({ loading: true });
           const response = await axios.post(LOG_IN, data);
-          const token = response.data.message; // Adjust according to your response structure
-          cookies.set("authToken", token);
-          toast.success("Login successful");
-          set({
-            loading: false,
-            email: email,
-            signedIn: true,
-            user: response.data.user_data.email,
-          });
+
+          if (response.data.message === "Invalid details") {
+            toast.error("Incorrect username or password");
+            return false;
+          } else {
+            const token = response.data.token;
+            localStorage.setItem("authToken", token);
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            set({
+              loading: false,
+              email: email,
+              signedIn: true,
+              user: response.data.user_data,
+              token: token,
+            });
+
+            toast.success("Login successful");
+            return true;
+          }
         } catch (error) {
           set({ loading: false });
-          if (error.response && error.response.status === 400) {
-            toast.error("Invalid credentials");
-          } else if (error.response && error.response.status === 500) {
-            toast.error("Internal server error");
-          } else {
-            toast.error("An unexpected error occurred.");
-          }
+          const errorMessage =
+            error.response?.data?.message || "Login failed. Please try again.";
+          toast.error(errorMessage);
           console.error(error);
+          return false;
         }
       },
 
@@ -84,7 +91,7 @@ const useJapaStore = create(
         try {
           set({ loading: true });
           const data = { email };
-          const response = await axios.post(RESET_PWD_OTP, data);
+          await axios.post(RESET_PWD_OTP, data);
           toast.success("OTP verified succcessfully.");
           set({ loading: false, email: email });
         } catch (error) {
@@ -156,19 +163,27 @@ const useJapaStore = create(
       logout: () => {
         set({ user: null, token: null, signedIn: false });
         delete axios.defaults.headers.common["Authorization"];
-        localStorage.removeItem("token");
+        localStorage.removeItem("authToken");
         toast.success("Logged out successfully");
       },
 
-      findJobs: async ({ limit, category, type, title, experience, technology, location }) => {
+      findJobs: async ({
+        limit,
+        category,
+        type,
+        title,
+        experience,
+        technology,
+        location,
+      }) => {
         try {
           set({ loading: true });
           const categoryQuery = category ? `&category=${category}` : "";
           const experienceQuery = experience ? `&experience=${experience}` : "";
           const typeQuery = type ? `&type=${type}` : "";
           const titleQuery = title ? `&title=${title}` : "";
-          const technologyQuery = technology ?  `&technology=${technology}` : ""
-          const locationQuery = location ?  `&location=${location}` : ""
+          const technologyQuery = technology ? `&technology=${technology}` : "";
+          const locationQuery = location ? `&location=${location}` : "";
 
           const response = await axios.get(
             `${JOBS}?limit=${limit}${categoryQuery}${typeQuery}${titleQuery}${experienceQuery}${technologyQuery}${locationQuery}`
@@ -187,6 +202,7 @@ const useJapaStore = create(
           set({ loading: true });
           const response = await axios.get(`${JOBBYID}/${job}`);
           const data = response.data.data;
+          console.log(data);
           set({ job: data, loading: false });
         } catch (error) {
           console.log(error);

@@ -2,11 +2,16 @@
 import Button from "@/app/components/Button";
 import Modal from "@/app/components/Modal";
 import { Reviews } from "@/app/page";
+import Aos from "aos";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const TalentAssessment = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+     Aos.init({ once: true });
+  }, [])
 
   return (
     <div className="mt-20">
@@ -19,6 +24,8 @@ const TalentAssessment = () => {
             width={9999}
             style={{ height: "280px", width: "100%" }}
             className="tablet:hidden "
+            data-aos="fade-right"
+            data-aos-duration="1500"
           />
         </div>
         <div className="flex flex-col gap-5 tablet:basis-2/3 px-[15px] tablet:px-0 pt-14 tablet:pt-0">
@@ -32,6 +39,8 @@ const TalentAssessment = () => {
             <button
               onClick={() => setIsModalOpen(true)}
               className="text-white w-full bg-primary text-sm tablet:text-base py-2 px-5 flex justify-center items-center hover:opacity-90 gap-1 rounded-[30px] border border-primary text-center"
+              data-aos="fade-up"
+              data-aos-duration="1500"
             >
               Book a session
             </button>
@@ -40,21 +49,37 @@ const TalentAssessment = () => {
       </section>
       <section className="mx-[15px] tablet:mx-[64px] mt-16 tablet:mt-20 flex flex-col items-center justify-center text-textDefault">
         <div className="flex flex-col justify-center items-center gap-2 mb-8">
-          <p className="font-medium text-primary py-1.5 px-1.5 border bg-[#F2EAFD] w-fit rounded-2xl">
+          <p
+            className="font-medium text-primary py-1.5 px-1.5 border bg-[#F2EAFD] w-fit rounded-2xl"
+            data-aos="fade-left"
+            data-aos-duration="1500"
+          >
             How it Works
           </p>
           <p className="font-bold text-2xl mt-2">Step-by-Step Process</p>
         </div>
         <div className="text-base tablet:text-xl flex flex-col tablet:flex-row items-center font-medium  justify-between gap-16 w-full text-center tablet:text-left">
-          <div className="flex flex-col tablet:flex-row items-center gap-4 flex-1">
+          <div
+            className="flex flex-col tablet:flex-row items-center gap-4 flex-1"
+            data-aos="fade-up"
+            data-aos-duration="1500"
+          >
             <Image src={"/profile.svg"} alt="" height={42} width={54} />
             <span>Fill out your information</span>
           </div>
-          <div className="flex flex-col tablet:flex-row items-center gap-4 flex-1">
+          <div
+            className="flex flex-col tablet:flex-row items-center gap-4 flex-1"
+            data-aos="fade-up"
+            data-aos-duration="1500"
+          >
             <Image src={"/calendar.svg"} alt="" height={54} width={54} />
             <span>Schedule your session</span>
           </div>
-          <div className="flex flex-col tablet:flex-row items-center gap-4 flex-1">
+          <div
+            className="flex flex-col tablet:flex-row items-center gap-4 flex-1"
+            data-aos="fade-up"
+            data-aos-duration="1500"
+          >
             <Image src={"/consult.svg"} alt="" height={54} width={54} />
             <span>Receive personalized course recommendations</span>
           </div>
@@ -68,9 +93,11 @@ const TalentAssessment = () => {
                 height={9999}
                 width={9999}
                 style={{ height: "100%", width: "487px" }}
-                className="absolute z-[10] left-7 top-0"
+                className="absolute z-[10] left-5 top-0"
+                data-aos="fade-up"
+                data-aos-duration="1500"
               />
-              <div className="h-[570px] w-[300px] max-w-[487px] tablet:w-[450px] bg-[#a98ed2] rounded-r-3xl relative top-7"></div>
+              <div className="h-[350px] tablet:h-[570px] w-[300px] max-w-[487px] tablet:w-[450px] bg-[#a98ed2] rounded-r-3xl relative top-5"></div>
             </div>
           </div>
           <div className="flex flex-col gap-6 tablet:gap-9 font-medium text-base tablet:text-2xl tablet:w-fit tablet:p-[10px]">
@@ -97,6 +124,8 @@ const TalentAssessment = () => {
             <button
               onClick={() => setIsModalOpen(true)}
               className="text-white w-full bg-primary text-sm tablet:text-base py-2 px-5 flex justify-center items-center hover:opacity-90 gap-1 rounded-[30px] border border-primary text-center"
+              data-aos="fade-up"
+              data-aos-duration="1500"
             >
               Book a session
             </button>
@@ -104,7 +133,11 @@ const TalentAssessment = () => {
         </div>
       </section>
       <section className="bg-talent bg-cover bg-[#D7BFFA] mt-20 h-[600px] tablet:h-[810px] flex items-center justify-center">
-        <div className="bg-white w-[310px] tablet:w-fit m-auto border-2 border-primary shadow-talent">
+        <div
+          className="bg-white w-[310px] tablet:w-fit m-auto border-2 border-primary shadow-talent"
+          data-aos="fade-right"
+          data-aos-duration="1500"
+        >
           <p className="bg-[#E4E4E4] h-28 text-2xl tablet:text-4xl font-bold flex justify-center items-center">
             ₦5000/hr
           </p>
@@ -134,6 +167,8 @@ const TalentAssessment = () => {
             <button
               onClick={() => setIsModalOpen(true)}
               className="my-8 text-white w-full bg-primary text-sm tablet:text-base py-2 px-5 flex justify-center items-center hover:opacity-90 gap-1 rounded-[30px] border border-primary text-center"
+              data-aos="fade-up"
+              data-aos-duration="1500"
             >
               Book a session
             </button>
@@ -150,13 +185,14 @@ const TalentAssessment = () => {
             With our Talent Assessment, you will get Clarity on your Career
             Journey
           </p>
-          <Button
-            color={"text-white"}
-            text={"Book Now"}
-            bgColor={"bg-primary"}
-            width={"w-full tablet:mt-8 mt-4"}
-            path={"/"}
-          />
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="mt-10 text-white w-full bg-primary text-sm tablet:text-base py-2 px-5 flex justify-center items-center hover:opacity-90 gap-1 rounded-[30px] border border-primary text-center"
+            data-aos="fade-up"
+            data-aos-duration="1500"
+          >
+            Book Now
+          </button>
         </div>
       </section>
       <Reviews />

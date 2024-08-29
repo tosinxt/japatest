@@ -1,11 +1,12 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../component/button";
 import Heading from "../component/heading";
 import { useRouter } from "next/navigation";
 import { useJapaStore } from "@/app/store/store";
+import Image from "next/image";
 
 const Login = () => {
   const {
@@ -18,23 +19,19 @@ const Login = () => {
 
   const loginUser = useJapaStore((state) => state.login);
   const route = useRouter();
+  const [show, setShow] = useState(false)
 
-  const onSubmit = async () => {
-    const data = {
-      email: getValues("email"),
-      password: getValues("password"),
-    };
+  const handleShow = () => {
+    setShow(!show)
+  }
 
-    console.log(data);
-
-    try {
-      await loginUser(data);
-      console.log(data);
-      route.push("/");
-    } catch (error) {
-      console.log(error);
+  const onSubmit = async (data) => {
+    const success = await loginUser(data);
+    if (success) {
+      route.push("/jobs");
     }
   };
+
   return (
     <section className="flex justify-center py-10 px-[15px]">
       <div className="flex flex-col gap-2 max-w-[390px] w-full">
@@ -68,15 +65,18 @@ const Login = () => {
               >
                 Password
               </label>
-              <input
-                type="password"
-                name="password"
-                placeholder="Enter your password"
-                {...register("password", {
-                  required: "Please enter your password",
-                })}
-                className="border-[1.5px] border-textDefault h-[52px] pl-2 rounded-lg text-[15px]"
-              />
+              <div className="border-[1.5px] border-textDefault h-[52px] px-2 rounded-lg text-[15px] flex">
+                <input
+                  type={show ? "text" : "password"}
+                  name="password"
+                  placeholder="Enter your password"
+                  {...register("password", {
+                    required: "Please enter your password",
+                  })}
+                  className="h-full focus:outline-none w-full"
+                />
+                <Image src={show? "/eye-closed.svg" : "/eye.svg"} alt="view password" height={9999} width={9999} style={{width: "28px"}} onClick={handleShow} className="w-fit"/>
+              </div>
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1 text-sm">

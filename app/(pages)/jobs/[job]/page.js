@@ -1,6 +1,7 @@
 "use client";
 import Button from "@/app/components/Button";
 import { useJapaStore } from "@/app/store/store";
+import Aos from "aos";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -15,6 +16,7 @@ const Job = () => {
 
   useEffect(() => {
     findJobByID(job);
+     Aos.init({ once: true });
   }, [job, findJobByID]);
 
   const Summary = ({ display }) => (
@@ -197,9 +199,11 @@ const Job = () => {
             <Share />
             <Tags />
           </div>
-          <button className="my-8 text-white w-full bg-primary text-sm tablet:text-base py-2 px-5 hover:opacity-90 gap-1 rounded-[30px] border border-primary text-center h-fit block tablet:hidden" >
-            Apply now
-          </button>
+          <Link href={"/"}>
+            <button className="my-8 text-white w-full bg-primary text-sm tablet:text-base py-2 px-5 hover:opacity-90 gap-1 rounded-[30px] border border-primary text-center h-fit block tablet:hidden">
+              Apply now
+            </button>
+          </Link>
         </div>
         <Button
           text={"Apply Now"}
