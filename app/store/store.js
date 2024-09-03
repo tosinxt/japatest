@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import Jobs from "../(pages)/jobs/page";
+import Cookies from "js-cookie";
 
 const BASE_URL = "https://coral-app-9xy6y.ondigitalocean.app/japa/v1/";
 const SIGN_UP = `${BASE_URL}registration/createaccount`;
@@ -18,6 +18,20 @@ const COURSEBYID = `${BASE_URL}user/coursebyid/`;
 const APPLY = `${BASE_URL}user/applyforjobs`;
 const TALENT = `${BASE_URL}user/talents`;
 const APPLIED = `${BASE_URL}user/applications`;
+
+// Custom storage using cookies
+const cookieStorage = {
+  getItem: (name) => {
+    const value = Cookies.get(name);
+    return value ? JSON.parse(value) : undefined;
+  },
+  setItem: (name, value) => {
+    Cookies.set(name, JSON.stringify(value), { expires: 7 }); // cookies will expire in 7 days
+  },
+  removeItem: (name) => {
+    Cookies.remove(name);
+  },
+};
 
 const useJapaStore = create(
   persist(
@@ -67,8 +81,7 @@ const useJapaStore = create(
             return false;
           } else {
             const token = response.data.token;
-            localStorage.setItem("authToken", token);
-            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            Cookies.set("authToken", token, { expires: 7 });            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
             console.log(response.data.user_data)
             set({
               loading: false,
@@ -168,7 +181,7 @@ const useJapaStore = create(
       logout: () => {
         set({ user: null, token: null, signedIn: false });
         delete axios.defaults.headers.common["Authorization"];
-        localStorage.removeItem("authToken");
+        Cookies.remove("authToken");
         toast.success("Logged out successfully");
       },
 
@@ -286,7 +299,7 @@ const useJapaStore = create(
 
     {
       name: "auth",
-      storage: createJSONStorage(() => localStorage), // Or other storage mechanism
+      storage: createJSONStorage(() => cookieStorage), // Or other storage mechanism
     }
   )
 );

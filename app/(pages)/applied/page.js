@@ -16,7 +16,7 @@ const Applied = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const id = user._id;
+        const id = user?._id;
         await fetchAppliedJobs(id);
       } catch (err) {
         toast.error(err.message || "Error fetching applied jobs");
@@ -24,14 +24,14 @@ const Applied = () => {
     };
 
     fetchJobs();
-  }, [user._id, fetchAppliedJobs]);
+  }, [user?._id, fetchAppliedJobs]);
 
   return (
     <div className="mx-[15px] tablet:mx-[64px] mt-28 tablet:mt-36 flex flex-col text-textDefault">
       <div className="text-2xl tablet:text-3xl font-bold mb-8">
         Applications
       </div>
-      {applied.length < 1 ? (
+      {applied?.length < 1 ? (
         <div>
           <p>
             You have not applied for any job yet. Click{" "}
@@ -43,7 +43,7 @@ const Applied = () => {
         </div>
       ) : (
         <div>
-          {applied.map((job, index) => (
+          {applied?.map((job, index) => (
             <Box key={index}>
               {loading ? (
                 <Skeleton
