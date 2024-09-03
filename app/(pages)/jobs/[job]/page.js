@@ -44,7 +44,7 @@ const Job = () => {
      }
 
      // Redirect to the job link after applying
-     window.location.href = redirectUrl;
+     window.open(redirectUrl, "_blank");
    } catch (error) {
      console.error("Failed to apply:", error);
    }
