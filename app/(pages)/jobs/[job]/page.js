@@ -31,7 +31,7 @@ const Job = () => {
    }
 
    try {
-     await applyForJobs(user_id, job_id);
+     await applyForJobs({user_id, job_id});
 
      // Ensure the jobById.link is a fully qualified URL
      let redirectUrl = jobById?.link;
