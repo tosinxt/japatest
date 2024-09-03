@@ -1,27 +1,17 @@
 import Heading from "@/app/(auth)/component/heading";
+import { useJapaStore } from "@/app/store/store";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const Modal = ({ isOpen, onClose }) => {
   const [skills, setSkills] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [resume, setResume] = useState(null);
+  const [resume, setResume] = useState("");
   const [fullName, setFullName] = useState("");
   const [course, setCourse] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
+  const bookASession = useJapaStore((state) => state.bookASession);
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (file && file.type === "application/pdf") {
-      setResume(file);
-    } else {
-      alert("Please upload a PDF file.");
-    }
-  };
-
-  const handleClick = () => {
-    document.getElementById("resumeInput").click();
-  };
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -42,9 +32,14 @@ const Modal = ({ isOpen, onClose }) => {
     setSkills(skills.filter((skill) => skill !== skillToRemove));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the form from submitting
-    // Handle form submission logic here if needed
+    try {
+      await bookASession({full_name: fullName, current_skills: skills, course_of_choice: course, resume_link: resume } )
+      window.location.href("https://paystack.com/buy/test-for-career-coaching-qujnwh")
+    } catch (err) {
+
+    }
     onClose();
   };
 
@@ -54,7 +49,7 @@ const Modal = ({ isOpen, onClose }) => {
       fullName.trim() !== "" &&
       skills.length > 0 &&
       course.trim() !== "" &&
-      resume !== null;
+      resume !== "";
     setIsFormValid(isFormFilled);
   }, [fullName, skills, course, resume]);
 
@@ -142,35 +137,19 @@ const Modal = ({ isOpen, onClose }) => {
               htmlFor="resume"
               className="text-textDefault text-base font-[500]"
             >
-              Upload Resume
+              Resume Link
             </label>
-            <div
-              onClick={handleClick}
-              className="border-dotted border-[1.5px] border-[#ccc] h-[35px] tablet:h-[52px] pl-2 rounded-lg text-[15px] flex items-center"
-            >
-              {resume ? (
-                resume.name
-              ) : (
-                <span className="text-[#89898b]"> Click here to upload</span>
-              )}
-            </div>
             <input
-              id="resumeInput"
-              type="file"
-              accept="application/pdf"
-              onChange={handleFileUpload}
-              className="hidden"
+              type="text"
+              name="name"
+              placeholder="Enter your full name"
+              className="border-[1.5px] border-[#ccc] h-[35px] tablet:h-[52px] pl-2 rounded-lg text-[15px]"
+              value={resume}
+              onChange={(e) => setResume(e.target.value)}
               required
             />
-            <p className="text-sm text-textNeutral">PDF only</p>
+            <p className="text-sm text-textNeutral">Paste link to your resume on google drive or google docs</p>
           </div>
-          <Link
-            href={
-              isFormValid
-                ? "https://paystack.com/buy/test-for-career-coaching-qujnwh"
-                : "#"
-            }
-          >
             <button
               type="submit"
               disabled={!isFormValid}
@@ -180,7 +159,6 @@ const Modal = ({ isOpen, onClose }) => {
             >
               Book a session
             </button>
-          </Link>
         </form>
       </div>
     </section>

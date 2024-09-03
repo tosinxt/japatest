@@ -1,22 +1,59 @@
 "use client";
 import Button from "@/app/components/Button";
+import Button2 from "@/app/components/Button2";
 import { useJapaStore } from "@/app/store/store";
 import Aos from "aos";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const Job = () => {
   const { job } = useParams();
-  const { jobById, findJobByID } = useJapaStore((state) => ({
-    jobById: state.job,
-    findJobByID: state.findJobByID,
-  }));
+  const { jobById, findJobByID, applyForJobs, user } = useJapaStore(
+    (state) => ({
+      jobById: state.job,
+      findJobByID: state.findJobByID,
+      applyForJobs: state.applyForJobs,
+      user: state.user,
+    })
+  );
+
+ const handleApply = async () => {
+   const user_id = user?._id;
+   const job_id = job;
+
+   if (!user) {
+    toast.error("Kindly sign in to apply for a Job")
+
+    return;
+   }
+
+   try {
+     await applyForJobs(user_id, job_id);
+
+     // Ensure the jobById.link is a fully qualified URL
+     let redirectUrl = jobById?.link;
+     if (
+       redirectUrl &&
+       !redirectUrl.startsWith("http://") &&
+       !redirectUrl.startsWith("https://")
+     ) {
+       redirectUrl = `https://${redirectUrl}`;
+     }
+
+     // Redirect to the job link after applying
+     window.location.href = redirectUrl;
+   } catch (error) {
+     console.error("Failed to apply:", error);
+   }
+ };
+
 
   useEffect(() => {
     findJobByID(job);
-     Aos.init({ once: true });
+    Aos.init({ once: true });
   }, [job, findJobByID]);
 
   const Summary = ({ display }) => (
@@ -118,16 +155,17 @@ const Job = () => {
             <p className="text-textNeutral text-sm">{jobById?.location}</p>
           </div>
           <div className="w-full flex items-end justify-end">
-            <Button
+            <Button2
               text={"Apply Now"}
-              path={"/"}
+              onClick={handleApply}
               bgColor={"bg-primary"}
               color={"text-white"}
+              width={"w-fit"}
               src={"/apply.svg"}
             />
           </div>
         </div>
-        <div className="flex flex-col tablet:flex-row justify-between">
+        <div className="flex flex-col tablet:flex-row tablet:gap-36 justify-between">
           {/**First Layout */}
           <div className="flex flex-col gap-6 tablet:gap-4">
             <Summary display={"tablet:hidden flex"} />
@@ -140,7 +178,7 @@ const Job = () => {
                 What you will be doing
               </p>
               <ul className="tablet:text-base text-sm">
-                {jobById?.about.split(". ").map((about, index) => (
+                {jobById?.about.split(/\. |.\n\n|.\n/).map((about, index) => (
                   <li className="list-disc list-inside pl-2" key={index}>
                     {about}
                   </li>
@@ -153,7 +191,7 @@ const Job = () => {
               </p>
               <ul className="tablet:text-base text-sm">
                 {jobById?.what_we_are_lookin_for
-                  .split(". ")
+                  .split(/\. |.\n\n|.\n/)
                   .map((look, index) => (
                     <li className="list-disc list-inside pl-2" key={index}>
                       {look}
@@ -166,25 +204,37 @@ const Job = () => {
                 Nice to have
               </p>
               <ul className="tablet:text-base text-sm">
-                {jobById?.nice_to_have.split(". ").map((have, index) => (
-                  <li className="list-disc list-inside pl-2" key={index}>
-                    {have}
-                  </li>
-                ))}
+                {jobById?.nice_to_have
+                  .split(/\. |.\n\n|.\n/)
+                  .map((have, index) => (
+                    <li className="list-disc list-inside pl-2" key={index}>
+                      {have}
+                    </li>
+                  ))}
               </ul>
             </div>
             <div className="flex flex-col gap-2 tablet:gap-3">
               <p className="text-base tablet:text-2xl font-bold">
                 Preferred candidate data
               </p>
-              <p className="tablet:text-base text-sm">
-                {jobById?.ideal_candidate}
-              </p>
+              <ul className="tablet:text-base text-sm">
+                {jobById?.ideal_candidate
+                  .split(/\. |.\n\n|.\n/)
+                  .map((have, index) => (
+                    <li className="list-disc list-inside pl-2" key={index}>
+                      {have}
+                    </li>
+                  ))}
+              </ul>
             </div>
             <div className="flex flex-col gap-2 tablet:gap-3">
               <p className="text-base tablet:text-2xl font-bold">Skills</p>
+
               <ul className="tablet:text-base text-sm">
-                {jobById?.skills.split(". ").map((skill, index) => (
+                <p>
+                  The {jobById?.job_title} role requires the following skills:
+                </p>
+                {jobById?.skills.split(/\. |.\n\n|.\n/).map((skill, index) => (
                   <li className="list-disc list-inside pl-2" key={index}>
                     {skill}
                   </li>
@@ -194,22 +244,24 @@ const Job = () => {
           </div>
 
           {/**Second Layout */}
-          <div className="tablet:w-[350px] flex flex-col gap-6 mt-4 tablet:mt-0 ">
+          <div className="tablet:min-w-[350px] flex flex-col gap-6 mt-4 tablet:mt-0 ">
             <Summary display={"tablet:flex hidden"} />
             <Share />
-            <Tags />
+            {/* <Tags /> */}
           </div>
-          <Link href={"/"}>
-            <button className="my-8 text-white w-full bg-primary text-sm tablet:text-base py-2 px-5 hover:opacity-90 gap-1 rounded-[30px] border border-primary text-center h-fit block tablet:hidden">
-              Apply now
-            </button>
-          </Link>
+          <button
+            onClick={handleApply}
+            className="my-8 text-white w-full bg-primary text-sm tablet:text-base py-2 px-5 hover:opacity-90 gap-1 rounded-[30px] border border-primary text-center h-fit block tablet:hidden"
+          >
+            Apply now
+          </button>
         </div>
-        <Button
+        <Button2
           text={"Apply Now"}
-          path={"/"}
           bgColor={"bg-primary hidden tablet:flex"}
           color={"text-white"}
+          width={"w-fit"}
+          onClick={handleApply}
         />
       </div>
     </section>

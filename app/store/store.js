@@ -15,6 +15,9 @@ const JOBS = `${BASE_URL}user/jobs`;
 const JOBBYID = `${BASE_URL}user/jobyid`;
 const COURSES = `${BASE_URL}user/getcourses`;
 const COURSEBYID = `${BASE_URL}user/coursebyid/`;
+const APPLY = `${BASE_URL}user/applyforjobs`;
+const TALENT = `${BASE_URL}user/talents`;
+const APPLIED = `${BASE_URL}user/applications`;
 
 const useJapaStore = create(
   persist(
@@ -31,6 +34,7 @@ const useJapaStore = create(
       course: null,
       signedIn: false,
       limit: 20,
+      applied: [],
 
       //isUserSignedIn
 
@@ -65,6 +69,7 @@ const useJapaStore = create(
             const token = response.data.token;
             localStorage.setItem("authToken", token);
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            console.log(response.data.user_data)
             set({
               loading: false,
               email: email,
@@ -236,6 +241,47 @@ const useJapaStore = create(
           set({ loading: false });
         }
       },
+
+      applyForJobs: async ({ user_id, job_id }) => {
+        try {
+          set({ loading: true });
+          await axios.post(APPLY, { user_id, job_id });
+          toast.success("Thanks for Applying");
+          set({ loading: false });
+        } catch (error) {
+          const errorMsg =
+            error?.response?.data?.message || "Kindly sign in to apply";
+          toast.error(errorMsg);
+          set({ loading: false });
+        }
+      },
+
+      fetchAppliedJobs: async (id) => {
+        try {
+          set({ loading: true });
+          const response = await axios.get(`${APPLIED}?user_id=${id}`);
+          console.log(response.data.jobs)
+          set({ loading: false, applied: response.data.jobs });
+        } catch (error) {
+          const errorMsg =
+            error?.response?.data?.message || "error fetching data";
+          toast.error(errorMsg);
+          set({loading: false})
+        }
+      },
+
+      //   bookASession: async ({full_name, current_skills, course_of_choice, resume_link}) => {
+      //     try {
+      //       set({loading:true})
+      //       await axios.post(APPLY, {full_name, current_skills, course_of_choice, resume_link})
+      //       toast.success("Thanks for Applying")
+      //       set({loading:false})
+      //     } catch(error) {
+      //       const errorMsg = error?.response?.data?.message || "Kindly sign in to apply"
+      //       toast.error(errorMsg)
+      //       set({loading:false})
+      //     }
+      //   }
     }),
 
     {

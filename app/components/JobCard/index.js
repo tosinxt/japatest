@@ -9,7 +9,6 @@ const JobCard = ({
   location,
   jobTitle,
   jobType,
-  jobId,
   path,
   skills = [],
 }) => {
@@ -31,7 +30,7 @@ const JobCard = ({
               <p className="text-textNeutral text-sm font-light">{location}</p>
             </div>
             <div className="flex flex-col items-start justify-start mb-4">
-              <p className="font-bold tablet:text-xl text-textDefault">{jobTitle}</p>
+              <p className="font-bold tablet:text-xl text-textDefault line-clamp-2">{jobTitle}</p>
               <p
                 className={`font-light text-xs tablet:text-sm ${
                   jobType === "Remote" ? "text-textDefault" : "text-green-500"
@@ -41,7 +40,7 @@ const JobCard = ({
               </p>
             </div>
             <div className="flex items-start justify-start gap-y-0 gap-x-2 h-full tablet:h-[80px] flex-wrap font-light">
-              {skills.map((skill, index) => (
+              {skills?.slice(0,4).map((skill, index) => (
                 <div
                   key={index}
                   className="border w-fit px-2 py-1 text-textNeutral rounded-3xl text-xs tablet:text-[15px]"

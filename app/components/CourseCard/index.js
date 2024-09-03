@@ -7,10 +7,10 @@ import AOS from "aos";
 
 const CourseCard = ({ src, alt, title, text, path }) => {
   const loading = useJapaStore((state) => state.loading);
-    useEffect(() => {
-      AOS.init({ once: true });
-    }, []);
 
+  useEffect(() => {
+    AOS.init({ once: true });
+  }, []);
 
   return (
     <Box>
@@ -24,22 +24,26 @@ const CourseCard = ({ src, alt, title, text, path }) => {
       ) : (
         <Link href={path}>
           <div
-            className="flex flex-col p-3 h-full rounded-2xl text-textDefault max-w-[370px] bg-primaryLight"
+            className="flex flex-col h-full p-3 rounded-2xl text-textDefault max-w-[370px] bg-primaryLight"
             data-aos="flip-left"
             data-aos-duration="1500"
           >
-            <div className="flex flex-col gap-2 h-full">
+            <div className="flex flex-col gap-2 h-full flex-grow">
               <Image
                 src={src}
                 alt={alt}
                 width={9999}
                 height={9999}
-                style={{ height: "318px", width: "100%" }}
+                style={{ height: "auto", width: "100%" }}
               />
-              <span className="text-xl tablet:text-2xl font-bold">{title}</span>
-              <p className="w-full text-sm tablet:text-base">{text}</p>
+              <span className="text-xl tablet:text-2xl font-bold line-clamp-2 min-h-[60px]">
+                {title}
+              </span>
+              <p className="w-full text-sm tablet:text-base line-clamp-3">
+                {text}
+              </p>
             </div>
-            <div className="border border-textDefault w-full px-5 py-2 rounded-[30px] mt-12 tablet:mt-16 mb-3 bg-transparent font-medium text-center">
+            <div className="border border-textDefault w-full px-5 py-2 rounded-[30px] mt-8 bg-transparent font-medium text-center">
               Learn more
             </div>
           </div>

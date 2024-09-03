@@ -1,17 +1,34 @@
-"use client"
+"use client";
 import Button from "@/app/components/Button";
 import Modal from "@/app/components/Modal";
 import { Reviews } from "@/app/page";
+import { useJapaStore } from "@/app/store/store";
 import Aos from "aos";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const TalentAssessment = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const user = useJapaStore((state) => state.user);
+  const router = useRouter();
 
   useEffect(() => {
-     Aos.init({ once: true });
-  }, [])
+    Aos.init({ once: true });
+  }, []);
+
+  const handleOpenModal = () => {
+    // if (!user) {
+    //   toast.error("Kindly log in to book a session")
+    //   router.push("/login")
+    // } else {
+    //   setIsModalOpen(true)
+    // }
+
+    window.location.href =
+      "https://paystack.com/buy/test-for-career-coaching-qujnwh";
+  };
 
   return (
     <div className="mt-20">
@@ -37,7 +54,7 @@ const TalentAssessment = () => {
               Finding Suitable Courses for your Skills?
             </h2>
             <button
-              onClick={() => setIsModalOpen(true)}
+              onClick={handleOpenModal}
               className="text-white w-full bg-primary text-sm tablet:text-base py-2 px-5 flex justify-center items-center hover:opacity-90 gap-1 rounded-[30px] border border-primary text-center"
               data-aos="fade-up"
               data-aos-duration="1500"
@@ -122,7 +139,7 @@ const TalentAssessment = () => {
               <span className="">Maximize Success with expert Guidance!</span>
             </div>
             <button
-              onClick={() => setIsModalOpen(true)}
+              onClick={handleOpenModal}
               className="text-white w-full bg-primary text-sm tablet:text-base py-2 px-5 flex justify-center items-center hover:opacity-90 gap-1 rounded-[30px] border border-primary text-center"
               data-aos="fade-up"
               data-aos-duration="1500"
@@ -165,7 +182,7 @@ const TalentAssessment = () => {
               </li>
             </ul>
             <button
-              onClick={() => setIsModalOpen(true)}
+              onClick={handleOpenModal}
               className="my-8 text-white w-full bg-primary text-sm tablet:text-base py-2 px-5 flex justify-center items-center hover:opacity-90 gap-1 rounded-[30px] border border-primary text-center"
               data-aos="fade-up"
               data-aos-duration="1500"
@@ -186,7 +203,7 @@ const TalentAssessment = () => {
             Journey
           </p>
           <button
-            onClick={() => setIsModalOpen(true)}
+            onClick={handleOpenModal}
             className="mt-10 text-white w-full bg-primary text-sm tablet:text-base py-2 px-5 flex justify-center items-center hover:opacity-90 gap-1 rounded-[30px] border border-primary text-center"
             data-aos="fade-up"
             data-aos-duration="1500"
@@ -196,7 +213,7 @@ const TalentAssessment = () => {
         </div>
       </section>
       <Reviews />
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      {/* <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} /> */}
     </div>
   );
 };

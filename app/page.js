@@ -46,7 +46,7 @@ const Reviews = () => (
       >
         <CommunityCard
           text={
-            "Japa is a platform that has helped me understand what being informed is. I got to understand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
+            "Japa is a platform that has helped me understand what being informed is. \n\nI got to understand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
           }
           name={"Ogala"}
           src={"/avatar.svg"}
@@ -54,20 +54,20 @@ const Reviews = () => (
         />
         <CommunityCard
           text={
-            "Japa is a platform that has helped me understand what being informed is. I got to understand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
+            "Got an offer for this role that was posted on this forum. \n\nThank you to the leaders of this platform, more blessings "
           }
-          name={"Ogala"}
-          src={"/avatar.svg"}
+          name={"Barr Rachael Ogbebor"}
+          src={"/avatar2.svg"}
           alt={"profile picture"}
         />
       </div>
       <div className="mr-[15px] tablet:mr-0 mb-20 tablet:mb-0">
         <CommunityCard
           text={
-            "Japa is a platform that has helped me understand what being informed is. I got to understand that I don’t have to settle for less. I could keep going till I get to the destination i desire"
+            "I just want to say thank you to the Japa team for the exclusive role I got. \n\nI have started working and it can only get better from here      "
           }
-          name={"Ogala"}
-          src={"/avatar.svg"}
+          name={"Jennifer"}
+          src={"/avatar3.svg"}
           alt={"profile picture"}
         />
       </div>

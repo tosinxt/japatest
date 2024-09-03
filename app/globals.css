@@ -89,3 +89,11 @@ input:focus {
 .slide-from-bottom {
   animation: slideFromBottom 0.5s ease-out forwards;
 }
+
+/* .line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} */
