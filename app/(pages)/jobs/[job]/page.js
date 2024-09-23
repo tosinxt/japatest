@@ -23,11 +23,11 @@ const Job = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpenModal = () => {
-     if (!user) {
-       toast.error("Kindly sign in to apply for a Job");
+    if (!user) {
+      toast.error("Kindly sign in to apply for a Job");
 
-       return;
-     }
+      return;
+    }
 
     let redirectUrl = jobById?.link;
     if (
@@ -93,14 +93,22 @@ const Job = () => {
     </div>
   );
 
-  const Share = () => (
+const Share = () => {
+  const jobUrl = encodeURIComponent(window.location.href);
+  const jobTitle = encodeURIComponent(jobById?.job_title);
+
+  return (
     <div className="flex flex-col gap-7 py-5 px-3 border rounded-xl">
       <div className="flex flex-col gap-2">
         <p className="text-xl tablet:text-3xl font-bold">Share with</p>
         <hr className="h-[3px] w-12 bg-primary" />
       </div>
       <div className="flex justify-between items-center">
-        <Link href={"/"}>
+        {/* Twitter */}
+        <Link
+          href={`https://twitter.com/intent/tweet?url=${jobUrl}&text=Check out this job opportunity: ${jobTitle}`}
+          target="_blank"
+        >
           <Image
             src={"/twitter2.svg"}
             height={24}
@@ -109,36 +117,55 @@ const Job = () => {
             className="hover:scale-[1.1] ease-in-out"
           />
         </Link>
-        <Link href={"/"}>
+
+        {/* LinkedIn */}
+        <Link
+          href={`https://www.linkedin.com/shareArticle?mini=true&url=${jobUrl}&title=${jobTitle}`}
+          target="_blank"
+        >
           <Image
-            src={"/instagram.svg"}
+            src={"/linkedin2.svg"}
             height={24}
             width={24}
-            alt="twitter"
+            alt="linkedin"
             className="hover:scale-[1.1] ease-in-out"
           />
         </Link>
-        <Link href={"/"}>
+
+        {/* Facebook */}
+        <Link
+          href={`https://www.facebook.com/sharer/sharer.php?u=${jobUrl}`}
+          target="_blank"
+        >
           <Image
             src={"/fb.svg"}
             height={12}
             width={12}
-            alt="twitter"
+            alt="facebook"
             className="hover:scale-[1.1] ease-in-out"
           />
         </Link>
-        <Link href={"/"}>
+
+        {/* Instagram - No direct URL for sharing */}
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(window.location.href);
+            toast.success("Link copied! Share on Instagram.");
+          }}
+        >
           <Image
-            src={"/linkedin2.svg"}
-            height={26}
-            width={26}
-            alt="twitter"
+            src={"/instagram.svg"}
+            height={24}
+            width={24}
+            alt="instagram"
             className="hover:scale-[1.1] ease-in-out"
           />
-        </Link>
+        </button>
       </div>
     </div>
   );
+};
+
 
   const Tags = () => (
     <div className="flex flex-col gap-4 py-5 px-3 border rounded-xl">
