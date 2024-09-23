@@ -56,7 +56,7 @@ const Header = () => {
           <div className="flex flex-col gap-6">
             <NavLink path="/" text={"Home"} />
             <NavLink path="/applied" text={"Applied"} />
-            <NavLink path="/talentAssessment" text={"Talent Assessment"} />
+            <NavLink path="/careerCoaching" text={"Career Coaching"} />
           </div>
         ) : (
           <div className="flex flex-col gap-6">
@@ -81,7 +81,7 @@ const Header = () => {
           </div>
         ) : (
           <div className="flex flex-col gap-6">
-            <NavLink path="/talentAssessment" text={"Talent Assessment"} />
+            <NavLink path="/careerCoaching" text={"Career Coaching"} />
             <NavLink path={"/jobs"} text={"Jobs"} />
             <NavLink path="/login" text={"Login"} />
           </div>
@@ -98,7 +98,7 @@ const Header = () => {
             <div className="flex gap-3">
               <NavLink path="/" text={"Home"} />
               <NavLink path="/applied" text={"Applied"} />
-              <NavLink path="/talentAssessment" text={"Talent Assessment"} />
+              <NavLink path="/careerCoaching" text={"Career Coaching"} />
             </div>
           ) : (
             <div className="flex gap-3">
@@ -139,7 +139,7 @@ const Header = () => {
             </div>
           ) : (
             <div className="flex gap-3">
-              <NavLink path="/talentAssessment" text={"Talent Assessment"} />
+              <NavLink path="/careerCoaching" text={"Career Coaching"} />
               <NavLink path={"/jobs"} text={"Jobs"} />
               <NavLink path="/login" text={"Login"} />
             </div>

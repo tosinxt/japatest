@@ -10,7 +10,6 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const TalentAssessment = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useJapaStore((state) => state.user);
   const router = useRouter();
 

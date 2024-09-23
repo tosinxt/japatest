@@ -22,20 +22,6 @@ const TYPES = `${BASE_URL}user/jobtypes`;
 const TECHNOLOGIES = `${BASE_URL}user/technologies`;
 const YOE = `${BASE_URL}user/yoe`;
 
-// Custom storage using cookies
-const cookieStorage = {
-  getItem: (name) => {
-    const value = Cookies.get(name);
-    return value ? JSON.parse(value) : undefined;
-  },
-  setItem: (name, value) => {
-    Cookies.set(name, JSON.stringify(value), { expires: 7 }); // cookies will expire in 7 days
-  },
-  removeItem: (name) => {
-    Cookies.remove(name);
-  },
-};
-
 const useJapaStore = create(
   persist(
     (set, get) => ({
@@ -88,9 +74,8 @@ const useJapaStore = create(
             return false;
           } else {
             const token = response.data.token;
-            Cookies.set("authToken", token, { expires: 7 });
+            Cookies.set("authToken", token, { expires: 1, sameSite: "strict" });
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-            console.log(response.data.user_data);
             set({
               loading: false,
               email: email,
@@ -134,9 +119,6 @@ const useJapaStore = create(
           set({ loading: true, signedIn: false, user: null });
           const response = await axios.post(VERIFY_OTP, data);
           if (response.status === 200) {
-            const token = response.data.message;
-            const userToken = token.split(" ")[1];
-            localStorage.setItem("token", userToken);
             set({
               loading: false,
               signedIn: true,
@@ -343,6 +325,14 @@ const useJapaStore = create(
     {
       name: "auth",
       storage: createJSONStorage(() => cookieStorage), // Or other storage mechanism
+      // Add a `partialize` function if you want to persist only certain state keys
+      onRehydrateStorage: () => (state, error) => {
+        if (error) {
+          console.log("Error during rehydration", error);
+        } else {
+          console.log("Rehydrated state", state);
+        }
+      },
     }
   )
 );
