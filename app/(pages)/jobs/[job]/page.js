@@ -23,6 +23,12 @@ const Job = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpenModal = () => {
+     if (!user) {
+       toast.error("Kindly sign in to apply for a Job");
+
+       return;
+     }
+
     let redirectUrl = jobById?.link;
     if (
       redirectUrl &&
