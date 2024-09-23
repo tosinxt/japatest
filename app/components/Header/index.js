@@ -2,15 +2,16 @@
 import { useJapaStore } from "@/app/store/store";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Header = () => {
   const currentPath = usePathname();
   const signedIn = useJapaStore((state) => state.signedIn);
   const user = useJapaStore((state) => state.user);
-  const logout = useJapaStore((state) => state.logout)
+  const logout = useJapaStore((state) => state.logout);
   const [dropDown, setDropDown] = useState(false);
+  const router = useRouter();
 
   // Modified isActive function
   const isActive = (path) => {
@@ -20,6 +21,15 @@ const Header = () => {
       (path === "/jobs" && currentPath.startsWith("/jobs/")) ||
       (path === "/courses" && currentPath.startsWith("/courses/"))
     );
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.replace("/");
+    } catch (err) {
+
+    }
   };
 
   const NavLink = ({ text, path }) => (
@@ -63,7 +73,7 @@ const Header = () => {
           <div className="flex flex-col gap-6">
             <div className="text-xs">{user.email}</div>
             <div
-              onClick={logout}
+              onClick={handleLogout}
               className="text-xs text-primary cursor-pointer underline"
             >
               Logout
@@ -122,7 +132,7 @@ const Header = () => {
               <div className="text-xs">{user.email}</div>
               <div
                 className="text-xs text-primary cursor-pointer underline"
-                onClick={logout}
+                onClick={handleLogout}
               >
                 Logout
               </div>

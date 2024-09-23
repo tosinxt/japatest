@@ -4,7 +4,7 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import Cookies from "js-cookie";
 
-const BASE_URL = "https://coral-app-9xy6y.ondigitalocean.app/japa/v1/";
+const BASE_URL = "https://server.japatalent.com/japa/v1/";
 const SIGN_UP = `${BASE_URL}registration/createaccount`;
 const LOG_IN = `${BASE_URL}user/login`;
 const VERIFY_OTP = `${BASE_URL}registration/verifyotp`;
@@ -16,8 +16,11 @@ const JOBBYID = `${BASE_URL}user/jobyid`;
 const COURSES = `${BASE_URL}user/getcourses`;
 const COURSEBYID = `${BASE_URL}user/coursebyid/`;
 const APPLY = `${BASE_URL}user/applyforjobs`;
-const TALENT = `${BASE_URL}user/talents`;
 const APPLIED = `${BASE_URL}user/applications`;
+const CATEGORIES = `${BASE_URL}user/jobcategory`;
+const TYPES = `${BASE_URL}user/jobtypes`;
+const TECHNOLOGIES = `${BASE_URL}user/technologies`;
+const YOE = `${BASE_URL}user/yoe`;
 
 // Custom storage using cookies
 const cookieStorage = {
@@ -49,6 +52,10 @@ const useJapaStore = create(
       signedIn: false,
       limit: 20,
       applied: [],
+      categories: [],
+      types: [],
+      technologies: [],
+      yoe: [],
 
       //isUserSignedIn
 
@@ -81,8 +88,9 @@ const useJapaStore = create(
             return false;
           } else {
             const token = response.data.token;
-            Cookies.set("authToken", token, { expires: 7 });            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-            console.log(response.data.user_data)
+            Cookies.set("authToken", token, { expires: 7 });
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            console.log(response.data.user_data);
             set({
               loading: false,
               email: email,
@@ -273,28 +281,63 @@ const useJapaStore = create(
         try {
           set({ loading: true });
           const response = await axios.get(`${APPLIED}?user_id=${id}`);
-          console.log(response.data.jobs)
+          console.log(response.data.jobs);
           set({ loading: false, applied: response.data.jobs });
         } catch (error) {
           const errorMsg =
             error?.response?.data?.message || "error fetching data";
           toast.error(errorMsg);
-          set({loading: false})
+          set({ loading: false });
         }
       },
 
-      //   bookASession: async ({full_name, current_skills, course_of_choice, resume_link}) => {
-      //     try {
-      //       set({loading:true})
-      //       await axios.post(APPLY, {full_name, current_skills, course_of_choice, resume_link})
-      //       toast.success("Thanks for Applying")
-      //       set({loading:false})
-      //     } catch(error) {
-      //       const errorMsg = error?.response?.data?.message || "Kindly sign in to apply"
-      //       toast.error(errorMsg)
-      //       set({loading:false})
-      //     }
-      //   }
+      fetchJobCategories: async () => {
+        try {
+          set({ loading: true });
+          const response = await axios.get(CATEGORIES);
+          const categories = response.data.data;
+          set({ loading: false, categories: categories });
+        } catch (err) {
+          const errorMessage = err?.response.data.message;
+          toast.error(errorMessage);
+        }
+      },
+
+      fetchJobTypes: async () => {
+        try {
+          set({ loading: true });
+          const response = await axios.get(TYPES);
+          const types = response.data.data;
+          set({ loading: false, types: types });
+        } catch (err) {
+          const errorMessage = err?.response.data.message;
+          toast.error(errorMessage);
+        }
+      },
+
+      fetchJobTechnologies: async () => {
+        try {
+          set({ loading: true });
+          const response = await axios.get(TECHNOLOGIES);
+          const technologies = response.data.tech;
+          set({ loading: false, technologies: technologies });
+        } catch (err) {
+          const errorMessage = err?.response.data.message;
+          toast.error(errorMessage);
+        }
+      },
+
+      fetchYOE: async () => {
+        try {
+          set({ loading: true });
+          const response = await axios.get(YOE);
+          const yoe = response.data.type;
+          set({ loading: false, yoe: yoe });
+        } catch (err) {
+          const errorMessage = err?.response.data.message;
+          toast.error(errorMessage);
+        }
+      },
     }),
 
     {

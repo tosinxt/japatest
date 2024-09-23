@@ -6,12 +6,41 @@ import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import { Box, Skeleton } from "@mui/material";
 
 const Jobs = () => {
-  const { jobs, findJobs, limit } = useJapaStore((state) => ({
+  const {
+    jobs,
+    findJobs,
+    limit,
+    technologies,
+    types,
+    categories,
+    yoe,
+    fetchTechnologies,
+    fetchTypes,
+    fetchCategories,
+    fetchYOE,
+    loading,
+  } = useJapaStore((state) => ({
     jobs: state.jobs,
     findJobs: state.findJobs,
     limit: state.limit,
+    technologies: state.technologies,
+    types: state.types,
+    categories: state.categories,
+    yoe: state.yoe,
+    fetchTechnologies: state.fetchJobTechnologies,
+    fetchTypes: state.fetchJobTypes,
+    fetchCategories: state.fetchJobCategories,
+    fetchYOE: state.fetchYOE,
+    loading: state.loading,
   }));
 
   const [fetchComplete, setFetchComplete] = useState(false);
@@ -23,14 +52,19 @@ const Jobs = () => {
       setFetchComplete(true);
     };
     fetchJobs();
-     Aos.init({ once: true });
+    Aos.init({ once: true });
   }, [findJobs, currentLimit]);
+
+  useEffect(() => {
+    fetchTechnologies();
+    fetchTypes();
+    fetchCategories();
+    fetchYOE();
+  }, [fetchTypes, fetchCategories, fetchTechnologies, fetchYOE]);
 
   const showMoreJobs = () => {
     setCurrentLimit((prevLimit) => prevLimit + 20);
   };
-
-  console.log(jobs.length);
 
   const {
     register,
@@ -39,28 +73,12 @@ const Jobs = () => {
     formState: { isSubmitting },
   } = useForm();
 
-  const jobTypes = [
-    "Remote",
-    "Full time",
-    "Part time",
-    "Intern",
-    "Volunteer",
-    "Others",
-  ];
-  const jobCategories = [
-    "Product",
-    "Sales",
-    "Marketing",
-    "Mobile app services",
-  ];
-  const options = [
-    { value: "JavaScript", label: "JavaScript" },
-    { value: "Angular", label: "Angular" },
-    { value: "Bootstrap", label: "Bootstrap" },
-    { value: "ReactJS", label: "React JS" },
-    { value: "VueJS", label: "Vue JS" },
-  ];
-  const yearsOfExperience = ["1 -3 years", "4 - 7 years", "8 - 10 years"];
+  const options = technologies.map((technology) => ({
+    value: technology.name,
+    label: technology.name,
+  }));
+
+  const yearsOfExperience = yoe.map((year) => `${year.name} years`);
 
   const [dropDown, setDropDown] = useState(false);
 
@@ -79,10 +97,6 @@ const Jobs = () => {
     experience: "",
     type: "",
   });
-
-  useEffect(() => {
-    console.log(filters);
-  }, [filters]);
 
   const resetFilter = () => {
     // Reset filters to their default values
@@ -126,14 +140,27 @@ const Jobs = () => {
     });
   };
 
-  const FilterBox = ({ text, onClick }) => (
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const categoriesData = categories.map((category) => category.name);
+
+  useEffect(() => {
+    if (categoriesData.length > 0) {
+      setDataLoaded(true); // Set true when data is fully loaded
+    }
+  }, [categoriesData.length]);
+
+  const FilterBox = ({ text, onFilterSelect, value }) => (
     <button
-      onClick={onClick}
+      onClick={() => onFilterSelect(value)}
       className="bg-lightPurple w-fit px-[10px] py-2 text-primary text-sm rounded-md"
     >
       {text}
     </button>
   );
+
+  const handleFilterSelect = (category) => {
+    findJobs({ category, limit });
+  };
 
   const customStyles = {
     option: (provided, state) => ({
@@ -187,42 +214,52 @@ const Jobs = () => {
     <div
       className={`tablet:w-[350px] h-fit bg-white px-6 py-5 tablet:rounded-xl shadow-md ${display}`}
     >
-      <p className="text-xl font-bold mb-7 flex justify-between">
+      <div className="text-xl font-bold mb-7 flex items-center justify-between">
         Filters{" "}
-        <Image
+        <div
+          className="font-normal text-sm underline cursor-pointer"
+          onClick={resetFilter}
+        >
+          Reset
+        </div>
+        {/* <Image
           src={"/cancel.svg"}
           alt={"close"}
           height={14}
           width={14}
           onClick={resetFilter}
-        />
-      </p>
+        /> */}
+      </div>
       <div className="flex flex-col gap-3 mb-8">
         <p className="text-sm font-bold flex justify-between items-center">
           Job Type
         </p>
         <div className="flex flex-col gap-3 text-sm">
-          {jobTypes.map((jobType, index) => (
-            <div className="flex justify-between items-center" key={index}>
-              <div className="flex gap-2 items-center">
-                <input
-                  type="checkbox"
-                  value={jobType}
-                  checked={filters.type === jobType}
-                  onChange={() =>
-                    handleCheckboxChange(setFilters, jobType, "type")
-                  }
-                  className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
-                />
-                <label
-                  className="text-textDefault text-opacity-80"
-                  htmlFor={jobType}
-                >
-                  {jobType}
-                </label>
+          {loading ? (
+            <Skeleton />
+          ) : (
+            types.map((jobType, index) => (
+              <div className="flex justify-between items-center" key={index}>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="checkbox"
+                    value={filters.type}
+                    checked={filters.type === jobType.name}
+                    onChange={() =>
+                      handleCheckboxChange(setFilters, jobType.name, "type")
+                    }
+                    className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
+                  />
+                  <label
+                    className="text-textDefault text-opacity-80"
+                    htmlFor={jobType.name}
+                  >
+                    {jobType.name}
+                  </label>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
       <div className="flex flex-col gap-3 mb-8">
@@ -230,70 +267,88 @@ const Jobs = () => {
           Job Category
         </p>
         <div className="flex flex-col gap-3 text-sm">
-          {jobCategories.map((jobCategory, index) => (
-            <div className="flex justify-between items-center" key={index}>
-              <div className="flex gap-2 items-center">
-                <input
-                  type="checkbox"
-                  value={filters.category}
-                  checked={filters.category === jobCategory}
-                  onChange={() =>
-                    handleCheckboxChange(setFilters, jobCategory, "category")
-                  }
-                  className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
-                />
-                <label
-                  className="text-textDefault text-opacity-80"
-                  htmlFor={jobCategory}
-                >
-                  {jobCategory}
-                </label>
+          {loading ? (
+            <Skeleton />
+          ) : (
+            categories.map((jobCategory, index) => (
+              <div className="flex justify-between items-center" key={index}>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="checkbox"
+                    value={filters.category}
+                    checked={filters.category === jobCategory.name}
+                    onChange={() =>
+                      handleCheckboxChange(
+                        setFilters,
+                        jobCategory.name,
+                        "category"
+                      )
+                    }
+                    className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
+                  />
+                  <label
+                    className="text-textDefault text-opacity-80"
+                    htmlFor={jobCategory.name}
+                  >
+                    {jobCategory.name}
+                  </label>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
       <div className="flex flex-col gap-3 mb-8">
         <p className="text-sm font-bold flex justify-between items-center">
           Technologies used
         </p>
-        <Select
-          options={options}
-          value={options.find((option) => option.value === filters.technology)}
-          onChange={handleSelectChange}
-          styles={customStyles}
-          placeholder="Select a technology..."
-          className="basic-single-select text-sm"
-          classNamePrefix="select"
-          isSearchable
-        />
+        {loading ? (
+          <Skeleton />
+        ) : (
+          <Select
+            options={options}
+            value={options.find(
+              (option) => option.value === filters.technology
+            )}
+            onChange={handleSelectChange}
+            styles={customStyles}
+            placeholder="Select a technology..."
+            className="basic-single-select text-sm"
+            classNamePrefix="select"
+            isSearchable
+          />
+        )}
       </div>
       <div className="flex flex-col gap-3 mb-8">
         <p className="text-sm font-bold flex justify-between items-center">
           Years Required
         </p>
         <div className="flex flex-col gap-3 text-sm">
-          {yearsOfExperience.map((years, index) => (
-            <div className="flex justify-between items-center" key={index}>
-              <div className="flex gap-2 items-center">
-                <input
-                  type="checkbox"
-                  value={filters.experience}
-                  checked={filters.experience === years}
-                  onChange={() =>
-                    handleCheckboxChange(setFilters, years, "experience")
-                  }
-                  className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
-                />
-                <label
-                  className="text-textDefault text-opacity-80"
-                  htmlFor={years}
-                >
-                  {years}
-                </label>
+          {loading ? (
+            <Skeleton />
+          ) : (
+            yearsOfExperience.map((years, index) => (
+              <div className="flex justify-between items-center" key={index}>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="checkbox"
+                    value={filters.experience}
+                    checked={filters.experience === years}
+                    onChange={() =>
+                      handleCheckboxChange(setFilters, years, "experience")
+                    }
+                    className="h-[19px] w-[19px] rounded-lg accent-primary focus:border-0 focus:outline-0"
+                  />
+                  <label
+                    className="text-textDefault text-opacity-80"
+                    htmlFor={years}
+                  >
+                    {years}
+                  </label>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </div>
@@ -367,38 +422,68 @@ const Jobs = () => {
             Search
           </button>
         </form>
-        <div className="tablet:flex hidden justify-between">
-          <FilterBox text={"All Jobs"} />
-          <FilterBox text={"Remote Jobs"} />
-          <FilterBox text={"Backend"} />
-          <FilterBox text={"Web Dev"} />
-          <FilterBox text={"Product design"} />
-          <FilterBox text={"Frontend"} />
-          <FilterBox text={"ios"} />
-          <FilterBox text={"Data Science"} />
-          <FilterBox text={"Design"} />
-          <FilterBox text={"Webflow"} />
+        <div>
+          <Swiper
+            modules={[Navigation]}
+            navigation={true}
+            spaceBetween={20}
+            slidesPerView="auto"
+          >
+            {dataLoaded && (
+              <SwiperSlide>
+                <FilterBox
+                  text={"All Jobs"}
+                  value={""}
+                  onFilterSelect={() => handleFilterSelect("")}
+                />
+              </SwiperSlide>
+            )}
+
+            {categoriesData.map((data, index) => (
+              <SwiperSlide key={index}>
+                <FilterBox
+                  text={data}
+                  value={data}
+                  onFilterSelect={() => handleFilterSelect(data)}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
       {/* lower layout */}
       <div className="flex gap-8 items-start">
         {/* filter bar */}
         <Filter display={"tablet:block hidden"} />
-        <div className="w-fit flex flex-col gap-4 relative">
+        <div className="w-full flex flex-col gap-4 relative">
           {fetchComplete && (
             <div className="tablet:hidden flex items-end justify-end text-primary underline font-medium">
               <span onClick={handleToggle} className="w-fit cursor-pointer">
-                Filters
+                {dropDown ? (
+                  <Image
+                    src={"/cancel.svg"}
+                    alt={"close"}
+                    height={14}
+                    width={14}
+                    title="Close filter"
+                  />
+                ) : (
+                  <span className="text-right flex justify-end items-end w-full">
+                    Filters
+                  </span>
+                )}
               </span>
             </div>
           )}
           {dropDown && (
             <Filter display={"tablet:hidden absolute top-6 right-0 z-10"} />
           )}
-          <div className="flex flex-col justify-center items-center gap-8">
+          <div className="flex flex-col justify-center gap-8">
             <div className="flex gap-4 flex-wrap justify-center tablet:justify-start">
-              {fetchComplete && !jobs === 0 ? (
-                <div>Your search parameters did not match any jobs</div>
+              {fetchComplete && jobs.length < 1 ? (
+                <div className="text-left">
+                  Your search parameters did not match any jobs
+                </div>
               ) : (
                 jobs?.map((job) => (
                   <JobCard
@@ -414,12 +499,14 @@ const Jobs = () => {
               )}
             </div>
             {fetchComplete && jobs.length === currentLimit && (
-              <button
-                onClick={showMoreJobs}
-                className="bg-primary h-10 rounded-lg text-white text-xs tablet:text-base px-4 w-full tablet:w-fit font-medium flex justify-center items-center"
-              >
-                Load More Jobs
-              </button>
+              <div className="flex items-center w-full justify-center">
+                <button
+                  onClick={showMoreJobs}
+                  className="bg-primary h-10 rounded-lg text-white text-xs tablet:text-base px-4 w-full tablet:w-fit font-medium flex justify-center items-center"
+                >
+                  Load More Jobs
+                </button>
+              </div>
             )}
           </div>
         </div>

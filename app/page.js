@@ -287,7 +287,7 @@ const Home = () => {
         <div className="text-xl tablet:text-2xl font-bold">
           Hot Jobs Available Now
         </div>
-        <div className="flex gap-4 flex-wrap w-fit pc:grid pc:grid-cols-4 justify-center">
+        <div className="flex gap-4 flex-wrap w-fit pc:grid pc:grid-cols-4 justify-center items-center">
           {jobs?.map((job) => (
             <JobCard
               key={job?._id}

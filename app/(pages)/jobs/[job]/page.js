@@ -1,12 +1,13 @@
 "use client";
 import Button from "@/app/components/Button";
 import Button2 from "@/app/components/Button2";
+import Modal from "@/app/components/Modal";
 import { useJapaStore } from "@/app/store/store";
 import Aos from "aos";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const Job = () => {
@@ -19,37 +20,38 @@ const Job = () => {
       user: state.user,
     })
   );
+  const [openModal, setOpenModal] = useState(false);
 
- const handleApply = async () => {
-   const user_id = user?._id;
-   const job_id = job;
+  const handleOpenModal = () => {
+    let redirectUrl = jobById?.link;
+    if (
+      redirectUrl &&
+      !redirectUrl.startsWith("http://") &&
+      !redirectUrl.startsWith("https://")
+    ) {
+      redirectUrl = `https://${redirectUrl}`;
+    }
+    window.open(redirectUrl, "_blank");
 
-   if (!user) {
-    toast.error("Kindly sign in to apply for a Job")
+    setOpenModal(true);
+  };
 
-    return;
-   }
+  const handleApply = async () => {
+    const user_id = user?._id;
+    const job_id = job;
 
-   try {
-     await applyForJobs({user_id, job_id});
+    if (!user) {
+      toast.error("Kindly sign in to apply for a Job");
 
-     // Ensure the jobById.link is a fully qualified URL
-     let redirectUrl = jobById?.link;
-     if (
-       redirectUrl &&
-       !redirectUrl.startsWith("http://") &&
-       !redirectUrl.startsWith("https://")
-     ) {
-       redirectUrl = `https://${redirectUrl}`;
-     }
+      return;
+    }
 
-     // Redirect to the job link after applying
-     window.open(redirectUrl, "_blank");
-   } catch (error) {
-     console.error("Failed to apply:", error);
-   }
- };
-
+    try {
+      await applyForJobs({ user_id, job_id });
+    } catch (error) {
+      console.error("Failed to apply:", error);
+    }
+  };
 
   useEffect(() => {
     findJobByID(job);
@@ -157,7 +159,7 @@ const Job = () => {
           <div className="w-full flex items-end justify-end">
             <Button2
               text={"Apply Now"}
-              onClick={handleApply}
+              onClick={handleOpenModal}
               bgColor={"bg-primary"}
               color={"text-white"}
               width={"w-fit"}
@@ -250,7 +252,7 @@ const Job = () => {
             {/* <Tags /> */}
           </div>
           <button
-            onClick={handleApply}
+            onClick={handleOpenModal}
             className="my-8 text-white w-full bg-primary text-sm tablet:text-base py-2 px-5 hover:opacity-90 gap-1 rounded-[30px] border border-primary text-center h-fit block tablet:hidden"
           >
             Apply now
@@ -261,9 +263,17 @@ const Job = () => {
           bgColor={"bg-primary hidden tablet:flex"}
           color={"text-white"}
           width={"w-fit"}
-          onClick={handleApply}
+          onClick={handleOpenModal}
         />
       </div>
+      <Modal
+        handleApply={handleApply}
+        onClose={() => setOpenModal(false)}
+        isOpen={openModal}
+        job_title={jobById?.job_title}
+        job_company={jobById?.company_name}
+        user_name={user?.first_name}
+      />
     </section>
   );
 };
