@@ -46,7 +46,7 @@ const TalentAssessment = () => {
         </div>
         <div className="flex flex-col gap-5 tablet:basis-2/3 px-[15px] tablet:px-0 pt-14 tablet:pt-0">
           <p className="font-medium text-primary py-1.5 px-1.5 border bg-[#F2EAFD] w-fit rounded-2xl">
-            Talent Assessment
+            Career Coaching
           </p>
           <div className=" tablet:w-[600px]">
             <h2 className="text-3xl tablet:text-[48px] leading-tight text-textDefault font-bold mb-4">

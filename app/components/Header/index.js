@@ -122,7 +122,7 @@ const Header = () => {
             />
           </Link>
         </div>
-        <div className="tablet:hidden" onClick={toggleDropDown}>
+        <div className="tablet:hidden block" onClick={toggleDropDown}>
           <Image src="/menu.svg" alt="" height={36} width={36} />
           {dropDown && <DropDown />}
         </div>
