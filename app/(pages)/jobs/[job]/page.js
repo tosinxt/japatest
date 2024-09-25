@@ -213,7 +213,7 @@ const Share = () => {
                 What you will be doing
               </p>
               <ul className="tablet:text-base text-sm">
-                {jobById?.about.split(/\. |.\n\n|.\n/).map((about, index) => (
+                {jobById?.what_you_will_be_doing?.split(/\. |.\n\n|.\n/).map((about, index) => (
                   <li className="list-disc list-inside pl-2" key={index}>
                     {about}
                   </li>

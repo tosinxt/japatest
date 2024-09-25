@@ -25,8 +25,7 @@ const TalentAssessment = () => {
     //   setIsModalOpen(true)
     // }
 
-    window.location.href =
-      "https://paystack.com/buy/test-for-career-coaching-qujnwh";
+    window.location.href = "https://paystack.com/buy/career-coaching-scmray";
   };
 
   return (
@@ -155,7 +154,7 @@ const TalentAssessment = () => {
           data-aos-duration="1500"
         >
           <p className="bg-[#E4E4E4] h-28 text-2xl tablet:text-4xl font-bold flex justify-center items-center">
-            ₦5000/hr
+            ₦10,000/hr
           </p>
           <div className="px-3 tablet:px-5 py-3 tablet:py-8">
             <ul className="list-none text-base flex flex-col gap-6">

@@ -15,11 +15,14 @@ export const metadata = {
     "Discover the ultimate platform where we upskill, empower, and walk with you to your dream career",
 };
 
-
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+        <link rel="icon" href="/logo2.svg" />
+      </head>
       <body className={`relative ${poppins.className}`}>
         {children}
         <ToastContainer
