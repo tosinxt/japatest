@@ -11,7 +11,7 @@ const CoursesPage = () => {
   const courses = useJapaStore((state) => state.courses);
   useEffect(() => {
     getCourses();
-     Aos.init({ once: true });
+    Aos.init({ once: true });
   }, [getCourses]);
 
   return (
@@ -21,7 +21,8 @@ const CoursesPage = () => {
           <div className="flex flex-col gap-5 tablet:justify-start tablet:w-[500px]">
             <p
               className="text-white font-bold text-3xl leading-tight tablet:text-[60px]"
-              data-aos="fade-right"
+              data-aos="
+fade-up"
               data-aos-duration="1500"
             >
               Learn Skills for your Dream Job
@@ -37,7 +38,8 @@ const CoursesPage = () => {
             />
             <div
               className="border-2 border-primary w-[120px] tablet:w-[200px] h-[80px] tablet:h-[100px] rounded-md bg-white absolute top-4 tablet:top-10 -right-2 tablet:-right-10"
-              data-aos="fade-left"
+              data-aos="
+fade-up"
               data-aos-duration="1500"
             >
               <span className="text-lg tablet:text-2xl flex flex-col justify-center items-center  gap-1tablet:gap-2 h-full font-bold text-primary">
@@ -49,7 +51,8 @@ const CoursesPage = () => {
             </div>
             <div
               className="border-2 border-primary w-[130px] tablet:w-[180px]  h-[80px] tablet:h-[100px]  rounded-md bg-white absolute bottom-5 -left-2 tablet:-left-5"
-              data-aos="fade-right"
+              data-aos="
+fade-up"
               data-aos-duration="1500"
             >
               <span className="text-lg tablet:text-2xl flex flex-col justify-center items-center  gap-1tablet:gap-2 h-full font-bold text-primary">

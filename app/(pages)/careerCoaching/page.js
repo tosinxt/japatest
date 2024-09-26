@@ -39,7 +39,8 @@ const TalentAssessment = () => {
             width={9999}
             style={{ height: "280px", width: "100%" }}
             className="tablet:hidden "
-            data-aos="fade-right"
+            data-aos="
+fade-up"
             data-aos-duration="1500"
           />
         </div>
@@ -66,7 +67,8 @@ const TalentAssessment = () => {
         <div className="flex flex-col justify-center items-center gap-2 mb-8">
           <p
             className="font-medium text-primary py-1.5 px-1.5 border bg-[#F2EAFD] w-fit rounded-2xl"
-            data-aos="fade-left"
+            data-aos="
+fade-up"
             data-aos-duration="1500"
           >
             How it Works
@@ -150,7 +152,8 @@ const TalentAssessment = () => {
       <section className="bg-talent bg-cover bg-[#D7BFFA] mt-20 h-[600px] tablet:h-[810px] flex items-center justify-center">
         <div
           className="bg-white w-[310px] tablet:w-fit m-auto border-2 border-primary shadow-talent"
-          data-aos="fade-right"
+          data-aos="
+fade-up"
           data-aos-duration="1500"
         >
           <p className="bg-[#E4E4E4] h-28 text-2xl tablet:text-4xl font-bold flex justify-center items-center">

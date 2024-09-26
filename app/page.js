@@ -32,7 +32,7 @@ const Reviews = () => (
     <div>
       <p
         className="text-2xl text-center tablet:text-3xl font-bold text-textDefault"
-        data-aos="fade-left"
+        data-aos="fade-up"
         data-aos-duration="1500"
       >
         What our community members are saying
@@ -121,7 +121,8 @@ const Home = () => {
               </span>
               <span
                 className="text-primary"
-                data-aos="fade-left"
+                data-aos="
+fade-up"
                 data-aos-duration="1500"
               >
                 {" "}
@@ -130,7 +131,8 @@ const Home = () => {
             </h2>
             <p
               className="text-textDefault text-opacity-85"
-              data-aos="fade-right"
+              data-aos="
+fade-up"
               data-aos-duration="1500"
             >
               The Easiest Way to Boost Your Employability and Secure <br />{" "}
