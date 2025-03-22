@@ -48,9 +48,21 @@ const useJapaStore = create(
       // isUserSignedIn: (signedIn) => set({signedIn: signedIn}),
 
       //sign up
-      register: async ({ first_name, last_name, email, pass_word }) => {
+      register: async ({
+        first_name,
+        last_name,
+        email,
+        phone_number,
+        pass_word,
+      }) => {
         try {
-          const data = { first_name, last_name, email, pass_word };
+          const data = {
+            first_name,
+            last_name,
+            email,
+            phone_number,
+            pass_word,
+          };
           set({ loading: true });
           const response = await axios.post(SIGN_UP, data);
           toast.success(response.data.message);
