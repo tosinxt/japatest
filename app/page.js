@@ -181,7 +181,7 @@ fade-up"
           data-aos-duration="1500"
         >
           <span className="text-4xl flex flex-col justify-center items-center gap-2 h-full font-bold text-primary">
-            100K+
+            10K+
             <span className="text-textNeutral text-base font-normal">
               Students taught
             </span>
@@ -193,7 +193,7 @@ fade-up"
           data-aos-duration="1500"
         >
           <span className="text-4xl flex flex-col justify-center items-center gap-2 h-full font-bold text-[#FF9F24]">
-            50K
+            1K
             <span className="text-textNeutral text-base font-normal">
               CV Revamped
             </span>
@@ -205,7 +205,7 @@ fade-up"
           data-aos-duration="1500"
         >
           <span className="text-4xl flex flex-col justify-center items-center gap-2 h-full font-bold text-[#FF5FCC]">
-            30K
+            100+
             <span className="text-textNeutral text-base font-normal">
               Students taught
             </span>

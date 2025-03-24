@@ -195,13 +195,13 @@ fade-up"
       </section>
       <section className="bg-talent2 bg-cover py-20 tablet:pt-12 tablet:pb-28 mt-20 tablet:mt-36 flex flex-col justify-center items-center">
         <div className="px-[15px] tablet:px-0 tablet:w-[420px] flex flex-col gap-2 text-center text-white">
-          <p className="font-medium">Still unsure about which course?</p>
+          <p className="font-medium">Still unsure about your career path?</p>
           <p className="tablet:text-lg font-bold">
-            Over 50,000 people are with you in this ship.
+            Over 50,000 people are with you on this ship.{" "}
           </p>
           <p className="text-lg tablet:text-2xl text-[#d7bffa] font-bold mt-4 tablet:mt-6">
-            With our Talent Assessment, you will get Clarity on your Career
-            Journey
+            With our career coaching, you will get clarity on
+            your career journey.
           </p>
           <button
             onClick={handleOpenModal}

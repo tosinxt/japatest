@@ -38,7 +38,7 @@ const Footer = () => {
         </ul>
         <ul className="flex flex-col gap-3">
           <li>Contact</li>
-          <li>talent@japatalent.com</li>
+          <li>JapatechGlobal@gmail.com</li>
           <li>+234 8128206869</li>
           <li className="flex items-center gap-6">
             <Link
