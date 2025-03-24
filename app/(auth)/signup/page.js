@@ -14,18 +14,21 @@ const SignUp = () => {
   const {
     register,
     reset,
-
     handleSubmit,
     control,
     getValues,
-    formState: { isSubmitting, isSubmitted, errors },
+    formState: { isSubmitting, errors },
   } = useForm();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false); // Track checkbox state
+
   const signUpUser = useJapaStore((state) => state.register);
   const route = useRouter();
 
   const onSubmit = async () => {
+    if (!agreedToTerms) return; // Prevent submission if terms are not accepted
+
     const data = {
       first_name: getValues("fName"),
       last_name: getValues("lName"),
@@ -34,16 +37,14 @@ const SignUp = () => {
       pass_word: getValues("password"),
     };
 
-    console.log(data);
-
     try {
       await signUpUser(data);
-      console.log(data);
       route.push("/login");
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <section className="flex justify-center py-10 px-[15px]">
       <div className="flex flex-col gap-2 max-w-[390px] w-full">
@@ -53,49 +54,33 @@ const SignUp = () => {
           className="flex flex-col gap-3 mt-2"
         >
           <div className="flex flex-col gap-[6px]">
-            <label
-              htmlFor="fName"
-              className="text-textDefault text-base font-[500]"
-            >
+            <label className="text-textDefault text-base font-[500]">
               First Name
             </label>
             <input
               type="text"
-              name="fName"
               placeholder="Enter your first name"
-              {...register("fName", {
-                required: "Enter your first name",
-              })}
+              {...register("fName", { required: "Enter your first name" })}
               className="border-[1.5px] border-textDefault h-[52px] pl-2 rounded-lg text-[15px]"
             />
           </div>
           <div className="flex flex-col gap-[6px]">
-            <label
-              htmlFor="LName"
-              className="text-textDefault text-base font-[500]"
-            >
+            <label className="text-textDefault text-base font-[500]">
               Last Name
             </label>
             <input
               type="text"
-              name="lName"
               placeholder="Enter your last name"
-              {...register("lName", {
-                required: "Enter your last name",
-              })}
+              {...register("lName", { required: "Enter your last name" })}
               className="border-[1.5px] border-textDefault h-[52px] pl-2 rounded-lg text-[15px]"
             />
           </div>
           <div className="flex flex-col gap-[6px]">
-            <label
-              htmlFor="email"
-              className="text-textDefault text-base font-[500]"
-            >
+            <label className="text-textDefault text-base font-[500]">
               Email
             </label>
             <input
               type="email"
-              name="email"
               placeholder="Enter your email address"
               {...register("email", {
                 required: "Please enter an email address",
@@ -124,17 +109,12 @@ const SignUp = () => {
             {errors.phoneNumber && <p>{errors.phoneNumber.message}</p>}
           </div>
           <div className="flex flex-col gap-[6px] relative">
-            <label
-              htmlFor="password"
-              className="text-textDefault text-base font-[500]"
-            >
+            <label className="text-textDefault text-base font-[500]">
               Password
             </label>
-
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
-                name="password"
                 placeholder="Enter your password"
                 {...register("password", {
                   required: "Please enter your password",
@@ -147,7 +127,6 @@ const SignUp = () => {
                 })}
                 className="border-[1.5px] border-textDefault h-[52px] pl-2 pr-10 rounded-lg text-[15px] w-full"
               />
-
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
@@ -156,7 +135,6 @@ const SignUp = () => {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
-
             {errors.password && (
               <span className="text-[12.5px] opacity-50">
                 Your password should be at least 8 characters long, include
@@ -165,14 +143,52 @@ const SignUp = () => {
               </span>
             )}
           </div>
-          <Button text="Create Account" isSubmitting={isSubmitting} />
+
+          {/* Terms and Conditions Checkbox */}
+          <div className="flex items-start gap-2">
+            <input
+              type="checkbox"
+              id="terms"
+              checked={agreedToTerms}
+              onChange={() => setAgreedToTerms(!agreedToTerms)}
+              className="mt-1 w-5 h-5 cursor-pointer"
+            />
+            <label htmlFor="terms" className="text-sm text-gray-700">
+              I agree to the{" "}
+              <Link
+                href="https://docs.google.com/document/d/1E0dJMdGN3z0_ml6m-Z-V7sqsnSADVNc5/edit"
+                className="text-primary font-medium"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="https://docs.google.com/document/d/1M0rtuQIto6wFVR1SrCvcLGX4NnNa2-HwezSdPQGUiHE/edit?tab=t.0"
+                className="text-primary font-medium"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Privacy Policy
+              </Link>
+            </label>
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={!agreedToTerms || isSubmitting}
+            className={`h-[52px] rounded-lg text-white font-medium ${
+              !agreedToTerms || isSubmitting
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-primary hover:bg-primary-dark"
+            }`}
+          >
+            {isSubmitting ? "Creating Account..." : "Create Account"}
+          </button>
         </form>
-        <div className="text-textNeutral flex flex-col items-center justify-center py-6">
-          By signing up, you agree to our{" "}
-          <Link href={"/"} className="text-textDefault font-medium">
-            Terms of Service & Privacy Policy
-          </Link>
-        </div>
+
         <div className="mx-auto flex items-center gap-1">
           <span className="text-textDefault">Already have an account?</span>
           <Link
