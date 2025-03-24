@@ -183,7 +183,7 @@ fade-up"
           <span className="text-4xl flex flex-col justify-center items-center gap-2 h-full font-bold text-primary">
             10K+
             <span className="text-textNeutral text-base font-normal">
-              Students taught
+              Job Seekers Reached
             </span>
           </span>
         </div>
@@ -195,7 +195,7 @@ fade-up"
           <span className="text-4xl flex flex-col justify-center items-center gap-2 h-full font-bold text-[#FF9F24]">
             1K
             <span className="text-textNeutral text-base font-normal">
-              CV Revamped
+              Community Members
             </span>
           </span>
         </div>
@@ -207,7 +207,7 @@ fade-up"
           <span className="text-4xl flex flex-col justify-center items-center gap-2 h-full font-bold text-[#FF5FCC]">
             100+
             <span className="text-textNeutral text-base font-normal">
-              Students taught
+              Customers
             </span>
           </span>
         </div>
