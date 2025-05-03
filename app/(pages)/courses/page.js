@@ -43,7 +43,7 @@ fade-up"
               data-aos-duration="1500"
             >
               <span className="text-lg tablet:text-2xl flex flex-col justify-center items-center  gap-1tablet:gap-2 h-full font-bold text-primary">
-                100K+
+                10K+
                 <span className="text-textDefault text-xs text-center tablet:text-sm font-normal">
                   Students taught
                 </span>
@@ -56,7 +56,7 @@ fade-up"
               data-aos-duration="1500"
             >
               <span className="text-lg tablet:text-2xl flex flex-col justify-center items-center  gap-1tablet:gap-2 h-full font-bold text-primary">
-                2000
+                1000
                 <span className="text-textDefault text-xs text-center tablet:text-sm font-normal">
                   Jobs offered
                 </span>
