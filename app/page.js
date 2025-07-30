@@ -19,7 +19,7 @@ const Courses = ({ courses }) => (
         src={"/dataA.png"}
         alt={course.title}
         title={course.title}
-        text="Learn data analysis from industry experts. Gain practical skills and hands-on experience."
+        text="Upskill for the future—learn in-demand tech skills and become globally competitive with JapaTalent."
         path={`/courses/${course._id}`}
         key={course._id}
       />
