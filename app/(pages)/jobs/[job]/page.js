@@ -208,74 +208,84 @@ const Share = () => {
               <p className="text-base tablet:text-2xl font-bold">About Job</p>
               <p className="tablet:text-base text-sm">{jobById?.about}</p>
             </div>
-            <div className="flex flex-col gap-2 tablet:gap-3">
-              <p className="text-base tablet:text-2xl font-bold">
-                What you will be doing
-              </p>
-              <ul className="tablet:text-base text-sm">
-                {jobById?.what_you_will_be_doing?.split(/\. |.\n\n|.\n/).map((about, index) => (
-                  <li className="list-disc list-inside pl-2" key={index}>
-                    {about}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="flex flex-col gap-2 tablet:gap-3">
-              <p className="text-base tablet:text-2xl font-bold">
-                What we are looking for
-              </p>
-              <ul className="tablet:text-base text-sm">
-                {jobById?.what_we_are_lookin_for
-                  .split(/\. |.\n\n|.\n/)
-                  .map((look, index) => (
-                    <li className="list-disc list-inside pl-2" key={index}>
-                      {look}
-                    </li>
-                  ))}
-              </ul>
-            </div>
-            <div className="flex flex-col gap-2 tablet:gap-3">
-              <p className="text-base tablet:text-2xl font-bold">
-                Nice to have
-              </p>
-              <ul className="tablet:text-base text-sm">
-                {jobById?.nice_to_have
-                  .split(/\. |.\n\n|.\n/)
-                  .map((have, index) => (
-                    <li className="list-disc list-inside pl-2" key={index}>
-                      {have}
-                    </li>
-                  ))}
-              </ul>
-            </div>
-            <div className="flex flex-col gap-2 tablet:gap-3">
-              <p className="text-base tablet:text-2xl font-bold">
-                Preferred candidate data
-              </p>
-              <ul className="tablet:text-base text-sm">
-                {jobById?.ideal_candidate
-                  .split(/\. |.\n\n|.\n/)
-                  .map((have, index) => (
-                    <li className="list-disc list-inside pl-2" key={index}>
-                      {have}
-                    </li>
-                  ))}
-              </ul>
-            </div>
-            <div className="flex flex-col gap-2 tablet:gap-3">
-              <p className="text-base tablet:text-2xl font-bold">Skills</p>
-
-              <ul className="tablet:text-base text-sm">
-                <p>
-                  The {jobById?.job_title} role requires the following skills:
+            {jobById?.what_you_will_be_doing && (
+              <div className="flex flex-col gap-2 tablet:gap-3">
+                <p className="text-base tablet:text-2xl font-bold">
+                  What you will be doing
                 </p>
-                {jobById?.skills.split(/\. |.\n\n|.\n/).map((skill, index) => (
-                  <li className="list-disc list-inside pl-2" key={index}>
-                    {skill}
-                  </li>
-                ))}
-              </ul>
-            </div>
+                <ul className="tablet:text-base text-sm">
+                  {jobById.what_you_will_be_doing.split(/\. |.\n\n|.\n/).map((about, index) => (
+                    <li className="list-disc list-inside pl-2" key={index}>
+                      {about}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {jobById?.what_we_are_lookin_for && (
+              <div className="flex flex-col gap-2 tablet:gap-3">
+                <p className="text-base tablet:text-2xl font-bold">
+                  What we are looking for
+                </p>
+                <ul className="tablet:text-base text-sm">
+                  {jobById.what_we_are_lookin_for
+                    .split(/\. |.\n\n|.\n/)
+                    .map((look, index) => (
+                      <li className="list-disc list-inside pl-2" key={index}>
+                        {look}
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            )}
+            {jobById?.nice_to_have && (
+              <div className="flex flex-col gap-2 tablet:gap-3">
+                <p className="text-base tablet:text-2xl font-bold">
+                  Nice to have
+                </p>
+                <ul className="tablet:text-base text-sm">
+                  {jobById.nice_to_have
+                    .split(/\. |.\n\n|.\n/)
+                    .map((have, index) => (
+                      <li className="list-disc list-inside pl-2" key={index}>
+                        {have}
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            )}
+            {jobById?.ideal_candidate && (
+              <div className="flex flex-col gap-2 tablet:gap-3">
+                <p className="text-base tablet:text-2xl font-bold">
+                  Preferred candidate data
+                </p>
+                <ul className="tablet:text-base text-sm">
+                  {jobById.ideal_candidate
+                    .split(/\. |.\n\n|.\n/)
+                    .map((have, index) => (
+                      <li className="list-disc list-inside pl-2" key={index}>
+                        {have}
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            )}
+            {jobById?.skills && (
+              <div className="flex flex-col gap-2 tablet:gap-3">
+                <p className="text-base tablet:text-2xl font-bold">Skills</p>
+
+                <ul className="tablet:text-base text-sm">
+                  <p>
+                    The {jobById?.job_title} role requires the following skills:
+                  </p>
+                  {jobById.skills.split(/\. |.\n\n|.\n/).map((skill, index) => (
+                    <li className="list-disc list-inside pl-2" key={index}>
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
 
           {/**Second Layout */}
