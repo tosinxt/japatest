@@ -1,6 +1,7 @@
 "use client";
 import JobCard from "@/app/components/JobCard";
 import { useJapaStore } from "@/app/store/store";
+import GradientText from "@/app/components/GradientText";
 import Aos from "aos";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
@@ -355,9 +356,33 @@ const Jobs = () => {
   );
 
   return (
-    <section className="flex flex-col gap-10 pt-24 tablet:pt-36 pb-20 bg-[#fafafb] tablet:px-[64px] px-[15px]">
-      {/* upper layout */}
-      <div className="flex flex-col gap-12">
+    <div>
+      {/* Hero Section */}
+      <section className="relative min-h-[400px] tablet:min-h-[500px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/5 via-purple-50 to-pink-50">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-20 right-10 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
+        </div>
+
+        <div className="relative z-10 container mx-auto px-4 tablet:px-8 py-20 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-6">
+            <span className="text-sm text-primary font-medium">💼 Find Your Dream Job</span>
+          </div>
+          
+          <h1 className="text-4xl tablet:text-5xl pc:text-6xl font-bold text-textDefault leading-tight mb-6 max-w-4xl mx-auto">
+            Discover <GradientText>Opportunities</GradientText> That Match Your Skills
+          </h1>
+          
+          <p className="text-lg tablet:text-xl text-textNeutral mb-8 leading-relaxed max-w-2xl mx-auto">
+            Browse thousands of job listings from top companies looking for talented professionals like you.
+          </p>
+        </div>
+      </section>
+
+      {/* Search & Filters Section */}
+      <section className="flex flex-col gap-10 pt-12 tablet:pt-16 pb-20 bg-white tablet:px-[64px] px-[15px]">
+        {/* upper layout */}
+        <div className="flex flex-col gap-12">
         <form
           className="rounded-l-lg flex flex-col tablet:flex-row h-full tablet:h-16 shadow-sm"
           onSubmit={handleSubmit(onSubmit)}
@@ -512,6 +537,7 @@ const Jobs = () => {
         </div>
       </div>
     </section>
+    </div>
   );
 };
 

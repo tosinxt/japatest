@@ -35,13 +35,16 @@ const Header = () => {
   const NavLink = ({ text, path }) => (
     <Link
       href={path}
-      className={`rounded-[30px] text-sm tablet:text-base w-fit px-4 tablet:px-6 h-10 font-normal border flex items-center justify-center   ${
+      className={`group relative rounded-full text-sm tablet:text-base w-fit px-4 tablet:px-6 h-10 font-medium flex items-center justify-center transition-all duration-300 ${
         isActive(path)
-          ? "bg-primary border-primary text-white"
-          : "bg-white border-textDefault text-textDefault hover:bg-gray-100"
+          ? "bg-gradient-to-r from-primary to-purple-600 text-white shadow-lg shadow-primary/30"
+          : "text-textDefault hover:text-primary hover:bg-primaryLight"
       }`}
     >
       {text}
+      {!isActive(path) && (
+        <span className="absolute inset-0 rounded-full border-2 border-primary opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
+      )}
     </Link>
   );
 
@@ -51,7 +54,7 @@ const Header = () => {
 
   const DropDown = () => {
     return (
-      <div className="flex flex-col gap-6 absolute top-100 right-0 bg-white px-4 py-10 h-screen shadow-lg ease-in-out">
+      <div className="flex flex-col gap-6 absolute top-full right-0 bg-white/95 backdrop-blur-xl px-6 py-8 min-h-screen shadow-2xl animate-slideIn border-l border-gray-100">
         {signedIn ? (
           <div className="flex flex-col gap-6">
             <NavLink path="/" text={"Home"} />
@@ -91,7 +94,7 @@ const Header = () => {
   };
 
   return (
-    <header className="pt-4 pb-4 tablet:pt-8 tablet:pb-4 border fixed top-0 bg-white w-full z-20">
+    <header className="pt-4 pb-4 tablet:pt-6 tablet:pb-4 border-b border-gray-100 fixed top-0 bg-white/80 backdrop-blur-lg w-full z-50 shadow-sm">
       <div className="flex justify-between items-center tablet:px-[64px] px-[15px] relative">
         <div className="hidden tablet:block">
           {signedIn ? (
@@ -122,20 +125,39 @@ const Header = () => {
             />
           </Link>
         </div>
-        <div className="tablet:hidden block" onClick={toggleDropDown}>
-          <Image src="/menu.svg" alt="" height={36} width={36} />
+        <button 
+          className="tablet:hidden block p-2 hover:bg-primaryLight rounded-lg transition-colors duration-300"
+          onClick={toggleDropDown}
+          aria-label="Toggle menu"
+        >
+          {dropDown ? (
+            <svg className="w-6 h-6 text-textDefault" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg className="w-6 h-6 text-textDefault" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          )}
           {dropDown && <DropDown />}
-        </div>
+        </button>
         <div className="hidden tablet:block">
           {signedIn ? (
-            <div className="flex flex-col text-right gap-1">
-              <div className="text-xs">{user.email}</div>
-              <div
-                className="text-xs text-primary cursor-pointer underline"
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 px-4 py-2 bg-primaryLight rounded-full">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center text-white font-semibold text-sm">
+                  {user.email?.charAt(0)?.toUpperCase()}
+                </div>
+                <div className="flex flex-col">
+                  <div className="text-xs font-medium text-textDefault">{user.email}</div>
+                </div>
+              </div>
+              <button
+                className="text-sm text-primary hover:text-purple-700 font-medium px-4 py-2 hover:bg-primaryLight rounded-full transition-all duration-300"
                 onClick={handleLogout}
               >
                 Logout
-              </div>
+              </button>
             </div>
           ) : (
             <div className="flex gap-3">

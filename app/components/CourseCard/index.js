@@ -1,3 +1,4 @@
+"use client";
 import { useJapaStore } from "@/app/store/store";
 import { Box, Skeleton } from "@mui/material";
 import Image from "next/image";
@@ -24,27 +25,52 @@ const CourseCard = ({ src, alt, title, text, path }) => {
       ) : (
         <Link href={path}>
           <div
-            className="flex flex-col h-full p-3 rounded-2xl text-textDefault max-w-[370px] bg-primaryLight"
-            data-aos="flip-left"
-            data-aos-duration="1500"
+            className="group relative flex flex-col h-full p-4 rounded-2xl text-textDefault max-w-[370px] bg-white border border-gray-100 hover:border-primary/30 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 overflow-hidden"
+            data-aos="fade-up"
+            data-aos-duration="800"
           >
-            <div className="flex flex-col gap-2 h-full flex-grow">
-              <Image
-                src={src}
-                alt={alt}
-                width={9999}
-                height={9999}
-                style={{ height: "auto", width: "100%" }}
-              />
-              <span className="text-xl tablet:text-2xl font-bold line-clamp-2 min-h-[60px]">
+            {/* Gradient overlay on hover */}
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300 blur-sm -z-10" />
+
+            <div className="flex flex-col gap-3 h-full flex-grow">
+              <div className="relative overflow-hidden rounded-xl">
+                <Image
+                  src={src}
+                  alt={alt}
+                  width={9999}
+                  height={9999}
+                  style={{ height: "auto", width: "100%" }}
+                  className="group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute top-3 right-3 bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  New
+                </div>
+              </div>
+
+              <span className="text-xl tablet:text-2xl font-bold line-clamp-2 min-h-[60px] group-hover:text-primary transition-colors">
                 {title}
               </span>
-              <p className="w-full text-sm tablet:text-base line-clamp-3">
+
+              <p className="w-full text-sm tablet:text-base line-clamp-3 text-textNeutral">
                 {text}
               </p>
             </div>
-            <div className="border border-textDefault w-full px-5 py-2 rounded-[30px] mt-8 bg-transparent font-medium text-center">
-              Learn more
+
+            <div className="mt-6 bg-primary group-hover:bg-purple-700 text-white w-full px-5 py-3 rounded-full font-semibold text-center transition-all duration-300 flex items-center justify-center gap-2">
+              <span>Learn more</span>
+              <svg
+                className="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
             </div>
           </div>
         </Link>
