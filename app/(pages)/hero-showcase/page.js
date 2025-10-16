@@ -259,7 +259,7 @@ const HeroShowcase = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-textDefault mb-1">Copy the Code</h3>
-                  <p className="text-textNeutral">Click "Copy Code" button to get the import statement</p>
+                  <p className="text-textNeutral">Click &ldquo;Copy Code&rdquo; button to get the import statement</p>
                 </div>
               </div>
               
@@ -271,8 +271,8 @@ const HeroShowcase = () => {
                   <h3 className="font-bold text-textDefault mb-1">Replace in page.js</h3>
                   <p className="text-textNeutral">Replace your current hero section with the copied code</p>
                   <div className="mt-2 bg-white rounded-lg p-4 font-mono text-sm text-textDefault border border-gray-200">
-                    <div className="text-green-600">// In app/page.js</div>
-                    <div className="text-blue-600">import</div> {selectedHeroData?.name.replace(" ", "")} <div className="text-blue-600 inline">from</div> <div className="text-orange-600 inline">"./components/{selectedHeroData?.name.replace(" ", "")}"</div>;
+                    <div className="text-green-600">{"// In app/page.js"}</div>
+                    <div className="text-blue-600">import</div> {selectedHeroData?.name.replace(" ", "")} <div className="text-blue-600 inline">from</div> <div className="text-orange-600 inline">&ldquo;./components/{selectedHeroData?.name.replace(" ", "")}&rdquo;</div>;
                     <br /><br />
                     <div className="text-gray-600">{"// Replace current hero with:"}</div>
                     {"<"}{selectedHeroData?.name.replace(" ", "")} {"/>"}
