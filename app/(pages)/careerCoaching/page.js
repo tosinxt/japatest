@@ -3,6 +3,7 @@ import Button from "@/app/components/Button";
 import Modal from "@/app/components/Modal";
 import { Reviews } from "@/app/page";
 import { useJapaStore } from "@/app/store/store";
+import GradientText from "@/app/components/GradientText";
 import Aos from "aos";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -29,51 +30,70 @@ const TalentAssessment = () => {
   };
 
   return (
-    <div className="mt-20">
-      <section className='flex flex-col-reverse tablet:flex-row tablet:items-center gap-8 tablet:gap-52 tablet:bg-[url("/talentBanner.png")] bg-no-repeat bg-contain tablet:h-[calc(100vh-80px)]'>
-        <div className="tablet:basis-1/3 ">
-          <Image
-            src={"/talentBanner.png"}
-            alt=""
-            height={9999}
-            width={9999}
-            style={{ height: "280px", width: "100%" }}
-            className="tablet:hidden "
-            data-aos="
-fade-up"
-            data-aos-duration="1500"
-          />
+    <div>
+      {/* Hero Section */}
+      <section className="relative min-h-[600px] tablet:min-h-[700px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/5 via-purple-50 to-pink-50">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-20 right-10 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
         </div>
-        <div className="flex flex-col gap-5 tablet:basis-2/3 px-[15px] tablet:px-0 pt-14 tablet:pt-0">
-          <p className="font-medium text-primary py-1.5 px-1.5 border bg-[#F2EAFD] w-fit rounded-2xl">
-            Career Coaching
-          </p>
-          <div className=" tablet:w-[600px]">
-            <h2 className="text-3xl tablet:text-[48px] leading-tight text-textDefault font-bold mb-4">
-              Finding Suitable Courses for your Skills?
-            </h2>
-            <button
-              onClick={handleOpenModal}
-              className="text-white w-full bg-primary text-sm tablet:text-base py-2 px-5 flex justify-center items-center hover:opacity-90 gap-1 rounded-[30px] border border-primary text-center"
-              data-aos="fade-up"
-              data-aos-duration="1500"
-            >
-              Book a session
-            </button>
+
+        <div className="relative z-10 container mx-auto px-4 tablet:px-8 py-20 tablet:py-32">
+          <div className="flex flex-col-reverse tablet:flex-row items-center justify-between gap-12 tablet:gap-16">
+            {/* Image */}
+            <div className="flex-1 relative max-w-lg">
+              <div className="relative">
+                <Image
+                  src="/talentBanner.png"
+                  alt="Career Coaching"
+                  height={450}
+                  width={450}
+                  className="relative z-10 drop-shadow-2xl"
+                  data-aos="fade-up"
+                  data-aos-duration="1000"
+                />
+                <div className="absolute -top-4 -left-4 w-72 h-72 bg-gradient-to-br from-primary/20 to-purple-500/20 rounded-full blur-3xl" />
+                <div className="absolute -bottom-4 -right-4 w-72 h-72 bg-gradient-to-br from-pink-500/20 to-orange-500/20 rounded-full blur-3xl" />
+              </div>
+            </div>
+
+            {/* Text Content */}
+            <div className="flex-1 text-center tablet:text-left max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-6">
+                <span className="text-sm text-primary font-medium">🎯 Career Coaching</span>
+              </div>
+              
+              <h1 className="text-4xl tablet:text-5xl pc:text-6xl font-bold text-textDefault leading-tight mb-6">
+                Finding Suitable <GradientText>Courses</GradientText> for your Skills?
+              </h1>
+              
+              <p className="text-lg tablet:text-xl text-textNeutral mb-8 leading-relaxed">
+                Get personalized guidance from industry experts to accelerate your career growth and land your dream job.
+              </p>
+
+              <button
+                onClick={handleOpenModal}
+                className="bg-gradient-to-r from-primary to-purple-600 text-white text-base tablet:text-lg py-4 px-8 rounded-full font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full tablet:w-auto"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+              >
+                Book a Session
+              </button>
+            </div>
           </div>
         </div>
       </section>
-      <section className="mx-[15px] tablet:mx-[64px] mt-16 tablet:mt-20 flex flex-col items-center justify-center text-textDefault">
-        <div className="flex flex-col justify-center items-center gap-2 mb-8">
-          <p
-            className="font-medium text-primary py-1.5 px-1.5 border bg-[#F2EAFD] w-fit rounded-2xl"
-            data-aos="
-fade-up"
-            data-aos-duration="1500"
-          >
-            How it Works
+      <section className="mx-[15px] tablet:mx-[64px] mt-16 tablet:mt-24 flex flex-col items-center justify-center text-textDefault">
+        <div className="flex flex-col justify-center items-center gap-4 mb-12 text-center max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
+            <span className="text-sm text-primary font-medium">⚡ How it Works</span>
+          </div>
+          <h2 className="text-3xl tablet:text-4xl pc:text-5xl font-bold">
+            Step-by-Step <GradientText>Process</GradientText>
+          </h2>
+          <p className="text-base tablet:text-lg text-textNeutral">
+            Get started with our simple three-step process
           </p>
-          <p className="font-bold text-2xl mt-2">Step-by-Step Process</p>
         </div>
         <div className="text-base tablet:text-xl flex flex-col tablet:flex-row items-center font-medium  justify-between gap-16 w-full text-center tablet:text-left">
           <div
