@@ -28,7 +28,7 @@ const SplitScreenHero = () => {
 
             {/* Description */}
             <p className="text-lg tablet:text-xl text-textNeutral leading-relaxed">
-              Join thousands of professionals who've landed their dream jobs through our 
+              Join thousands of professionals who&apos;ve landed their dream jobs through our 
               comprehensive courses, personalized coaching, and exclusive job opportunities.
             </p>
 
