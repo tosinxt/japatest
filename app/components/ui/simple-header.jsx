@@ -3,9 +3,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Sheet, SheetContent, SheetFooter } from "@/app/components/ui/sheet";
+import { Sheet, SheetContent, SheetFooter, SheetTrigger } from "@/app/components/ui/sheet";
 import { Button, buttonVariants } from "@/app/components/ui/button";
-import { MenuToggle } from "@/app/components/ui/menu-toggle";
 
 export function SimpleHeader() {
   const [open, setOpen] = React.useState(false);
@@ -67,19 +66,27 @@ export function SimpleHeader() {
 
         {/* Mobile Menu */}
         <Sheet open={open} onOpenChange={setOpen}>
-          <Button 
-            size="icon" 
-            variant="outline" 
-            className="pc:hidden"
-            onClick={() => setOpen(true)}
-          >
-            <MenuToggle
-              strokeWidth={2.5}
-              open={open}
-              onOpenChange={setOpen}
-              className="size-6"
-            />
-          </Button>
+          <SheetTrigger asChild>
+            <Button 
+              size="icon" 
+              variant="outline" 
+              className="pc:hidden"
+            >
+              <svg
+                strokeWidth={2.5}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                className="size-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+            </Button>
+          </SheetTrigger>
           <SheetContent
             className="bg-white/95 supports-[backdrop-filter]:bg-white/80 gap-0 backdrop-blur-lg w-[280px] tablet:w-[320px]"
             showClose={false}
