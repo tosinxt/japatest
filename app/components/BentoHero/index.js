@@ -34,7 +34,7 @@ const BentoHero = () => {
                   Transform Your Career Today
                 </h2>
                 <p className="text-white/90 text-lg mb-8 max-w-lg">
-                  Join 10,000+ professionals who've landed their dream jobs through our platform
+                  Join 10,000+ professionals who&apos;ve landed their dream jobs through our platform
                 </p>
                 <div className="flex flex-col tablet:flex-row gap-4">
                   <Link
@@ -137,7 +137,7 @@ const BentoHero = () => {
                   ))}
                 </div>
                 <p className="text-textDefault text-lg mb-3 italic">
-                  "JAPA completely transformed my career. Within 3 months of joining, I landed my dream job at a Fortune 500 company!"
+                  &ldquo;JAPA completely transformed my career. Within 3 months of joining, I landed my dream job at a Fortune 500 company!&rdquo;
                 </p>
                 <div>
                   <p className="font-bold text-textDefault">Jennifer Adeyemi</p>

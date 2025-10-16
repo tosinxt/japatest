@@ -26,7 +26,7 @@ const CommunityCard = ({src, alt, text, name}) => {
       
       <div className='text-textDefault flex flex-col justify-between flex-1 gap-3'>
         <div className="relative">
-          <div className="absolute -left-2 top-0 text-primary/20 text-4xl font-serif">"</div>
+          <div className="absolute -left-2 top-0 text-primary/20 text-4xl font-serif">&ldquo;</div>
           <p className='text-sm tablet:text-base font-normal text-textNeutral leading-relaxed pl-4'>
             {text}
           </p>

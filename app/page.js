@@ -211,7 +211,7 @@ const Home = () => {
                 <div className="flex flex-col gap-2">
                   <h4 className="font-bold text-lg tablet:text-xl text-textDefault">Transform Your Career</h4>
                   <p className="text-textNeutral text-sm tablet:text-base">
-                    Gain the skills and knowledge to excel in today's job market.
+                    Gain the skills and knowledge to excel in today&apos;s job market.
                   </p>
                 </div>
               </div>

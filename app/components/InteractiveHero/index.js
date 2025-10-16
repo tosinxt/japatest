@@ -44,7 +44,7 @@ const InteractiveHero = () => {
           </h1>
           
           <p className="text-lg tablet:text-xl text-textNeutral max-w-2xl mx-auto">
-            Select your goal and we'll show you the perfect path forward
+            Select your goal and we&apos;ll show you the perfect path forward
           </p>
         </div>
 

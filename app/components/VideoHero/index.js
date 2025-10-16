@@ -50,7 +50,7 @@ const VideoHero = () => {
             style={{ animationDelay: '0.2s' }}
           >
             Transform your career in 90 days with our proven system. 
-            Join 10,000+ professionals who've already made the leap.
+            Join 10,000+ professionals who&apos;ve already made the leap.
           </p>
 
           {/* Video Play Button */}
